@@ -18,32 +18,32 @@ export interface HostInterface {
 }
 
 export interface GTFSInterface {
-    getAgency(): Promise;
+    getAgency(): Promise<Response>;
 
-    getCalendar(): Promise;
+    getCalendar(): Promise<Response>;
 
-    getCalendarDates(): Promise;
+    getCalendarDates(): Promise<Response>;
 
-    getFeedInfo(): Promise;
+    getFeedInfo(): Promise<Response>;
 
     getRoutes(
         routeId: string | null,
-    ): Promise;
+    ): Promise<Response>;
 
     getShapes(
         shapeId: string,
-    ): Promise;
+    ): Promise<Response>;
 
     getStopTimes(
         tripId: string,
-    ): Promise;
+    ): Promise<Response>;
 
     getStops(
         routeId: string | null,
         tripId: string | null,
-    ): Promise;
+    ): Promise<Response>;
 
-    getTransfers(): Promise;
+    getTransfers(): Promise<Response>;
 
     getTrips(
         start: string | null,
@@ -51,33 +51,33 @@ export interface GTFSInterface {
         routeId: string | null,
         tripId: string | null,
         end: string | null,
-    ): Promise;
+    ): Promise<Response>;
 }
 
 export interface GTFSRealTimeInterface {
     getServiceAlerts(
         useProtoBuf: boolean,
-    ): Promise;
+    ): Promise<Response>;
 
     getTripUpdates(
         useProtoBuf: boolean,
-    ): Promise;
+    ): Promise<Response>;
 
     getVehiclePositions(
         useProtoBuf: boolean,
-    ): Promise;
+    ): Promise<Response>;
 }
 
 export interface StopDeparturePredictionsInterface {
     getStopPredictions(
         stopId: string | null,
-    ): Promise;
+    ): Promise<Response>;
 }
 
 export interface TripCancellationInterface {
     getTripCancellation(
         query: TripCancellationQueryInterface | null,
-    ): Promise;
+    ): Promise<Response>;
 }
 
 export interface TripCancellationQueryInterface {

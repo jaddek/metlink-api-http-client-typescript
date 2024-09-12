@@ -1,18 +1,4 @@
 import HttpClient from "../../src/HttpClient";
-import {ResponseDTO} from "../../src/Contracts";
-import {Collection} from "../../src/Response";
-import {Agency} from "../../src/domain/gtfs/entity/Agency";
-import {ServiceWeeklySchedule} from "../../src/domain/gtfs/entity/ServiceWeeklySchedule";
-import {CalendarDate} from "../../src/domain/gtfs/entity/CalendarDate";
-import {Feed} from "../../src/domain/gtfs/entity/Feed";
-import {Route} from "../../src/domain/gtfs/entity/Route";
-import {Stop} from "../../src/domain/gtfs/entity/Stop";
-import {Transfer} from "../../src/domain/gtfs/entity/Transfer";
-import {Shape} from "../../src/domain/gtfs/entity/Shape";
-import {Trip} from "../../src/domain/gtfs/entity/Trip";
-import {Response as ResponseBody} from "../../src/domain/gtfs-rt/entity/Response";
-import {Response as StopDeparturePredictionResponse} from "../../src/domain/stop-departure-prediction/Response";
-import {Trip as CancelledTrip} from "../../src/domain/trip-cancellation/Trip";
 import {Query} from "../../src/domain/trip-cancellation/Query";
 import {HttpClientBuilder} from "../../src/HttpClientBuilder";
 import fetchMock from 'jest-fetch-mock';
@@ -41,114 +27,113 @@ describe("Http Client", () => {
         } as Response);
 
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getAgency();
+        const response :Response = await client.getAgency();
 
-        expect(response).toBeInstanceOf(Collection<Agency>);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getCalendar", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getCalendar();
+        const response: Response = await client.getCalendar();
 
-        expect(response).toBeInstanceOf(Collection<ServiceWeeklySchedule>);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getCalendarDates", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getCalendarDates();
+        const response: Response = await client.getCalendarDates();
 
-        expect(response).toBeInstanceOf(Collection<CalendarDate>);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getFeedInfo", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getFeedInfo();
+        const response: Response = await client.getFeedInfo();
 
-        expect(response).toBeInstanceOf(Collection<Feed>);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getRoutes", async () => {
         const routeId: string = "3764";
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getRoutes(routeId);
+        const response: Response = await client.getRoutes(routeId);
 
-        expect(response).toBeInstanceOf(Collection<Route>);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getStopTimes", async () => {
         const tripId: string = "1";
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getStopTimes(tripId);
+        const response: Response = await client.getStopTimes(tripId);
 
-        expect(response).toBeInstanceOf(Collection<Stop>);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getShapes", async () => {
         const shapeId: string = "1";
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getShapes(shapeId);
+        const response: Response = await client.getShapes(shapeId);
 
-        expect(response).toBeInstanceOf(Collection<Shape>);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getStops", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getStops();
+        const response: Response = await client.getStops();
 
-        expect(response).toBeInstanceOf(Collection<Stop>);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getTransfers", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getTransfers();
+        const response: Response = await client.getTransfers();
 
-        expect(response).toBeInstanceOf(Collection<Transfer>);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getTrips", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getTrips();
+        const response: Response = await client.getTrips();
 
-        expect(response).toBeInstanceOf(Collection<Trip>);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getServiceAlerts", async () => {
         const useProtobuf: boolean = false;
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getServiceAlerts(useProtobuf);
+        const response: Response = await client.getServiceAlerts(useProtobuf);
 
-        expect(response).toBeInstanceOf(ResponseBody);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getTripUpdates", async () => {
         const useProtobuf: boolean = false;
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getTripUpdates(useProtobuf);
+        const response: Response = await client.getTripUpdates(useProtobuf);
 
-        expect(response).toBeInstanceOf(ResponseBody);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getVehiclePositions", async () => {
         const useProtobuf: boolean = false;
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getVehiclePositions(useProtobuf);
+        const response: Response = await client.getVehiclePositions(useProtobuf);
 
-        expect(response).toBeInstanceOf(ResponseBody);
+        expect(response).toBeInstanceOf(Array);
     });
 
     test("getStopPredictions", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = await client.getStopPredictions();
+        const response: Response = await client.getStopPredictions();
 
-        expect(response).toBeInstanceOf(StopDeparturePredictionResponse)
+        expect(response).toBeInstanceOf(Array)
     });
 
     test("getTripCancellation", async () => {
         const client: HttpClient = getHttpClient();
         const query = new Query();
-        const response: ResponseDTO = await client.getTripCancellation(query);
+        const response: Response = await client.getTripCancellation(query);
 
-        expect(response).toBeInstanceOf(Collection<CancelledTrip>)
-        expect(response.isCollection()).toEqual(true);
+        expect(response).toBeInstanceOf(Array)
     });
 });
