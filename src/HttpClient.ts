@@ -2,7 +2,7 @@ import {
     TripCancellationInterface,
     StopDeparturePredictionsInterface,
     GTFSRealTimeInterface,
-    GTFSInterface, TripCancellationQueryInterface, HeadersDictInterface, HostInterface
+    GTFSInterface, TripCancellationQueryInterface, HeadersDictInterface, HostInterface, ResponseDTO
 } from "./Contracts";
 import {Collection} from "./Response";
 import {Agency} from "./domain/gtfs/entity/Agency";
@@ -13,7 +13,7 @@ import {Route} from "./domain/gtfs/entity/Route";
 import {Shape} from "./domain/gtfs/entity/Shape";
 import {Stop} from "./domain/gtfs/entity/Stop";
 import {Trip} from "./domain/gtfs/entity/Trip";
-import Response from "./domain/gtfs-rt/entity/Response";
+import {Response as ResponseBody} from "./domain/gtfs-rt/entity/Response";
 import {Transfer} from "./domain/gtfs/entity/Transfer";
 import Header from "./domain/gtfs-rt/entity/Header";
 import {Entity as ServiceAlertEntity} from "./domain/gtfs-rt/entity/service-alert/Entity";
@@ -23,12 +23,11 @@ import {Response as StopDeparturePredictionResponse} from "./domain/stop-departu
 import {Trip as CancelledTrip} from "./domain/trip-cancellation/Trip";
 import {QueryBuilder} from "./QueryBuilder";
 
-
 export default class HttpClient
-    implements TripCancellationInterface,
-        StopDeparturePredictionsInterface,
-        GTFSRealTimeInterface,
-        GTFSInterface {
+    implements TripCancellationInterface<ResponseDTO>,
+        StopDeparturePredictionsInterface<ResponseDTO>,
+        GTFSRealTimeInterface<ResponseDTO>,
+        GTFSInterface<ResponseDTO> {
 
     private readonly _headers: HeadersDictInterface;
     private readonly _host: HostInterface;
@@ -41,95 +40,159 @@ export default class HttpClient
         this._headers = {...this.headers, ...headers};
     }
 
+    private getHostFullPath(path: string): string {
+        return this._host.getPath() + path.replace("Async", "");
+    }
+
     get headers(): HeadersDictInterface {
         return this._headers;
     }
 
-    getAgency(): Collection<Agency> {
+    async getAgency(): Promise {
+        const url: string = this.getHostFullPath("/gtfs/agency");
+        const res: Response = await fetch(url);
+
+        const data: Collection<Agency> = await res.json() as Collection<Agency>;
+
         return new Collection<Agency>();
     }
 
-    getCalendar(): Collection<ServiceWeeklySchedule> {
+    async getCalendar(): Promise<Collection<ServiceWeeklySchedule>> {
+        const url: string = this.getHostFullPath("/gtfs/calendar");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
         return new Collection<ServiceWeeklySchedule>();
     }
 
-    getCalendarDates(): Collection<CalendarDate> {
+    async getCalendarDates(): Promise<Collection<CalendarDate>> {
+        const url: string = this.getHostFullPath("/gtfs/calendar_dates");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
         return new Collection<CalendarDate>();
     }
 
-    getFeedInfo(): Collection<Feed> {
+    async getFeedInfo(): Promise<Collection<Feed>> {
+        const url: string = this.getHostFullPath("/gtfs/feed_info");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
         return new Collection<Feed>();
     }
 
-    getRoutes(
+    async getRoutes(
         routeId: string | null = null
-    ): Collection<Route> {
+    ): Promise<Collection<Route>> {
+        const url: string = this.getHostFullPath("/gtfs/routes");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
         return new Collection<Route>();
     }
 
-    getShapes(
+    async getShapes(
         shapeId: string,
-    ): Collection<Shape> {
+    ): Promise<Collection<Shape>> {
+        const url: string = this.getHostFullPath("/gtfs/shapes");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
         return new Collection<Shape>()
     }
 
-    getStopTimes(
+    async getStopTimes(
         tripId: string,
-    ): Collection<any> {
+    ): Promise<Collection<any>> {
+        const url: string = this.getHostFullPath("/gtfs/shop_times");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
         return new Collection<any>();
     }
 
-    getStops(
+    async getStops(
         routeId: string | null = null,
         tripId: string | null = null,
-    ): Collection<Stop> {
+    ): Promise<Collection<Stop>> {
+        const url: string = this.getHostFullPath("/gtfs/stops");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
         return new Collection<Stop>();
     }
 
-    getTransfers(): Collection<Transfer> {
+    async getTransfers(): Promise<Collection<Transfer>> {
+        const url: string = this.getHostFullPath("/gtfs/transfers");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
         return new Collection<Transfer>();
     }
 
-    getTrips(
+    async getTrips(
         start: string | null = null,
         extraFields: string | null = null,
         routeId: string | null = null,
         tripId: string | null = null,
         end: string | null = null,
-    ): Collection<Trip> {
+    ): Promise<Collection<Trip>> {
+        const url: string = this.getHostFullPath("/gtfs/trips");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
         return new Collection<Trip>();
     }
 
-    getServiceAlerts(
+    async getServiceAlerts(
         useProtoBuf: boolean = false,
-    ): Response<ServiceAlertEntity> {
-        return new Response(new Header("", 1, Date.now()), []);
+    ): Promise<ResponseBody<ServiceAlertEntity>> {
+        const url: string = this.getHostFullPath("/gtfs-rt/servicealerts");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
+        return new ResponseBody(new Header("", 1, Date.now()), []);
     }
 
-    getTripUpdates(
+    async getTripUpdates(
         useProtoBuf: boolean = false,
-    ): Response<TripUpdateEntity> {
-        return new Response(new Header("", 1, Date.now()), []);
+    ): Promise<ResponseBody<TripUpdateEntity>> {
+        const url: string = this.getHostFullPath("/gtfs-rt/tripupdates");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
+        return new ResponseBody(new Header("", 1, Date.now()), []);
 
     }
 
-    getVehiclePositions(
+    async getVehiclePositions(
         useProtoBuf: boolean = false,
-    ): Response<VehiclePositionsEntity> {
-        return new Response(new Header("", 1, Date.now()), []);
+    ): Promise<ResponseBody<VehiclePositionsEntity>> {
+        const url: string = this.getHostFullPath("/gtfs-rt/vehiclepositions");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
+        return new ResponseBody(new Header("", 1, Date.now()), []);
     }
 
-    getStopPredictions(
+    async getStopPredictions(
         stopId: string | null = null,
-    ): StopDeparturePredictionResponse {
+    ): Promise<StopDeparturePredictionResponse> {
+        const url: string = this.getHostFullPath("/stop-predictions");
+        const res: Response = await fetch(url);
+
+        const data: Promise<any> = await res.json();
         return new StopDeparturePredictionResponse(1, true, []);
     }
 
-    getTripCancellation(
+    async getTripCancellation(
         query: TripCancellationQueryInterface | null = null,
-    ): Collection<CancelledTrip> {
+    ): Promise<Collection<CancelledTrip>> {
         let searchParams: URLSearchParams = QueryBuilder.buildQuery(query);
+        const url: string = this.getHostFullPath("/trip-cancellations");
+        const res: Response = await fetch(url);
 
+        const data:Promise<any> = await res.json();
         return new Collection<CancelledTrip>()
     }
 }

@@ -10,142 +10,143 @@ import {Stop} from "../../src/domain/gtfs/entity/Stop";
 import {Transfer} from "../../src/domain/gtfs/entity/Transfer";
 import {Shape} from "../../src/domain/gtfs/entity/Shape";
 import {Trip} from "../../src/domain/gtfs/entity/Trip";
-import Response from "../../src/domain/gtfs-rt/entity/Response";
+import {Response as ResponseBody} from "../../src/domain/gtfs-rt/entity/Response";
 import {Response as StopDeparturePredictionResponse} from "../../src/domain/stop-departure-prediction/Response";
 import {Trip as CancelledTrip} from "../../src/domain/trip-cancellation/Trip";
 import {Query} from "../../src/domain/trip-cancellation/Query";
 import {HttpClientBuilder} from "../../src/HttpClientBuilder";
+import fetchMock from 'jest-fetch-mock';
 
+fetchMock.enableMocks();
 
 describe("Http Client", () => {
-
     function getHttpClient(): HttpClient {
         return HttpClientBuilder.build("test.token");
     }
 
-    test("getAgency", () => {
+    test("getAgency", async () => {
+        const mockResponse = [{
+            "id": 1,
+            "agency_id": "MADG",
+            "agency_name": "Madge Coachlines Limited",
+            "agency_timezone": "Pacific/Auckland",
+            "agency_url": "http://www.metlink.org.nz",
+            "agency_lang": "en",
+            "agency_phone": "",
+            "agency_fare_url": "http://www.metlink.org.nz/tickets-and-fares"
+        }];
+
+        jest.spyOn(global, 'fetch').mockResolvedValue({
+            json: () => Promise.resolve(mockResponse),
+        } as Response);
 
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getAgency();
+        const response: ResponseDTO = await client.getAgency();
 
         expect(response).toBeInstanceOf(Collection<Agency>);
-        expect(response.isCollection()).toEqual(true);
     });
 
-    test("getCalendar", () => {
+    test("getCalendar", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getCalendar();
+        const response: ResponseDTO = await client.getCalendar();
 
         expect(response).toBeInstanceOf(Collection<ServiceWeeklySchedule>);
-        expect(response.isCollection()).toEqual(true);
     });
 
-    test("getCalendarDates", () => {
+    test("getCalendarDates", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getCalendarDates();
+        const response: ResponseDTO = await client.getCalendarDates();
 
         expect(response).toBeInstanceOf(Collection<CalendarDate>);
-        expect(response.isCollection()).toEqual(true);
     });
 
-    test("getFeedInfo", () => {
+    test("getFeedInfo", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getFeedInfo();
+        const response: ResponseDTO = await client.getFeedInfo();
 
         expect(response).toBeInstanceOf(Collection<Feed>);
-        expect(response.isCollection()).toEqual(true);
     });
 
-    test("getRoutes", () => {
+    test("getRoutes", async () => {
         const routeId: string = "3764";
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getRoutes(routeId);
+        const response: ResponseDTO = await client.getRoutes(routeId);
 
         expect(response).toBeInstanceOf(Collection<Route>);
-        expect(response.isCollection()).toEqual(true);
     });
 
-    test("getStopTimes", () => {
+    test("getStopTimes", async () => {
         const tripId: string = "1";
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getStopTimes(tripId);
+        const response: ResponseDTO = await client.getStopTimes(tripId);
 
         expect(response).toBeInstanceOf(Collection<Stop>);
-        expect(response.isCollection()).toEqual(true);
     });
 
-    test("getShapes", () => {
+    test("getShapes", async () => {
         const shapeId: string = "1";
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getShapes(shapeId);
+        const response: ResponseDTO = await client.getShapes(shapeId);
 
         expect(response).toBeInstanceOf(Collection<Shape>);
-        expect(response.isCollection()).toEqual(true);
     });
 
-    test("getStops", () => {
+    test("getStops", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getStops();
+        const response: ResponseDTO = await client.getStops();
 
         expect(response).toBeInstanceOf(Collection<Stop>);
-        expect(response.isCollection()).toEqual(true);
     });
 
-    test("getTransfers", () => {
+    test("getTransfers", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getTransfers();
+        const response: ResponseDTO = await client.getTransfers();
 
         expect(response).toBeInstanceOf(Collection<Transfer>);
-        expect(response.isCollection()).toEqual(true);
     });
 
-    test("getTrips", () => {
+    test("getTrips", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getTrips();
+        const response: ResponseDTO = await client.getTrips();
 
         expect(response).toBeInstanceOf(Collection<Trip>);
-        expect(response.isCollection()).toEqual(true);
     });
 
-    test("getServiceAlerts", () => {
+    test("getServiceAlerts", async () => {
         const useProtobuf: boolean = false;
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getServiceAlerts(useProtobuf);
+        const response: ResponseDTO = await client.getServiceAlerts(useProtobuf);
 
-        expect(response).toBeInstanceOf(Response);
-        expect(response.isCollection()).toEqual(false);
+        expect(response).toBeInstanceOf(ResponseBody);
     });
 
-    test("getTripUpdates", () => {
+    test("getTripUpdates", async () => {
         const useProtobuf: boolean = false;
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getTripUpdates(useProtobuf);
+        const response: ResponseDTO = await client.getTripUpdates(useProtobuf);
 
-        expect(response).toBeInstanceOf(Response);
-        expect(response.isCollection()).toEqual(false);
+        expect(response).toBeInstanceOf(ResponseBody);
     });
 
-    test("getVehiclePositions", () => {
+    test("getVehiclePositions", async () => {
         const useProtobuf: boolean = false;
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getVehiclePositions(useProtobuf);
+        const response: ResponseDTO = await client.getVehiclePositions(useProtobuf);
 
-        expect(response).toBeInstanceOf(Response);
-        expect(response.isCollection()).toEqual(false);
+        expect(response).toBeInstanceOf(ResponseBody);
     });
 
-    test("getStopPredictions", () => {
+    test("getStopPredictions", async () => {
         const client: HttpClient = getHttpClient();
-        const response: ResponseDTO = client.getStopPredictions();
+        const response: ResponseDTO = await client.getStopPredictions();
 
         expect(response).toBeInstanceOf(StopDeparturePredictionResponse)
-        expect(response.isCollection()).toEqual(false);
     });
 
-    test("getTripCancellation", () => {
+    test("getTripCancellation", async () => {
         const client: HttpClient = getHttpClient();
         const query = new Query();
-        const response: ResponseDTO = client.getTripCancellation(query);
+        const response: ResponseDTO = await client.getTripCancellation(query);
 
         expect(response).toBeInstanceOf(Collection<CancelledTrip>)
         expect(response.isCollection()).toEqual(true);

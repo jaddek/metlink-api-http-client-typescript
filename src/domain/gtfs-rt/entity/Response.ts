@@ -1,7 +1,7 @@
 import Header from "./Header";
 import {ResponseDTO} from "../../../Contracts";
 
-export default class Response<V> implements ResponseDTO {
+export class Response<V> implements ResponseDTO {
     private readonly _header: Header;
     private readonly _entity: V[];
 
