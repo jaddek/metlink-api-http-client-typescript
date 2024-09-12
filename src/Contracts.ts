@@ -2,14 +2,19 @@ export interface ResponseDTO {
     isCollection(): boolean;
 }
 
-export abstract class Entity {
-    public getKeys(): Array<keyof this> {
-        return Object.keys(this) as Array<keyof this>;
-    }
+export interface HeadersDictInterface {
+    [key: string]: string;
+}
 
-    public toArray(): any[] {
-        return [];
-    }
+export abstract class Entity {
+
+}
+
+export interface HostInterface {
+    readonly host: string;
+    readonly version: string;
+
+    getPath(): string;
 }
 
 export interface GTFSInterface {

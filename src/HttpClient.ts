@@ -2,7 +2,7 @@ import {
     TripCancellationInterface,
     StopDeparturePredictionsInterface,
     GTFSRealTimeInterface,
-    GTFSInterface, TripCancellationQueryInterface
+    GTFSInterface, TripCancellationQueryInterface, HeadersDictInterface, HostInterface
 } from "./Contracts";
 import {Collection} from "./Response";
 import {Agency} from "./domain/gtfs/entity/Agency";
@@ -29,6 +29,22 @@ export default class HttpClient
         StopDeparturePredictionsInterface,
         GTFSRealTimeInterface,
         GTFSInterface {
+
+    private readonly _headers: HeadersDictInterface;
+    private readonly _host: HostInterface;
+
+    constructor(
+        host: HostInterface,
+        headers: HeadersDictInterface
+    ) {
+        this._host = host;
+        this._headers = {...this.headers, ...headers};
+    }
+
+    get headers(): HeadersDictInterface {
+        return this._headers;
+    }
+
     getAgency(): Collection<Agency> {
         return new Collection<Agency>();
     }
