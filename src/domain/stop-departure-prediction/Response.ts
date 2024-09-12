@@ -1,13 +1,13 @@
 import {ResponseDTO} from "../../Contracts";
-import {Departure} from "./Departure";
+import {Entity} from "./Entity";
 
 export class Response implements ResponseDTO {
     private readonly _fareZone: number;
     private readonly _closed: boolean;
-    private readonly _departures: Departure[];
+    private readonly _departures: Entity[];
 
 
-    constructor(fareZone: number, closed: boolean, departures: Departure[]) {
+    constructor(fareZone: number, closed: boolean, departures: Entity[]) {
         this._fareZone = fareZone;
         this._closed = closed;
         this._departures = departures;
@@ -21,7 +21,7 @@ export class Response implements ResponseDTO {
         return this._closed;
     }
 
-    get departures(): Departure[] {
+    get departures(): Entity[] {
         return this._departures;
     }
 

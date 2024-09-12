@@ -1,4 +1,4 @@
-export class Departure
+export class Arrival
 {
     private readonly _aimed: string;
     private readonly _expected: string;
