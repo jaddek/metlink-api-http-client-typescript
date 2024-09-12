@@ -107,14 +107,14 @@ export default class HttpClient
     }
 
     getTripUpdates(
-        useProtoBuf: boolean,
+        useProtoBuf: boolean = false,
     ): Response<TripUpdateEntity> {
         return new Response(new Header("", 1, Date.now()), []);
 
     }
 
     getVehiclePositions(
-        useProtoBuf: boolean,
+        useProtoBuf: boolean = false,
     ): Response<VehiclePositionsEntity> {
         return new Response(new Header("", 1, Date.now()), []);
     }
