@@ -1,3 +1,5 @@
+import {Entity} from "../../../Contracts";
+
 /**
  *    "id": 1,
  *     "service_id": "140_1_20240825",

@@ -1,3 +1,5 @@
+import {Entity} from "../../../Contracts";
+
 /**
  *     "id": 1,
  *     "feed_publisher_name": "Council",

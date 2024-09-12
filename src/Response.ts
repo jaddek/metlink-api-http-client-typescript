@@ -6,12 +6,6 @@ abstract class CollectionResponse implements ResponseDTO {
     }
 }
 
-abstract class ItemResponse implements ResponseDTO {
-    public isCollection(): boolean {
-        return false;
-    }
-}
-
 export class Collection<V> extends CollectionResponse {
     _collection: V[] = [];
 

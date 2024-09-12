@@ -4,24 +4,30 @@ import {
     GTFSRealTimeInterface,
     GTFSInterface
 } from "./Contracts";
-import {Agency} from "./entities/Agency";
-import {ServiceWeeklySchedule} from "./entities/ServiceWeeklySchedule";
 import {Collection} from "./Response";
-import {CalendarDate} from "./entities/CalendarDate";
-import {Feed} from "./entities/Feed";
-import {Route} from "./entities/Route";
-import {Trip} from "./entities/Trip";
-import {Shape} from "./entities/Shape";
-import {Stop} from "./entities/Stop";
+import {Agency} from "./domain/gtfs/entity/Agency";
+import {ServiceWeeklySchedule} from "./domain/gtfs/entity/ServiceWeeklySchedule";
+import {CalendarDate} from "./domain/gtfs/entity/CalendarDate";
+import {Feed} from "./domain/gtfs/entity/Feed";
+import {Route} from "./domain/gtfs/entity/Route";
+import {Shape} from "./domain/gtfs/entity/Shape";
+import {Stop} from "./domain/gtfs/entity/Stop";
+import {Trip} from "./domain/gtfs/entity/Trip";
+import Response from "./domain/gtfs-rt/entity/Response";
+import {Transfer} from "./domain/gtfs/entity/Transfer";
+import Header from "./domain/gtfs-rt/entity/Header";
+import {Entity as ServiceAlertEntity} from "./domain/gtfs-rt/entity/service-alert/Entity";
+import {Entity as TripUpdateEntity} from "./domain/gtfs-rt/entity/trip-update/Entity";
+import {Entity as VehiclePositionsEntity} from "./domain/gtfs-rt/entity/vehicle-positions/Entity";
+import {Response as StopDeparturePredictionResponse} from "./domain/stop-departure-prediction/Response";
+import {Trip as CancelledTrip} from "./domain/trip-cancellation/Trip";
 
 
 export default class HttpClient
-    implements
-// TripCancellationInterface,
-    // StopDeparturePredictionsInterface,
-    // GTFSRealTimeInterface,
-    GTFSInterface
-{
+    implements TripCancellationInterface,
+        StopDeparturePredictionsInterface,
+        GTFSRealTimeInterface,
+        GTFSInterface {
     getAgency(): Collection<Agency> {
         return new Collection<Agency>();
     }
@@ -62,34 +68,24 @@ export default class HttpClient
         return new Collection<Trip>();
     }
 
+    getServiceAlerts(): Response<ServiceAlertEntity> {
+        return new Response(new Header("", 1, Date.now()), []);
+    }
 
+    getTripUpdates(): Response<TripUpdateEntity> {
+        return new Response(new Header("", 1, Date.now()), []);
 
-//
+    }
 
-//
-//     getStopPredictions(): GetStopsResponse {
-//         return new GetStopsResponse();
-//     }
-//
+    getVehiclePositions(): Response<VehiclePositionsEntity> {
+        return new Response(new Header("", 1, Date.now()), []);
+    }
 
-//
-//     getTripCancellation(): GetTripCancellationResponse {
-//         return new GetTripCancellationResponse();
-//     }
-//
+    getStopPredictions(): StopDeparturePredictionResponse {
+        return new StopDeparturePredictionResponse(1, true, []);
+    }
 
-
-    // getServiceAlerts(): Collection<any> {
-    //     return new Collection<any>();
-    // }
-
-//     getTripUpdates(): GetTripsUpdatesResponse {
-//         return new GetTripsUpdatesResponse();
-//     }
-//
-
-//
-//     getVehiclePositions(): GetVehiclePositionsResponse {
-//         return new GetVehiclePositionsResponse();
-//     }
+    getTripCancellation(): Collection<CancelledTrip> {
+        return new Collection<CancelledTrip>()
+    }
 }

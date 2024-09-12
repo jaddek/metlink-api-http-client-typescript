@@ -1,3 +1,5 @@
+import {Entity} from "../../../Contracts";
+
 /**
  *     "id": 1,
  *     "shape_id": "shape_id",

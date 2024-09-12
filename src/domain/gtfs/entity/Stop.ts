@@ -1,3 +1,5 @@
+import {Entity} from "../../../Contracts";
+
 /**
  *  "id": 1,
  *     "stop_id": "7951",

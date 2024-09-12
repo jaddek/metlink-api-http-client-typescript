@@ -1,14 +1,19 @@
 import HttpClient from "../../src/HttpClient";
 import {ResponseDTO} from "../../src/Contracts";
 import {Collection} from "../../src/Response";
-import {CalendarDate} from "../../src/entities/CalendarDate";
-import {ServiceWeeklySchedule} from "../../src/entities/ServiceWeeklySchedule";
-import {Agency} from "../../src/entities/Agency";
-import {Feed} from "../../src/entities/Feed";
-import {Route} from "../../src/entities/Route";
-import {Shape} from "../../src/entities/Shape";
-import {Trip} from "../../src/entities/Trip";
-import {Stop} from "../../src/entities/Stop";
+import {Agency} from "../../src/domain/gtfs/entity/Agency";
+import {ServiceWeeklySchedule} from "../../src/domain/gtfs/entity/ServiceWeeklySchedule";
+import {CalendarDate} from "../../src/domain/gtfs/entity/CalendarDate";
+import {Feed} from "../../src/domain/gtfs/entity/Feed";
+import {Route} from "../../src/domain/gtfs/entity/Route";
+import {Stop} from "../../src/domain/gtfs/entity/Stop";
+import {Transfer} from "../../src/domain/gtfs/entity/Transfer";
+import {Shape} from "../../src/domain/gtfs/entity/Shape";
+import {Trip} from "../../src/domain/gtfs/entity/Trip";
+import Response from "../../src/domain/gtfs-rt/entity/Response";
+import {Response as StopDeparturePredictionResponse} from "../../src/domain/stop-departure-prediction/Response";
+import {Trip as CancelledTrip} from "../../src/domain/trip-cancellation/Trip";
+
 
 describe("Http Client", () => {
 
@@ -16,7 +21,7 @@ describe("Http Client", () => {
         let client: HttpClient = new HttpClient();
         let response: ResponseDTO = client.getAgency();
 
-        expect(response).toBeInstanceOf(Collection<Agency>)
+        expect(response).toBeInstanceOf(Collection<Agency>);
         expect(response.isCollection()).toEqual(true);
     });
 
@@ -24,7 +29,7 @@ describe("Http Client", () => {
         let client: HttpClient = new HttpClient();
         let response: ResponseDTO = client.getCalendar();
 
-        expect(response).toBeInstanceOf(Collection<ServiceWeeklySchedule>)
+        expect(response).toBeInstanceOf(Collection<ServiceWeeklySchedule>);
         expect(response.isCollection()).toEqual(true);
     });
 
@@ -32,7 +37,7 @@ describe("Http Client", () => {
         let client: HttpClient = new HttpClient();
         let response: ResponseDTO = client.getCalendarDates();
 
-        expect(response).toBeInstanceOf(Collection<CalendarDate>)
+        expect(response).toBeInstanceOf(Collection<CalendarDate>);
         expect(response.isCollection()).toEqual(true);
     });
 
@@ -40,9 +45,8 @@ describe("Http Client", () => {
         let client: HttpClient = new HttpClient();
         let response: ResponseDTO = client.getFeedInfo();
 
-        expect(response).toBeInstanceOf(Collection<Feed>)
+        expect(response).toBeInstanceOf(Collection<Feed>);
         expect(response.isCollection()).toEqual(true);
-
     });
 
     test("getRoutes", () => {
@@ -50,7 +54,7 @@ describe("Http Client", () => {
         let client: HttpClient = new HttpClient();
         let response: ResponseDTO = client.getRoutes(routeId);
 
-        expect(response).toBeInstanceOf(Collection<Route>)
+        expect(response).toBeInstanceOf(Collection<Route>);
         expect(response.isCollection()).toEqual(true);
     });
 
@@ -58,7 +62,7 @@ describe("Http Client", () => {
         let client: HttpClient = new HttpClient();
         let response: ResponseDTO = client.getStopTimes(1);
 
-        expect(response).toBeInstanceOf(Collection<Stop>)
+        expect(response).toBeInstanceOf(Collection<Stop>);
         expect(response.isCollection()).toEqual(true);
     });
 
@@ -66,7 +70,7 @@ describe("Http Client", () => {
         let client: HttpClient = new HttpClient();
         let response: ResponseDTO = client.getShapes();
 
-        expect(response).toBeInstanceOf(Collection<Shape>)
+        expect(response).toBeInstanceOf(Collection<Shape>);
         expect(response.isCollection()).toEqual(true);
     });
 
@@ -74,70 +78,63 @@ describe("Http Client", () => {
         let client: HttpClient = new HttpClient();
         let response: ResponseDTO = client.getStops();
 
-        expect(response).toBeInstanceOf(Collection<Stop>)
+        expect(response).toBeInstanceOf(Collection<Stop>);
+        expect(response.isCollection()).toEqual(true);
     });
 
     test("getTransfers", () => {
         let client: HttpClient = new HttpClient();
         let response: ResponseDTO = client.getTransfers();
 
-        expect(response).toBeInstanceOf(Collection<Transfer>)
+        expect(response).toBeInstanceOf(Collection<Transfer>);
+        expect(response.isCollection()).toEqual(true);
     });
 
     test("getTrips", () => {
         let client: HttpClient = new HttpClient();
         let response: ResponseDTO = client.getTrips();
 
-        expect(response).toBeInstanceOf(Collection<Trip>)
+        expect(response).toBeInstanceOf(Collection<Trip>);
+        expect(response.isCollection()).toEqual(true);
     });
 
+    test("getServiceAlerts", () => {
+        let client: HttpClient = new HttpClient();
+        let response: ResponseDTO = client.getServiceAlerts();
 
-    //
-    // test("getServiceAlerts", () => {
-    //     let client: HttpClient = new HttpClient();
-    //     let response: ResponseDTO = client.getServiceAlerts();
-    //
-    //     expect(response).toBeInstanceOf(GetServiceAlertsResponse)
-    // });
-    //
+        expect(response).toBeInstanceOf(Response);
+        expect(response.isCollection()).toEqual(false);
+    });
 
-    //
-    // test("getStopPredictions", () => {
-    //     let client: HttpClient = new HttpClient();
-    //     let response: ResponseDTO = client.getStopPredictions();
-    //
-    //     expect(response).toBeInstanceOf(GetStopPredictionsResponse)
-    // });
-    //
-    // test("getStopTimes", () => {
-    //     let client: HttpClient = new HttpClient();
-    //     let response: ResponseDTO = client.getStopTimes();
-    //
-    //     expect(response).toBeInstanceOf(GetStopTimesResponse)
-    // });
-    //
+    test("getTripUpdates", () => {
+        let client: HttpClient = new HttpClient();
+        let response: ResponseDTO = client.getTripUpdates();
 
-    //
-    // test("getTripCancellation", () => {
-    //     let client: HttpClient = new HttpClient();
-    //     let response: ResponseDTO = client.getTripCancellation();
-    //
-    //     expect(response).toBeInstanceOf(GetTripCancellationResponse)
-    // });
-    //
-    // test("getTripUpdates", () => {
-    //     let client: HttpClient = new HttpClient();
-    //     let response: ResponseDTO = client.getTripUpdates();
-    //
-    //     expect(response).toBeInstanceOf(GetTripsUpdatesResponse)
-    // });
-    //
+        expect(response).toBeInstanceOf(Response);
+        expect(response.isCollection()).toEqual(false);
+    });
 
-    //
-    // test("getVehiclePositions", () => {
-    //     let client: HttpClient = new HttpClient();
-    //     let response: ResponseDTO = client.getVehiclePositions();
-    //
-    //     expect(response).toBeInstanceOf(GetVehiclePositionsResponse)
-    // });
+    test("getVehiclePositions", () => {
+        let client: HttpClient = new HttpClient();
+        let response: ResponseDTO = client.getVehiclePositions();
+
+        expect(response).toBeInstanceOf(Response);
+        expect(response.isCollection()).toEqual(false);
+    });
+
+    test("getStopPredictions", () => {
+        let client: HttpClient = new HttpClient();
+        let response: ResponseDTO = client.getStopPredictions();
+
+        expect(response).toBeInstanceOf(StopDeparturePredictionResponse)
+        expect(response.isCollection()).toEqual(false);
+    });
+
+    test("getTripCancellation", () => {
+        let client: HttpClient = new HttpClient();
+        let response: ResponseDTO = client.getTripCancellation();
+
+        expect(response).toBeInstanceOf(Collection<CancelledTrip>)
+        expect(response.isCollection()).toEqual(true);
+    });
 });

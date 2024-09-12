@@ -1,3 +1,5 @@
+import {Entity} from "../../../Contracts";
+
 /**
  *     "id": 1,
  *     "service_id": "string 1_1_1",

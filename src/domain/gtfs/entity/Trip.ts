@@ -1,3 +1,5 @@
+import {Entity} from "../../../Contracts";
+
 /**
  *     "id": 1,
  *     "route_id": 0,

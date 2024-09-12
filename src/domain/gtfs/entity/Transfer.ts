@@ -1,3 +1,5 @@
+import {Entity} from "../../../Contracts";
+
 /**
  *     "id": 1,
  *     "from_stop_id": "9416",
@@ -7,8 +9,7 @@
  *     "from_trip_id": "115__0__421__TZM__508__3__508__3_20240825",
  *     "to_trip_id": "HVL__1__3853__RAIL__Rail_SaSu+Hol_20240825"
  */
-class Transfer extends Entity
-{
+export class Transfer extends Entity {
     private readonly _id: number;
     private readonly _fromStopId: string;
     private readonly _toStopId: string;
