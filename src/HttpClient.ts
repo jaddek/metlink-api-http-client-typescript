@@ -45,47 +45,36 @@ export default class HttpClient
         return this._headers;
     }
 
-    getAgency(
-        headers: HeadersDictInterface | null = null
-    ): Collection<Agency> {
+    getAgency(): Collection<Agency> {
         return new Collection<Agency>();
     }
 
-    getCalendar(
-        headers: HeadersDictInterface | null = null
-    ): Collection<ServiceWeeklySchedule> {
+    getCalendar(): Collection<ServiceWeeklySchedule> {
         return new Collection<ServiceWeeklySchedule>();
     }
 
-    getCalendarDates(
-        headers: HeadersDictInterface | null = null
-    ): Collection<CalendarDate> {
+    getCalendarDates(): Collection<CalendarDate> {
         return new Collection<CalendarDate>();
     }
 
-    getFeedInfo(
-        headers: HeadersDictInterface | null = null
-    ): Collection<Feed> {
+    getFeedInfo(): Collection<Feed> {
         return new Collection<Feed>();
     }
 
     getRoutes(
-        routeId: string | null = null,
-        headers: HeadersDictInterface | null = null
+        routeId: string | null = null
     ): Collection<Route> {
         return new Collection<Route>();
     }
 
     getShapes(
         shapeId: string,
-        headers: HeadersDictInterface | null = null
     ): Collection<Shape> {
         return new Collection<Shape>()
     }
 
     getStopTimes(
         tripId: string,
-        headers: HeadersDictInterface | null = null
     ): Collection<any> {
         return new Collection<any>();
     }
@@ -93,14 +82,11 @@ export default class HttpClient
     getStops(
         routeId: string | null = null,
         tripId: string | null = null,
-        headers: HeadersDictInterface | null = null
     ): Collection<Stop> {
         return new Collection<Stop>();
     }
 
-    getTransfers(
-        headers: HeadersDictInterface | null = null
-    ): Collection<Transfer> {
+    getTransfers(): Collection<Transfer> {
         return new Collection<Transfer>();
     }
 
@@ -110,21 +96,18 @@ export default class HttpClient
         routeId: string | null = null,
         tripId: string | null = null,
         end: string | null = null,
-        headers: HeadersDictInterface | null = null
     ): Collection<Trip> {
         return new Collection<Trip>();
     }
 
     getServiceAlerts(
         useProtoBuf: boolean = false,
-        headers: HeadersDictInterface | null = null
     ): Response<ServiceAlertEntity> {
         return new Response(new Header("", 1, Date.now()), []);
     }
 
     getTripUpdates(
         useProtoBuf: boolean,
-        headers: HeadersDictInterface | null = null
     ): Response<TripUpdateEntity> {
         return new Response(new Header("", 1, Date.now()), []);
 
@@ -132,21 +115,18 @@ export default class HttpClient
 
     getVehiclePositions(
         useProtoBuf: boolean,
-        headers: HeadersDictInterface | null = null
     ): Response<VehiclePositionsEntity> {
         return new Response(new Header("", 1, Date.now()), []);
     }
 
     getStopPredictions(
         stopId: string | null = null,
-        headers: HeadersDictInterface | null = null
     ): StopDeparturePredictionResponse {
         return new StopDeparturePredictionResponse(1, true, []);
     }
 
     getTripCancellation(
         query: TripCancellationQueryInterface | null = null,
-        headers: HeadersDictInterface | null = null
     ): Collection<CancelledTrip> {
         let searchParams: URLSearchParams = QueryBuilder.buildQuery(query);
 
