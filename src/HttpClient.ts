@@ -2,7 +2,7 @@ import {
     TripCancellationInterface,
     StopDeparturePredictionsInterface,
     GTFSRealTimeInterface,
-    GTFSInterface
+    GTFSInterface, TripCancellationQueryInterface
 } from "./Contracts";
 import {Collection} from "./Response";
 import {Agency} from "./domain/gtfs/entity/Agency";
@@ -21,6 +21,7 @@ import {Entity as TripUpdateEntity} from "./domain/gtfs-rt/entity/trip-update/En
 import {Entity as VehiclePositionsEntity} from "./domain/gtfs-rt/entity/vehicle-positions/Entity";
 import {Response as StopDeparturePredictionResponse} from "./domain/stop-departure-prediction/Response";
 import {Trip as CancelledTrip} from "./domain/trip-cancellation/Trip";
+import {QueryBuilder} from "./QueryBuilder";
 
 
 export default class HttpClient
@@ -44,19 +45,19 @@ export default class HttpClient
         return new Collection<Feed>();
     }
 
-    getRoutes(routeId: number | null = null): Collection<Route> {
+    getRoutes(routeId: string | null = null): Collection<Route> {
         return new Collection<Route>();
     }
 
-    getShapes(): Collection<Shape> {
+    getShapes(shapeId: string): Collection<Shape> {
         return new Collection<Shape>()
     }
 
-    getStopTimes(tripId: number): Collection<any> {
+    getStopTimes(tripId: string): Collection<any> {
         return new Collection<any>();
     }
 
-    getStops(): Collection<Stop> {
+    getStops(routeId: string | null = null, tripId: string | null = null): Collection<Stop> {
         return new Collection<Stop>();
     }
 
@@ -64,28 +65,36 @@ export default class HttpClient
         return new Collection<Transfer>();
     }
 
-    getTrips(): Collection<Trip> {
+    getTrips(
+        start: string | null = null,
+        extraFields: string | null = null,
+        routeId: string | null = null,
+        tripId: string | null = null,
+        end: string | null = null
+    ): Collection<Trip> {
         return new Collection<Trip>();
     }
 
-    getServiceAlerts(): Response<ServiceAlertEntity> {
+    getServiceAlerts(useProtoBuf: boolean = false): Response<ServiceAlertEntity> {
         return new Response(new Header("", 1, Date.now()), []);
     }
 
-    getTripUpdates(): Response<TripUpdateEntity> {
+    getTripUpdates(useProtoBuf: boolean): Response<TripUpdateEntity> {
         return new Response(new Header("", 1, Date.now()), []);
 
     }
 
-    getVehiclePositions(): Response<VehiclePositionsEntity> {
+    getVehiclePositions(useProtoBuf: boolean): Response<VehiclePositionsEntity> {
         return new Response(new Header("", 1, Date.now()), []);
     }
 
-    getStopPredictions(): StopDeparturePredictionResponse {
+    getStopPredictions(stopId: string | null = null): StopDeparturePredictionResponse {
         return new StopDeparturePredictionResponse(1, true, []);
     }
 
-    getTripCancellation(): Collection<CancelledTrip> {
+    getTripCancellation(query: TripCancellationQueryInterface | null = null): Collection<CancelledTrip> {
+        let searchParams: URLSearchParams = QueryBuilder.buildQuery(query);
+
         return new Collection<CancelledTrip>()
     }
 }

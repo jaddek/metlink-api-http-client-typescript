@@ -13,6 +13,7 @@ import {Trip} from "../../src/domain/gtfs/entity/Trip";
 import Response from "../../src/domain/gtfs-rt/entity/Response";
 import {Response as StopDeparturePredictionResponse} from "../../src/domain/stop-departure-prediction/Response";
 import {Trip as CancelledTrip} from "../../src/domain/trip-cancellation/Trip";
+import {Query} from "../../src/domain/trip-cancellation/Query";
 
 
 describe("Http Client", () => {
@@ -50,7 +51,7 @@ describe("Http Client", () => {
     });
 
     test("getRoutes", () => {
-        let routeId: number = 3764;
+        let routeId: string = "3764";
         let client: HttpClient = new HttpClient();
         let response: ResponseDTO = client.getRoutes(routeId);
 
@@ -59,16 +60,18 @@ describe("Http Client", () => {
     });
 
     test("getStopTimes", () => {
+        let tripId: string = "1";
         let client: HttpClient = new HttpClient();
-        let response: ResponseDTO = client.getStopTimes(1);
+        let response: ResponseDTO = client.getStopTimes(tripId);
 
         expect(response).toBeInstanceOf(Collection<Stop>);
         expect(response.isCollection()).toEqual(true);
     });
 
     test("getShapes", () => {
+        let shapeId: string = "1";
         let client: HttpClient = new HttpClient();
-        let response: ResponseDTO = client.getShapes();
+        let response: ResponseDTO = client.getShapes(shapeId);
 
         expect(response).toBeInstanceOf(Collection<Shape>);
         expect(response.isCollection()).toEqual(true);
@@ -99,24 +102,27 @@ describe("Http Client", () => {
     });
 
     test("getServiceAlerts", () => {
+        let useProtobuf: boolean = false;
         let client: HttpClient = new HttpClient();
-        let response: ResponseDTO = client.getServiceAlerts();
+        let response: ResponseDTO = client.getServiceAlerts(useProtobuf);
 
         expect(response).toBeInstanceOf(Response);
         expect(response.isCollection()).toEqual(false);
     });
 
     test("getTripUpdates", () => {
+        let useProtobuf: boolean = false;
         let client: HttpClient = new HttpClient();
-        let response: ResponseDTO = client.getTripUpdates();
+        let response: ResponseDTO = client.getTripUpdates(useProtobuf);
 
         expect(response).toBeInstanceOf(Response);
         expect(response.isCollection()).toEqual(false);
     });
 
     test("getVehiclePositions", () => {
+        let useProtobuf: boolean = false;
         let client: HttpClient = new HttpClient();
-        let response: ResponseDTO = client.getVehiclePositions();
+        let response: ResponseDTO = client.getVehiclePositions(useProtobuf);
 
         expect(response).toBeInstanceOf(Response);
         expect(response.isCollection()).toEqual(false);
@@ -132,7 +138,8 @@ describe("Http Client", () => {
 
     test("getTripCancellation", () => {
         let client: HttpClient = new HttpClient();
-        let response: ResponseDTO = client.getTripCancellation();
+        let query = new Query();
+        let response: ResponseDTO = client.getTripCancellation(query);
 
         expect(response).toBeInstanceOf(Collection<CancelledTrip>)
         expect(response.isCollection()).toEqual(true);

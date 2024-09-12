@@ -21,31 +21,59 @@ export interface GTFSInterface {
 
     getFeedInfo(): ResponseDTO;
 
-    getRoutes(): ResponseDTO;
+    getRoutes(routeId: string | null): ResponseDTO;
 
-    getShapes(): ResponseDTO;
+    getShapes(shapeId: string): ResponseDTO;
 
-    getStopTimes(tripId: number): ResponseDTO;
+    getStopTimes(tripId: string): ResponseDTO;
 
-    getStops(): ResponseDTO;
+    getStops(routeId: string | null, tripId: string | null): ResponseDTO;
 
     getTransfers(): ResponseDTO;
 
-    getTrips(): ResponseDTO;
+    getTrips(
+        start: string | null,
+        extraFields: string | null,
+        routeId: string | null,
+        tripId: string | null,
+        end: string | null
+    ): ResponseDTO;
 }
 
 export interface GTFSRealTimeInterface {
-    getServiceAlerts(): ResponseDTO;
+    getServiceAlerts(useProtoBuf: boolean): ResponseDTO;
 
-    getTripUpdates(): ResponseDTO;
+    getTripUpdates(useProtoBuf: boolean): ResponseDTO;
 
-    getVehiclePositions(): ResponseDTO;
+    getVehiclePositions(useProtoBuf: boolean): ResponseDTO;
 }
 
 export interface StopDeparturePredictionsInterface {
-    getStopPredictions(): ResponseDTO;
+    getStopPredictions(stopId: string | null): ResponseDTO;
 }
 
 export interface TripCancellationInterface {
-    getTripCancellation(): ResponseDTO;
+    getTripCancellation(query: TripCancellationQueryInterface | null): ResponseDTO;
+}
+
+export interface TripCancellationQueryInterface {
+    get dateUpdated(): string | null;
+
+    get dateUpdatedMax(): string | null;
+
+    get reinstated(): string | null;
+
+    get dateStart(): string | null;
+
+    get dateEnd(): string | null;
+
+    get partCancellation(): string | null;
+
+    get dateCreated(): string | null;
+
+    get routeId(): string | null;
+
+    get tripId(): string | null;
+
+    get dateCreatedMax(): string | null;
 }
