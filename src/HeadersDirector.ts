@@ -1,6 +1,6 @@
 import {HeadersDictInterface, HostInterface} from "./Contracts";
 import {Host} from "./Host";
-import {HeadersBuilder} from "./Headers";
+import {HeadersBuilder} from "./HeadersBuilder";
 
 export class HeadersDirector {
     public static build(token: string): [HostInterface, HeadersDictInterface] {

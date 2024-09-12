@@ -45,39 +45,62 @@ export default class HttpClient
         return this._headers;
     }
 
-    getAgency(): Collection<Agency> {
+    getAgency(
+        headers: HeadersDictInterface | null = null
+    ): Collection<Agency> {
         return new Collection<Agency>();
     }
 
-    getCalendar(): Collection<ServiceWeeklySchedule> {
+    getCalendar(
+        headers: HeadersDictInterface | null = null
+    ): Collection<ServiceWeeklySchedule> {
         return new Collection<ServiceWeeklySchedule>();
     }
 
-    getCalendarDates(): Collection<CalendarDate> {
+    getCalendarDates(
+        headers: HeadersDictInterface | null = null
+    ): Collection<CalendarDate> {
         return new Collection<CalendarDate>();
     }
 
-    getFeedInfo(): Collection<Feed> {
+    getFeedInfo(
+        headers: HeadersDictInterface | null = null
+    ): Collection<Feed> {
         return new Collection<Feed>();
     }
 
-    getRoutes(routeId: string | null = null): Collection<Route> {
+    getRoutes(
+        routeId: string | null = null,
+        headers: HeadersDictInterface | null = null
+    ): Collection<Route> {
         return new Collection<Route>();
     }
 
-    getShapes(shapeId: string): Collection<Shape> {
+    getShapes(
+        shapeId: string,
+        headers: HeadersDictInterface | null = null
+    ): Collection<Shape> {
         return new Collection<Shape>()
     }
 
-    getStopTimes(tripId: string): Collection<any> {
+    getStopTimes(
+        tripId: string,
+        headers: HeadersDictInterface | null = null
+    ): Collection<any> {
         return new Collection<any>();
     }
 
-    getStops(routeId: string | null = null, tripId: string | null = null): Collection<Stop> {
+    getStops(
+        routeId: string | null = null,
+        tripId: string | null = null,
+        headers: HeadersDictInterface | null = null
+    ): Collection<Stop> {
         return new Collection<Stop>();
     }
 
-    getTransfers(): Collection<Transfer> {
+    getTransfers(
+        headers: HeadersDictInterface | null = null
+    ): Collection<Transfer> {
         return new Collection<Transfer>();
     }
 
@@ -86,29 +109,45 @@ export default class HttpClient
         extraFields: string | null = null,
         routeId: string | null = null,
         tripId: string | null = null,
-        end: string | null = null
+        end: string | null = null,
+        headers: HeadersDictInterface | null = null
     ): Collection<Trip> {
         return new Collection<Trip>();
     }
 
-    getServiceAlerts(useProtoBuf: boolean = false): Response<ServiceAlertEntity> {
+    getServiceAlerts(
+        useProtoBuf: boolean = false,
+        headers: HeadersDictInterface | null = null
+    ): Response<ServiceAlertEntity> {
         return new Response(new Header("", 1, Date.now()), []);
     }
 
-    getTripUpdates(useProtoBuf: boolean): Response<TripUpdateEntity> {
+    getTripUpdates(
+        useProtoBuf: boolean,
+        headers: HeadersDictInterface | null = null
+    ): Response<TripUpdateEntity> {
         return new Response(new Header("", 1, Date.now()), []);
 
     }
 
-    getVehiclePositions(useProtoBuf: boolean): Response<VehiclePositionsEntity> {
+    getVehiclePositions(
+        useProtoBuf: boolean,
+        headers: HeadersDictInterface | null = null
+    ): Response<VehiclePositionsEntity> {
         return new Response(new Header("", 1, Date.now()), []);
     }
 
-    getStopPredictions(stopId: string | null = null): StopDeparturePredictionResponse {
+    getStopPredictions(
+        stopId: string | null = null,
+        headers: HeadersDictInterface | null = null
+    ): StopDeparturePredictionResponse {
         return new StopDeparturePredictionResponse(1, true, []);
     }
 
-    getTripCancellation(query: TripCancellationQueryInterface | null = null): Collection<CancelledTrip> {
+    getTripCancellation(
+        query: TripCancellationQueryInterface | null = null,
+        headers: HeadersDictInterface | null = null
+    ): Collection<CancelledTrip> {
         let searchParams: URLSearchParams = QueryBuilder.buildQuery(query);
 
         return new Collection<CancelledTrip>()
