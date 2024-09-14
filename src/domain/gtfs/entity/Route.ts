@@ -1,18 +1,5 @@
 import {Entity} from "../../../Contracts";
 
-/**
- *     "id": 41,
- *     "route_id": "520",
- *     "agency_id": "MNM",
- *     "route_short_name": "52",
- *     "route_long_name": "Johnsonville - Newlands - Wellington",
- *     "route_desc": "Wellington - Newlands - Johnsonville",
- *     "route_type": 3,
- *     "route_color": "308ad9",
- *     "route_text_color": "000000",
- *     "route_url": "",
- *     "route_sort_order": 520
- */
 export class Route extends Entity {
     private readonly _id: number;
     private readonly _routeId: string;

@@ -1,18 +1,5 @@
 import {Entity} from "../../../Contracts";
 
-/**
- *     "id": 1,
- *     "service_id": "string 1_1_1",
- *     "monday": 0,
- *     "tuesday": 0,
- *     "wednesday": 0,
- *     "thursday": 0,
- *     "friday": 0,
- *     "saturday": 0,
- *     "sunday": 0,
- *     "start_date": "20540821",
- *     "end_date": "20540921"
- */
 export class ServiceWeeklySchedule extends Entity {
     private readonly _id: number;
     private readonly _serviceId: string;

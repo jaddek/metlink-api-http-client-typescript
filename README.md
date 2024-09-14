@@ -12,7 +12,7 @@ const httpClient: httpClient = HttpClientBuilder.build("test-token");
 Transit agencies with service represented in this dataset.
 
 ```ts
-httpClient.getAgency();
+httpClient.getAgencies();
 ```
 
 ## GTFS Calendars
