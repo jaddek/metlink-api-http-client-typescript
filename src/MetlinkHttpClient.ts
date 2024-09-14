@@ -42,6 +42,30 @@ export default class MetlinkHttpClient
         return "/gtfs/feed_info";
     }
 
+    public static getRoutesPath(): string {
+        return "/gtfs/routes";
+    }
+
+    public static getStopTimesPath(): string {
+        return "/gtfs/shop_times";
+    }
+
+    public static getShapesPath(): string {
+        return "/gtfs/shapes";
+    }
+
+    public static getStopsPath(): string {
+        return "/gtfs/stops";
+    }
+
+    public static getTransfersPath(): string {
+        return "/gtfs/transfers";
+    }
+
+    public static getTripsPath(): string {
+        return "/gtfs/trips";
+    }
+
     async getAgencies(): Promise<any> {
         return await this.doGetFetch(MetlinkHttpClient.getAgenciesPath());
     }
@@ -61,30 +85,30 @@ export default class MetlinkHttpClient
     async getRoutes(
         routeId: string | null = null
     ): Promise<any> {
-        return await this.doGetFetch("/gtfs/routes");
+        return await this.doGetFetch(MetlinkHttpClient.getRoutesPath());
     }
 
     async getShapes(
         shapeId: string,
     ): Promise<any> {
-        return await this.doGetFetch("/gtfs/shapes");
+        return await this.doGetFetch(MetlinkHttpClient.getShapesPath());
     }
 
     async getStopTimes(
         tripId: string,
     ): Promise<any> {
-        return await this.doGetFetch("/gtfs/shop_times");
+        return await this.doGetFetch(MetlinkHttpClient.getStopTimesPath());
     }
 
     async getStops(
         routeId: string | null = null,
         tripId: string | null = null,
     ): Promise<any> {
-        return await this.doGetFetch("/gtfs/stops");
+        return await this.doGetFetch(MetlinkHttpClient.getStopsPath());
     }
 
     async getTransfers(): Promise<any> {
-        return await this.doGetFetch("/gtfs/transfers");
+        return await this.doGetFetch(MetlinkHttpClient.getTransfersPath());
     }
 
     async getTrips(
@@ -94,7 +118,7 @@ export default class MetlinkHttpClient
         tripId: string | null = null,
         end: string | null = null,
     ): Promise<any> {
-        return await this.doGetFetch("/gtfs/trips");
+        return await this.doGetFetch(MetlinkHttpClient.getTripsPath());
     }
 
     async getServiceAlerts(
