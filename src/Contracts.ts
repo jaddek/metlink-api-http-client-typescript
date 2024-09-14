@@ -14,11 +14,11 @@ export interface HostInterface {
     readonly host: string;
     readonly version: string;
 
-    getPath(): string;
+    getUrl(): string;
 }
 
 export interface GTFSInterface {
-    getAgency(): Promise<Response>;
+    getAgencies(): Promise<Response>;
 
     getCalendar(): Promise<Response>;
 
