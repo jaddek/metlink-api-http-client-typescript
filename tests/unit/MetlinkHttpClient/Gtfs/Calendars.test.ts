@@ -1,8 +1,8 @@
-import MetlinkHttpClient from "../../../src/MetlinkHttpClient";
+import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
 import axios from 'axios';
-import {AxiosAdapter} from "../../../src/domain/httpclient/AxiosAdapter";
+import {AxiosAdapter} from "../../../../src/domain/httpclient/AxiosAdapter";
 import MockAdapter from "axios-mock-adapter";
-import {SchemaValidator} from "../../SchemaValidator";
+import {SchemaValidator} from "../../../SchemaValidator";
 
 const mock: MockAdapter = new MockAdapter(axios);
 

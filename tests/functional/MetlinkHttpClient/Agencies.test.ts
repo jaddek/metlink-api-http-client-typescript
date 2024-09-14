@@ -34,12 +34,12 @@ describe("Functional: Metlink Http Client: Agencies", () => {
 
     test("getAgencies", async () => {
         return;
-        const client = MetlinkHttpClientBuilder.buildWithAxios("")
-        // const client: MetlinkHttpClient = getHttpClient(axios);
-        const response = await client.getAgencies();
-        const data = await response.data();
-
-        const result = SchemaValidator.validate(data, getSchema());
-        expect(result.isValid).toBeTruthy();
+        // const client = MetlinkHttpClientBuilder.buildWithAxios("")
+        // // const client: MetlinkHttpClient = getHttpClient(axios);
+        // const response = await client.getAgencies();
+        // const data = await response.data();
+        //
+        // const result = SchemaValidator.validate(data, getSchema());
+        // expect(result.isValid).toBeTruthy();
     });
 });

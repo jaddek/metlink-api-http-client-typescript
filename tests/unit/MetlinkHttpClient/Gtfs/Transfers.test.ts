@@ -1,12 +1,12 @@
-import MetlinkHttpClient from "../../../src/MetlinkHttpClient";
+import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
 import axios from 'axios';
-import {AxiosAdapter} from "../../../src/domain/httpclient/AxiosAdapter";
+import {AxiosAdapter} from "../../../../src/domain/httpclient/AxiosAdapter";
 import MockAdapter from "axios-mock-adapter";
-import {SchemaValidator} from "../../SchemaValidator";
+import {SchemaValidator} from "../../../SchemaValidator";
 
 const mock: MockAdapter = new MockAdapter(axios);
 
-describe("Metlink Http Client: Feed info", () => {
+describe("Metlink Http Client: Transfers", () => {
 
     afterEach(function () {
         mock.reset();
@@ -27,67 +27,64 @@ describe("Metlink Http Client: Feed info", () => {
                     "id": {
                         "type": "integer"
                     },
-                    "feed_publisher_name": {
+                    "from_stop_id": {
                         "type": "string"
                     },
-                    "feed_publisher_url": {
-                        "type": "string",
-                    },
-                    "feed_lang": {
+                    "to_stop_id": {
                         "type": "string"
                     },
-                    "feed_start_date": {
-                        "type": "string",
-                        "pattern": "^\\d{8}$"  // Format YYYYMMDD
+                    "transfer_type": {
+                        "type": "string"
                     },
-                    "feed_end_date": {
-                        "type": "string",
-                        "pattern": "^\\d{8}$"  // Format YYYYMMDD
+                    "min_transfer_time": {
+                        "type": "string"
                     },
-                    "feed_version": {
+                    "from_trip_id": {
+                        "type": "string"
+                    },
+                    "to_trip_id": {
                         "type": "string"
                     }
                 },
                 "required": [
                     "id",
-                    "feed_publisher_name",
-                    "feed_publisher_url",
-                    "feed_lang",
-                    "feed_start_date",
-                    "feed_end_date",
-                    "feed_version"
+                    "from_stop_id",
+                    "to_stop_id",
+                    "transfer_type",
+                    "min_transfer_time",
+                    "from_trip_id",
+                    "to_trip_id"
                 ],
                 "additionalProperties": false
             }
-        };
+        }
     }
 
     const dataSet = [
         [
             [
                 {
-                    id: 1,
-                    feed_publisher_name: 'publisher name',
-                    feed_publisher_url: 'link',
-                    feed_lang: 'en',
-                    feed_start_date: '20240825',
-                    feed_end_date: '20241012',
-                    feed_version: 'Version'
+                    "id": 1,
+                    "from_stop_id": "9416",
+                    "to_stop_id": "SILV",
+                    "transfer_type": "2",
+                    "min_transfer_time": "240",
+                    "from_trip_id": "115__0__421__TZM__508__3__508__3_20240825",
+                    "to_trip_id": "HVL__1__3853__RAIL__Rail_SaSu+Hol_20240825"
                 }
             ]
-
         ]
     ];
 
-    it.each(dataSet)("getFeedInfo", async (mockData) => {
-        mock.onGet(MetlinkHttpClient.getFeedInfoPath()).replyOnce(200, function () {
+    it.each(dataSet)("getTransfers", async (mockData) => {
+        mock.onGet(MetlinkHttpClient.getTransfersPath()).replyOnce(200, function () {
             return new Promise(function (resolve) {
                 resolve(mockData);
             });
         });
 
         const client: MetlinkHttpClient = getHttpClient(axios);
-        const response = await client.getFeedInfo();
+        const response = await client.getTransfers();
         const data = await response.data();
 
         const result = SchemaValidator.validate(data, getSchema());

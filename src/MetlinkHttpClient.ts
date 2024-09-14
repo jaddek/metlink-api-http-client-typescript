@@ -66,6 +66,11 @@ export default class MetlinkHttpClient
         return "/gtfs/trips";
     }
 
+    public static getServiceAlertsPath(): string
+    {
+        return "/gtfs-rt/servicealerts";
+    }
+
     async getAgencies(): Promise<any> {
         return await this.doGetFetch(MetlinkHttpClient.getAgenciesPath());
     }
@@ -124,7 +129,7 @@ export default class MetlinkHttpClient
     async getServiceAlerts(
         useProtoBuf: boolean = false,
     ): Promise<any> {
-        return await this.doGetFetch("/gtfs-rt/servicealerts");
+        return await this.doGetFetch(MetlinkHttpClient.getServiceAlertsPath());
     }
 
     async getTripUpdates(
