@@ -1,13 +1,25 @@
-# Metlink Wellington API HTTP Client
+# Metlink API HTTP Client (Wellington)
 
+## Install
+
+--
+
+## How to use
+
+### Host
+```
+https://api.opendata.metlink.org.nz/v1
+```
+### Init
 ```ts
-import HttpClient from "./src/HttpClient";
-import {HttpClientBuilder} from "./src/HttpClientBuilder";
-
-const httpClient: httpClient = HttpClientBuilder.build("test-token");
+const metlinkHttpClient: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(token);
 ```
 
-## GTFS Agencies
+## API
+
+### GTFS
+
+#### Agencies
 
 Transit agencies with service represented in this dataset.
 
@@ -15,7 +27,7 @@ Transit agencies with service represented in this dataset.
 httpClient.getAgencies();
 ```
 
-## GTFS Calendars
+#### Calendars
 
 Service dates specified using a weekly schedule with start and end dates.
 
@@ -23,7 +35,7 @@ Service dates specified using a weekly schedule with start and end dates.
 httpClient.getCalendar();
 ```
 
-## GTFS Calendar Dates
+#### Calendar Dates
 
 Exceptions for the services defined in the calendar.
 
@@ -31,7 +43,7 @@ Exceptions for the services defined in the calendar.
 httpClient.getCalendarDates();
 ```
 
-## GTFS Feed info
+#### Feed info
 
 Dataset metadata, including publisher, version, and expiration information.
 
@@ -39,15 +51,14 @@ Dataset metadata, including publisher, version, and expiration information.
 httpClient.getFeedInfo();
 ```
 
-## GTFS Routes
-
+#### Routes
 Transit routes. A route is a group of trips that are displayed to riders as a single service.
 
 ```ts
 httpClient.getRoutes();
 ```
 
-## GTFS Shapes
+#### Shapes
 
 Rules for mapping vehicle travel paths, sometimes referred to as route alignments.
 
@@ -55,7 +66,7 @@ Rules for mapping vehicle travel paths, sometimes referred to as route alignment
 httpClient.getShapes("shapeId");
 ```
 
-## GTFS Stop Times
+#### Stop Times
 
 Times that a vehicle arrives at and departs from stops for each trip.
 
@@ -63,7 +74,7 @@ Times that a vehicle arrives at and departs from stops for each trip.
 httpClient.getStopTimes("tripId");
 ```
 
-## GTFS Stops
+#### Stops
 
 Stops where vehicles pick up or drop off riders. Also defines stations and station entrances.
 
@@ -71,7 +82,7 @@ Stops where vehicles pick up or drop off riders. Also defines stations and stati
 httpClient.getStops();
 ```
 
-## GTFS Transfers
+#### Transfers
 
 Rules for making connections at transfer points between routes.
 
@@ -79,7 +90,7 @@ Rules for making connections at transfer points between routes.
 httpClient.getTransfers();
 ```
 
-## GTFS Trips
+#### Trips
 
 Trips for each route. A trip is a sequence of two or more stops that occur during a specific time period.
 
@@ -93,7 +104,9 @@ httpClient.getTrips(
 );
 ```
 
-## GTFS-RT Service Alerts
+### GTFS-RT 
+
+#### Service Alerts
 
 Information about unforeseen events affecting routes, stops, or the network. Use accept header 'application/x-protobuf'
 to receive in Protobuf format.
@@ -102,7 +115,7 @@ to receive in Protobuf format.
 httpClient.getServiceAlerts();
 ```
 
-## GTFS-RT Trip Updates
+#### Trip Updates
 
 Delays, cancellations, changed routes. Use accept header 'application/x-protobuf' to receive in Protobuf format.
 
@@ -110,7 +123,7 @@ Delays, cancellations, changed routes. Use accept header 'application/x-protobuf
 httpClient.getTripUpdates();
 ```
 
-## GTFS-RT Vehicle Positions
+#### Vehicle Positions
 
 Information about vehicles including location. Use accept header 'application/x-protobuf' to receive in Protobuf format.
 
@@ -118,7 +131,9 @@ Information about vehicles including location. Use accept header 'application/x-
 httpClient.getVehiclePositions();
 ```
 
-## Stop Departure Predictions
+### Other
+
+#### Stop Departure Predictions
 
 Predictions for when vehicles will arrive and depart through stops.
 
@@ -126,7 +141,7 @@ Predictions for when vehicles will arrive and depart through stops.
 httpClient.getStopPredictions("stopId");
 ```
 
-## Trip Cancellations
+#### Trip Cancellations
 
 Historical, current, and known future data for trip cancellations.
 
