@@ -7,6 +7,7 @@ import {
 } from "./Contracts";
 import {QueryBuilder} from "./QueryBuilder";
 import {HttpClientInterface} from "./domain/httpclient/HttpClientInterface";
+import {Routes} from "./Routes";
 
 export default class MetlinkHttpClient
     implements TripCancellationInterface,
@@ -26,109 +27,49 @@ export default class MetlinkHttpClient
         return await this.httpClientAdapter.get(path);
     }
 
-    public static getGtfsAgenciesPath(): string {
-        return "/gtfs/agency";
-    }
-
-    public static getGtfsCalendarPath(): string {
-        return "/gtfs/calendar";
-    }
-
-    public static getGtfsCalendarDatesPath(): string {
-        return "/gtfs/calendar_dates";
-    }
-
-    public static getGtfsFeedInfoPath(): string {
-        return "/gtfs/feed_info";
-    }
-
-    public static getGtfsRoutesPath(): string {
-        return "/gtfs/routes";
-    }
-
-    public static getGtfsStopTimesPath(): string {
-        return "/gtfs/shop_times";
-    }
-
-    public static getGtfsShapesPath(): string {
-        return "/gtfs/shapes";
-    }
-
-    public static getGtfsStopsPath(): string {
-        return "/gtfs/stops";
-    }
-
-    public static getGtfsTransfersPath(): string {
-        return "/gtfs/transfers";
-    }
-
-    public static getGtfsTripsPath(): string {
-        return "/gtfs/trips";
-    }
-
-    public static getGtfsRtServiceAlertsPath(): string {
-        return "/gtfs-rt/servicealerts";
-    }
-
-    public static getGtfsRtTripUpdatesPath(): string {
-        return "/gtfs-rt/tripupdates";
-    }
-
-    public static getGtfsRtVehiclePositionsPath(): string {
-        return "/gtfs-rt/vehiclepositions";
-    }
-
-    public static getTipCancellations(): string {
-        return "/trip-cancellations";
-    }
-
-    public static getStopPredictions(): string {
-        return "/stop-predictions";
-    }
-
     async getAgencies(): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsAgenciesPath());
+        return await this.doGetFetch(Routes.getGtfsAgenciesPath());
     }
 
     async getCalendar(): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsCalendarPath());
+        return await this.doGetFetch(Routes.getGtfsCalendarPath());
     }
 
     async getCalendarDates(): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsCalendarDatesPath());
+        return await this.doGetFetch(Routes.getGtfsCalendarDatesPath());
     }
 
     async getFeedInfo(): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsFeedInfoPath());
+        return await this.doGetFetch(Routes.getGtfsFeedInfoPath());
     }
 
     async getRoutes(
         routeId: string | null = null
     ): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsRoutesPath());
+        return await this.doGetFetch(Routes.getGtfsRoutesPath());
     }
 
     async getShapes(
         shapeId: string,
     ): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsShapesPath());
+        return await this.doGetFetch(Routes.getGtfsShapesPath());
     }
 
     async getStopTimes(
         tripId: string,
     ): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsStopTimesPath());
+        return await this.doGetFetch(Routes.getGtfsStopTimesPath());
     }
 
     async getStops(
         routeId: string | null = null,
         tripId: string | null = null,
     ): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsStopsPath());
+        return await this.doGetFetch(Routes.getGtfsStopsPath());
     }
 
     async getTransfers(): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsTransfersPath());
+        return await this.doGetFetch(Routes.getGtfsTransfersPath());
     }
 
     async getTrips(
@@ -138,31 +79,31 @@ export default class MetlinkHttpClient
         tripId: string | null = null,
         end: string | null = null,
     ): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsTripsPath());
+        return await this.doGetFetch(Routes.getGtfsTripsPath());
     }
 
     async getServiceAlerts(
         useProtoBuf: boolean = false,
     ): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsRtServiceAlertsPath());
+        return await this.doGetFetch(Routes.getGtfsRtServiceAlertsPath());
     }
 
     async getTripUpdates(
         useProtoBuf: boolean = false,
     ): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsRtTripUpdatesPath());
+        return await this.doGetFetch(Routes.getGtfsRtTripUpdatesPath());
     }
 
     async getVehiclePositions(
         useProtoBuf: boolean = false,
     ): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getGtfsRtVehiclePositionsPath());
+        return await this.doGetFetch(Routes.getGtfsRtVehiclePositionsPath());
     }
 
     async getStopPredictions(
         stopId: string | null = null,
     ): Promise<any> {
-        return await this.doGetFetch(MetlinkHttpClient.getStopPredictions());
+        return await this.doGetFetch(Routes.getStopPredictions());
     }
 
     async getTripCancellation(
@@ -170,6 +111,6 @@ export default class MetlinkHttpClient
     ): Promise<any> {
         let searchParams: URLSearchParams = QueryBuilder.buildQuery(query);
 
-        return await this.doGetFetch(MetlinkHttpClient.getTipCancellations() + searchParams.toString());
+        return await this.doGetFetch(Routes.getTripCancellations() + searchParams.toString());
     }
 }

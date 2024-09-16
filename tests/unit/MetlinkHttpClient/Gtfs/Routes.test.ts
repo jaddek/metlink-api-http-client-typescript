@@ -120,7 +120,7 @@ describe("Metlink Http Client: Routes", () => {
     });
 
     it.each(dataSet)("getRouteById", async (mockData) => {
-        mock.onGet(MetlinkHttpClient.getGtfsRoutesPath()).replyOnce(200, function () {
+        mock.onGet(getPath()).replyOnce(200, function () {
             return new Promise(function (resolve) {
                 resolve(mockData);
             });
