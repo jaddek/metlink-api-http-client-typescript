@@ -1,10 +1,14 @@
-import HttpClient from "./src/HttpClient";
-import {HttpClientBuilder} from "./src/HttpClientBuilder";
+import MetlinkHttpClient from "./src/MetlinkHttpClient";
+import {MetlinkHttpClientBuilder} from "./src/MetlinkHttpClientBuilder";
 import {Query} from "./src/domain/trip-cancellation/Query";
+import * as fs from 'fs';
 
-const httpClient: HttpClient = HttpClientBuilder.build("test-token");
+const token = fs.readFileSync(".env", "utf-8");
 
-httpClient.getAgency();
+const httpClient: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(token);
+
+
+httpClient.getAgencies();
 httpClient.getCalendar();
 httpClient.getCalendarDates();
 httpClient.getFeedInfo();

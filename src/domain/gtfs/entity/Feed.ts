@@ -1,14 +1,5 @@
 import {Entity} from "../../../Contracts";
 
-/**
- *     "id": 1,
- *     "feed_publisher_name": "Council",
- *     "feed_publisher_url": "http://some_link.domain",
- *     "feed_lang": "en",
- *     "feed_start_date": "20440821",
- *     "feed_end_date": "20440921",
- *     "feed_version": "Some version"
- */
 export class Feed extends Entity {
     private readonly _id: number;
     private readonly _feedPublisherName: string;

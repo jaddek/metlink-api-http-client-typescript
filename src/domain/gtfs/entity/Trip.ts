@@ -1,19 +1,5 @@
 import {Entity} from "../../../Contracts";
 
-/**
- *     "id": 1,
- *     "route_id": 0,
- *     "service_id": "service_id",
- *     "trip_id": "trip_id",
- *     "trip_headsign": "",
- *     "direction_id": 0,
- *     "block_id": "",
- *     "shape_id": "shape_id",
- *     "wheelchair_accessible": 0,
- *     "bikes_allowed": 2,
- *     "origin_stop_id": null,
- *     "destination_stop_id": null
- */
 export class Trip extends Entity {
     private readonly _id: number;
     private readonly _routeId: number;
@@ -23,12 +9,25 @@ export class Trip extends Entity {
     private readonly _directionId: number;
     private readonly _blockId: string;
     private readonly _shapeId: string;
-    private readonly _wheelChairAccesible: number;
+    private readonly _wheelChairAccessible: number;
     private readonly _bikesAllowed: number;
     private readonly _originStopId: null | number;
     private readonly _destinationStopId: null | number;
 
-    constructor(id: number, routeId: number, serviceId: string, tripId: string, tripHeadSign: string, directionId: number, blockId: string, shapeId: string, wheelChairAccesible: number, bikesAllowed: number, originStopId: number | null, destinationStopId: number | null) {
+    constructor(
+        id: number,
+        routeId: number,
+        serviceId: string,
+        tripId: string,
+        tripHeadSign: string,
+        directionId: number,
+        blockId: string,
+        shapeId: string,
+        wheelChairAccessible: number,
+        bikesAllowed: number,
+        originStopId: number | null,
+        destinationStopId: number | null
+    ) {
         super();
         this._id = id;
         this._routeId = routeId;
@@ -38,7 +37,7 @@ export class Trip extends Entity {
         this._directionId = directionId;
         this._blockId = blockId;
         this._shapeId = shapeId;
-        this._wheelChairAccesible = wheelChairAccesible;
+        this._wheelChairAccessible = wheelChairAccessible;
         this._bikesAllowed = bikesAllowed;
         this._originStopId = originStopId;
         this._destinationStopId = destinationStopId;
@@ -76,8 +75,8 @@ export class Trip extends Entity {
         return this._shapeId;
     }
 
-    get wheelChairAccesible(): number {
-        return this._wheelChairAccesible;
+    get wheelChairAccessible(): number {
+        return this._wheelChairAccessible;
     }
 
     get bikesAllowed(): number {

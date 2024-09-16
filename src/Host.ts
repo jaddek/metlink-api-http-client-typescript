@@ -12,7 +12,7 @@ export class Host implements HostInterface {
         return this._version;
     }
 
-    getPath(): string {
+    getUrl(): string {
         return this._host + this._version;
     }
 }

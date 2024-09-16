@@ -1,19 +1,5 @@
 import {Entity} from "../../../Contracts";
 
-/**
- *  "id": 1,
- *     "stop_id": "7951",
- *     "stop_code": "7951",
- *     "stop_name": "Buckley Road (near 108)",
- *     "stop_desc": "",
- *     "zone_id": "3",
- *     "stop_lat": -41.33689713,
- *     "stop_lon": 174.7827608,
- *     "location_type": 0,
- *     "parent_station": "",
- *     "stop_url": "",
- *     "stop_timezone": "Pacific/Auckland"
- */
 export class Stop extends Entity {
     private readonly _id: number;
     private readonly _stopId: string;

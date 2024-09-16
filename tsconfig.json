@@ -12,6 +12,7 @@
 
     /* Language and Environment */
     "target": "es6",
+    "module": "commonjs",
     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     // "jsx": "preserve",                                /* Specify what JSX code is generated. */
@@ -26,7 +27,6 @@
     // "moduleDetection": "auto",                        /* Control what method is used to detect module-format JS files. */
 
     /* Modules */
-    "module": "commonjs",
     /* Specify what module code is generated. */
     "rootDir": "./",
     /* Specify the root folder within your source files. */

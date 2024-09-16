@@ -1,11 +1,5 @@
 import {Entity} from "../../../Contracts";
 
-/**
- *    "id": 1,
- *     "service_id": "140_1_20240825",
- *     "date": "20240826",
- *     "exception_type": 1
- */
 export class CalendarDate extends Entity {
     private readonly _id: number;
     private readonly _serviceId: string;

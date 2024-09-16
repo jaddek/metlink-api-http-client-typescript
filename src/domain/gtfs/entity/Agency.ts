@@ -1,15 +1,5 @@
 import {Entity} from "../../../Contracts";
 
-/**
- * "id": 1,
- * "agency_id": "ABC",
- * "agency_name": "Some Title",
- * "agency_timezone": "Pacific/Auckland",
- * "agency_url": "http://some_url.domain",
- * "agency_lang": "en",
- * "agency_phone": "",
- * "agency_fare_url": "http://some_url.domain"
- */
 export class Agency extends Entity {
     private readonly _id: number;
     private readonly _agencyId: string;
