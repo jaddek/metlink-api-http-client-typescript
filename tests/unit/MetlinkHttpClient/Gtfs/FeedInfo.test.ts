@@ -79,8 +79,12 @@ describe("Metlink Http Client: Feed info", () => {
         ]
     ];
 
+    function getPath(): string {
+        return "/gtfs/feed_info";
+    }
+
     it.each(dataSet)("getFeedInfo", async (mockData) => {
-        mock.onGet(MetlinkHttpClient.getFeedInfoPath()).replyOnce(200, function () {
+        mock.onGet(getPath()).replyOnce(200, function () {
             return new Promise(function (resolve) {
                 resolve(mockData);
             });

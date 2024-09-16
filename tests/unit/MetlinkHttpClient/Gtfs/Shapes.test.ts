@@ -71,8 +71,12 @@ describe("Metlink Http Client: Shapes", () => {
         ]
     ];
 
+    function getPath(): string {
+        return "/gtfs/shapes";
+    }
+
     it.each(dataSet)("getShapes", async (mockData) => {
-        mock.onGet(MetlinkHttpClient.getShapesPath()).replyOnce(200, function () {
+        mock.onGet(getPath()).replyOnce(200, function () {
             return new Promise(function (resolve) {
                 resolve(mockData);
             });
