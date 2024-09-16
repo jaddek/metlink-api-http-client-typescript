@@ -65,8 +65,12 @@ describe("Metlink Http Client: Agencies", () => {
         ]
     ];
 
-    it.each(dataSet)("getAgencies", async (agencies) => {
-        mock.onGet(MetlinkHttpClient.getAgenciesPath()).replyOnce(200, function () {
+    function getPath(): string {
+        return "/gtfs/agency";
+    }
+
+    it.each(dataSet)("getGtfsAgencies", async (agencies) => {
+        mock.onGet(getPath()).replyOnce(200, function () {
             return new Promise(function (resolve) {
                 resolve(agencies);
             });
