@@ -61,7 +61,7 @@ describe("Metlink Http Client: Calendar Dates", () => {
         return "/gtfs/calendar_dates";
     }
 
-    it.each(dataSet)("getCalendarDates", async (mockData) => {
+    it.each(dataSet)("getGtfsCalendarDates", async (mockData) => {
         mock.onGet(getPath()).replyOnce(200, function () {
             return new Promise(function (resolve) {
                 resolve(mockData);

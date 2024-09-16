@@ -6,7 +6,7 @@ import {SchemaValidator} from "../../../SchemaValidator";
 
 const mock: MockAdapter = new MockAdapter(axios);
 
-describe("Metlink Http Client: GTFS-RT: Service alerts", () => {
+describe("Metlink Http Client: GTFS-RT: Trip updates", () => {
 
     afterEach(function () {
         mock.reset();

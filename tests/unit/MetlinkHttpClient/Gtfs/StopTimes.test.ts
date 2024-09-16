@@ -103,7 +103,7 @@ describe("Metlink Http Client: Stop times", () => {
         return "/gtfs/shop_times";
     }
 
-    it.each(dataSet)("getStopTimes", async (mockData) => {
+    it.each(dataSet)("getGtfsStopTimes", async (mockData) => {
         mock.onGet(getPath()).replyOnce(200, function () {
             return new Promise(function (resolve) {
                 resolve(mockData);

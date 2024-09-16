@@ -80,7 +80,7 @@ describe("Metlink Http Client: Transfers", () => {
         return "/gtfs/transfers";
     }
 
-    it.each(dataSet)("getTransfers", async (mockData) => {
+    it.each(dataSet)("getGtfsTransfers", async (mockData) => {
         mock.onGet(getPath()).replyOnce(200, function () {
             return new Promise(function (resolve) {
                 resolve(mockData);
