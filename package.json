@@ -5,6 +5,8 @@
   "scripts": {
     "build": "npm i",
     "test": "jest",
+    "test-unit": "jest tests/unit",
+    "test-integration": "jest tests/integration",
     "index": "npx tsx index.nts"
   },
   "type": "module",
