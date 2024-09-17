@@ -18,34 +18,34 @@ export interface HostInterface {
 }
 
 export interface GTFSInterface {
-    getAgencies(): Promise<Response>;
+    getGtfsAgencies(): Promise<Response>;
 
-    getCalendar(): Promise<Response>;
+    getGtfsCalendar(): Promise<Response>;
 
-    getCalendarDates(): Promise<Response>;
+    getGtfsCalendarDates(): Promise<Response>;
 
-    getFeedInfo(): Promise<Response>;
+    getGtfsFeedInfo(): Promise<Response>;
 
-    getRoutes(
+    getGtfsRoutes(
         routeId: string | null,
     ): Promise<Response>;
 
-    getShapes(
+    getGtfsShapes(
         shapeId: string,
     ): Promise<Response>;
 
-    getStopTimes(
+    getGtfsStopTimes(
         tripId: string,
     ): Promise<Response>;
 
-    getStops(
+    getGtfsStops(
         routeId: string | null,
         tripId: string | null,
     ): Promise<Response>;
 
-    getTransfers(): Promise<Response>;
+    getGtfsTransfers(): Promise<Response>;
 
-    getTrips(
+    getGtfsTrips(
         start: string | null,
         extraFields: string | null,
         routeId: string | null,
@@ -55,15 +55,15 @@ export interface GTFSInterface {
 }
 
 export interface GTFSRealTimeInterface {
-    getServiceAlerts(
+    getGtfsServiceAlerts(
         useProtoBuf: boolean,
     ): Promise<Response>;
 
-    getTripUpdates(
+    getGtfsRtTripUpdates(
         useProtoBuf: boolean,
     ): Promise<Response>;
 
-    getVehiclePositions(
+    getGtfsRtVehiclePositions(
         useProtoBuf: boolean,
     ): Promise<Response>;
 }

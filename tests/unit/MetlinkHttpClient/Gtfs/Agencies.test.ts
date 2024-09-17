@@ -70,17 +70,12 @@ describe("Metlink Http Client: Agencies", () => {
     }
 
     it.each(dataSet)("getGtfsAgencies", async (agencies) => {
-        mock.onGet(getPath()).replyOnce(200, function () {
-            return new Promise(function (resolve) {
-                resolve(agencies);
-            });
-        });
+        mock.onGet(getPath()).replyOnce(200, agencies);
 
         const client: MetlinkHttpClient = getHttpClient(axios);
-        const response = await client.getAgencies();
-        const data = await response.data();
+        const response = await client.getGtfsAgencies();
 
-        const result = SchemaValidator.validate(data, getSchema());
+        const result = SchemaValidator.validate(response.data, getSchema());
         expect(result.isValid).toBeTruthy();
     });
 });

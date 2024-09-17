@@ -1,22 +1,8 @@
-import MetlinkHttpClient from "../../../src/MetlinkHttpClient";
-import axios from 'axios';
-import {AxiosAdapter} from "../../../src/domain/httpclient/AxiosAdapter";
-import MockAdapter from "axios-mock-adapter";
+import {MetlinkHttpClientBuilder} from "../../../src/MetlinkHttpClientBuilder";
 import {SchemaValidator} from "../../SchemaValidator";
+import MetlinkHttpClient from "../../../src/MetlinkHttpClient";
 
-const mock: MockAdapter = new MockAdapter(axios);
-
-describe("Metlink Http Client: Trip cancellations", () => {
-
-    afterEach(function () {
-        mock.reset();
-    });
-
-    function getHttpClient(client: Axios.AxiosInstance): MetlinkHttpClient {
-        const adapter: AxiosAdapter = new AxiosAdapter(client);
-
-        return new MetlinkHttpClient(adapter);
-    }
+describe("Integration: Metlink Http Client: Trip Cancellations", () => {
 
     function getSchema(): {} {
         return {
@@ -74,33 +60,13 @@ describe("Metlink Http Client: Trip cancellations", () => {
         }
     }
 
-    const dataSet = [
-        [
-            [
-                {
-                    "id": "ec196c26-d1ee-410d-bbaf-708763dcd10b",
-                    "date_created": "2024-09-17 07:29:07",
-                    "date_updated": "2024-09-17 07:53:48",
-                    "trip_id": "1__1__134__TZM__224__1__224__1_20240825",
-                    "route_id": 10,
-                    "trip_date_start": "2024-09-17 08:03:00",
-                    "trip_date_end": "2024-09-17 09:25:00",
-                    "direction_id": 1,
-                    "reinstated": 0,
-                    "part_cancellation": 0
-                },
-            ]
-        ]
-    ];
-
-    function getPath(): string {
-        return "/trip-cancellations";
+    function getMetlinkToken(): string
+    {
+        return process.env.METLINK_TOKEN || "";
     }
 
-    it.each(dataSet)("getTripCancellations", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
-
-        const client: MetlinkHttpClient = getHttpClient(axios);
+    test("getTripCancellation", async () => {
+        const client: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
         const response = await client.getTripCancellation();
 
         const result = SchemaValidator.validate(response.data, getSchema());

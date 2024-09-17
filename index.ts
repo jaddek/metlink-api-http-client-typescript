@@ -8,19 +8,19 @@ const token = fs.readFileSync(".env", "utf-8");
 const httpClient: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(token);
 
 
-httpClient.getAgencies();
-httpClient.getCalendar();
-httpClient.getCalendarDates();
-httpClient.getFeedInfo();
-httpClient.getRoutes();
-httpClient.getShapes("shapeId");
-httpClient.getStopTimes("tripId");
-httpClient.getStops();
-httpClient.getTransfers();
-httpClient.getTrips();
-httpClient.getServiceAlerts();
-httpClient.getTripUpdates();
-httpClient.getVehiclePositions();
+httpClient.getGtfsAgencies();
+httpClient.getGtfsCalendar();
+httpClient.getGtfsCalendarDates();
+httpClient.getGtfsFeedInfo();
+httpClient.getGtfsRoutes();
+httpClient.getGtfsShapes("shapeId");
+httpClient.getGtfsStopTimes("tripId");
+httpClient.getGtfsStops();
+httpClient.getGtfsTransfers();
+httpClient.getGtfsTrips();
+httpClient.getGtfsServiceAlerts();
+httpClient.getGtfsRtTripUpdates();
+httpClient.getGtfsRtVehiclePositions();
 httpClient.getStopPredictions("stopId");
 
 const query: Query = new Query();

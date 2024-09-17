@@ -1,22 +1,8 @@
-import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
-import axios from 'axios';
-import {AxiosAdapter} from "../../../../src/domain/httpclient/AxiosAdapter";
-import MockAdapter from "axios-mock-adapter";
+import {MetlinkHttpClientBuilder} from "../../../../src/MetlinkHttpClientBuilder";
 import {SchemaValidator} from "../../../SchemaValidator";
+import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
 
-const mock: MockAdapter = new MockAdapter(axios);
-
-describe("Metlink Http Client: Stops", () => {
-
-    afterEach(function () {
-        mock.reset();
-    });
-
-    function getHttpClient(client: Axios.AxiosInstance): MetlinkHttpClient {
-        const adapter: AxiosAdapter = new AxiosAdapter(client);
-
-        return new MetlinkHttpClient(adapter);
-    }
+describe("Integration: Metlink Http Client: Stops", () => {
 
     function getSchema(): {} {
         return {
@@ -80,35 +66,13 @@ describe("Metlink Http Client: Stops", () => {
         }
     }
 
-    const dataSet = [
-        [
-            [
-                {
-                    "id": 1,
-                    "stop_id": "7951",
-                    "stop_code": "7951",
-                    "stop_name": "Buckley Road (near 108)",
-                    "stop_desc": "",
-                    "zone_id": "3",
-                    "stop_lat": -41.33689713,
-                    "stop_lon": 174.7827608,
-                    "location_type": 0,
-                    "parent_station": "",
-                    "stop_url": "",
-                    "stop_timezone": "Pacific/Auckland"
-                }
-            ]
-        ]
-    ];
-
-    function getPath(): string {
-        return "/gtfs/stops";
+    function getMetlinkToken(): string
+    {
+        return process.env.METLINK_TOKEN || "";
     }
 
-    it.each(dataSet)("getGtfsStops", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
-
-        const client: MetlinkHttpClient = getHttpClient(axios);
+    test("getGtfsStops", async () => {
+        const client: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
         const response = await client.getGtfsStops();
 
         const result = SchemaValidator.validate(response.data, getSchema());

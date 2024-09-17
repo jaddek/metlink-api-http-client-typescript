@@ -1,22 +1,8 @@
-import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
-import axios from 'axios';
-import {AxiosAdapter} from "../../../../src/domain/httpclient/AxiosAdapter";
-import MockAdapter from "axios-mock-adapter";
+import {MetlinkHttpClientBuilder} from "../../../../src/MetlinkHttpClientBuilder";
 import {SchemaValidator} from "../../../SchemaValidator";
+import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
 
-const mock: MockAdapter = new MockAdapter(axios);
-
-describe("Metlink Http Client: Transfers", () => {
-
-    afterEach(function () {
-        mock.reset();
-    });
-
-    function getHttpClient(client: Axios.AxiosInstance): MetlinkHttpClient {
-        const adapter: AxiosAdapter = new AxiosAdapter(client);
-
-        return new MetlinkHttpClient(adapter);
-    }
+describe("Integration: Metlink Http Client: Transfers", () => {
 
     function getSchema(): {} {
         return {
@@ -60,30 +46,13 @@ describe("Metlink Http Client: Transfers", () => {
         }
     }
 
-    const dataSet = [
-        [
-            [
-                {
-                    "id": 1,
-                    "from_stop_id": "9416",
-                    "to_stop_id": "SILV",
-                    "transfer_type": "2",
-                    "min_transfer_time": "240",
-                    "from_trip_id": "115__0__421__TZM__508__3__508__3_20240825",
-                    "to_trip_id": "HVL__1__3853__RAIL__Rail_SaSu+Hol_20240825"
-                }
-            ]
-        ]
-    ];
-
-    function getPath(): string {
-        return "/gtfs/transfers";
+    function getMetlinkToken(): string
+    {
+        return process.env.METLINK_TOKEN || "";
     }
 
-    it.each(dataSet)("getGtfsTransfers", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
-
-        const client: MetlinkHttpClient = getHttpClient(axios);
+    test("getGtfsTransfers", async () => {
+        const client: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
         const response = await client.getGtfsTransfers();
 
         const result = SchemaValidator.validate(response.data, getSchema());

@@ -62,18 +62,12 @@ describe("Metlink Http Client: Calendar Dates", () => {
     }
 
     it.each(dataSet)("getGtfsCalendarDates", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, function () {
-            return new Promise(function (resolve) {
-                resolve(mockData);
-            });
-        });
+        mock.onGet(getPath()).replyOnce(200, mockData);
 
         const client: MetlinkHttpClient = getHttpClient(axios);
-        const response = await client.getCalendarDates();
-        const data = await response.data();
+        const response = await client.getGtfsCalendarDates();
 
-        const result = SchemaValidator.validate(data, getSchema());
-
+        const result = SchemaValidator.validate(response.data, getSchema());
         expect(result.isValid).toBeTruthy();
     });
 });

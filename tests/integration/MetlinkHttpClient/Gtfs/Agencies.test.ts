@@ -1,7 +1,8 @@
-import {MetlinkHttpClientBuilder} from "../../../src/MetlinkHttpClientBuilder";
-import {SchemaValidator} from "../../SchemaValidator";
+import {MetlinkHttpClientBuilder} from "../../../../src/MetlinkHttpClientBuilder";
+import {SchemaValidator} from "../../../SchemaValidator";
+import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
 
-describe("Functional: Metlink Http Client: Agencies", () => {
+describe("Integration: Metlink Http Client: Agencies", () => {
     function getSchema(): {} {
         return {
             type: "array",
@@ -32,14 +33,16 @@ describe("Functional: Metlink Http Client: Agencies", () => {
         };
     }
 
-    test("getAgencies", async () => {
-        return;
-        // const client = MetlinkHttpClientBuilder.buildWithAxios("")
-        // // const client: MetlinkHttpClient = getHttpClient(axios);
-        // const response = await client.getAgencies();
-        // const data = await response.data();
-        //
-        // const result = SchemaValidator.validate(data, getSchema());
-        // expect(result.isValid).toBeTruthy();
+    function getMetlinkToken(): string
+    {
+        return process.env.METLINK_TOKEN || "";
+    }
+
+    test("getGtfsAgencies", async () => {
+        const client: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
+        const response = await client.getGtfsAgencies();
+
+        const result = SchemaValidator.validate(response.data, getSchema());
+        expect(result.isValid).toBeTruthy();
     });
 });

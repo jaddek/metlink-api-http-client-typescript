@@ -1,22 +1,8 @@
-import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
-import axios from 'axios';
-import {AxiosAdapter} from "../../../../src/domain/httpclient/AxiosAdapter";
-import MockAdapter from "axios-mock-adapter";
+import {MetlinkHttpClientBuilder} from "../../../../src/MetlinkHttpClientBuilder";
 import {SchemaValidator} from "../../../SchemaValidator";
+import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
 
-const mock: MockAdapter = new MockAdapter(axios);
-
-describe("Metlink Http Client: Shapes", () => {
-
-    afterEach(function () {
-        mock.reset();
-    });
-
-    function getHttpClient(client: Axios.AxiosInstance): MetlinkHttpClient {
-        const adapter: AxiosAdapter = new AxiosAdapter(client);
-
-        return new MetlinkHttpClient(adapter);
-    }
+describe("Integration: Metlink Http Client: Shapes", () => {
 
     function getSchema(): {} {
         return {
@@ -56,29 +42,13 @@ describe("Metlink Http Client: Shapes", () => {
         };
     }
 
-    const dataSet = [
-        [
-            [
-                {
-                    "id": 92441,
-                    "shape_id": "[@364.0.17527449@]1_20240825",
-                    "shape_pt_lat": -41.2091982,
-                    "shape_pt_lon": 174.9050033,
-                    "shape_pt_sequence": 0,
-                    "shape_dist_traveled": 0
-                }
-            ]
-        ]
-    ];
-
-    function getPath(): string {
-        return "/gtfs/shapes";
+    function getMetlinkToken(): string
+    {
+        return process.env.METLINK_TOKEN || "";
     }
 
-    it.each(dataSet)("getGtfsShapes", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
-
-        const client: MetlinkHttpClient = getHttpClient(axios);
+    test("getGtfsShapes", async () => {
+        const client: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
         const response = await client.getGtfsShapes("[@364.0.17527449@]1_20240825");
 
         const result = SchemaValidator.validate(response.data, getSchema());

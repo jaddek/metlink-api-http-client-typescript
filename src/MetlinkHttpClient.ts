@@ -27,52 +27,52 @@ export default class MetlinkHttpClient
         return await this.httpClientAdapter.get(path);
     }
 
-    async getAgencies(): Promise<any> {
+    async getGtfsAgencies(): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsAgenciesPath());
     }
 
-    async getCalendar(): Promise<any> {
+    async getGtfsCalendar(): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsCalendarPath());
     }
 
-    async getCalendarDates(): Promise<any> {
+    async getGtfsCalendarDates(): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsCalendarDatesPath());
     }
 
-    async getFeedInfo(): Promise<any> {
+    async getGtfsFeedInfo(): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsFeedInfoPath());
     }
 
-    async getRoutes(
+    async getGtfsRoutes(
         routeId: string | null = null
     ): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsRoutesPath());
     }
 
-    async getShapes(
+    async getGtfsShapes(
         shapeId: string,
     ): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsShapesPath());
     }
 
-    async getStopTimes(
+    async getGtfsStopTimes(
         tripId: string,
     ): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsStopTimesPath());
     }
 
-    async getStops(
+    async getGtfsStops(
         routeId: string | null = null,
         tripId: string | null = null,
     ): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsStopsPath());
     }
 
-    async getTransfers(): Promise<any> {
+    async getGtfsTransfers(): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsTransfersPath());
     }
 
-    async getTrips(
+    async getGtfsTrips(
         start: string | null = null,
         extraFields: string | null = null,
         routeId: string | null = null,
@@ -82,19 +82,19 @@ export default class MetlinkHttpClient
         return await this.doGetFetch(Routes.getGtfsTripsPath());
     }
 
-    async getServiceAlerts(
+    async getGtfsServiceAlerts(
         useProtoBuf: boolean = false,
     ): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsRtServiceAlertsPath());
     }
 
-    async getTripUpdates(
+    async getGtfsRtTripUpdates(
         useProtoBuf: boolean = false,
     ): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsRtTripUpdatesPath());
     }
 
-    async getVehiclePositions(
+    async getGtfsRtVehiclePositions(
         useProtoBuf: boolean = false,
     ): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsRtVehiclePositionsPath());

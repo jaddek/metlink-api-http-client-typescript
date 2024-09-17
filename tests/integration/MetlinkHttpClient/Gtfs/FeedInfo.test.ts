@@ -1,22 +1,8 @@
-import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
-import axios from 'axios';
-import {AxiosAdapter} from "../../../../src/domain/httpclient/AxiosAdapter";
-import MockAdapter from "axios-mock-adapter";
+import {MetlinkHttpClientBuilder} from "../../../../src/MetlinkHttpClientBuilder";
 import {SchemaValidator} from "../../../SchemaValidator";
+import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
 
-const mock: MockAdapter = new MockAdapter(axios);
-
-describe("Metlink Http Client: Feed info", () => {
-
-    afterEach(function () {
-        mock.reset();
-    });
-
-    function getHttpClient(client: Axios.AxiosInstance): MetlinkHttpClient {
-        const adapter: AxiosAdapter = new AxiosAdapter(client);
-
-        return new MetlinkHttpClient(adapter);
-    }
+describe("Integration: Metlink Http Client: FeedInfo", () => {
 
     function getSchema(): {} {
         return {
@@ -62,31 +48,13 @@ describe("Metlink Http Client: Feed info", () => {
         };
     }
 
-    const dataSet = [
-        [
-            [
-                {
-                    id: 1,
-                    feed_publisher_name: 'publisher name',
-                    feed_publisher_url: 'link',
-                    feed_lang: 'en',
-                    feed_start_date: '20240825',
-                    feed_end_date: '20241012',
-                    feed_version: 'Version'
-                }
-            ]
-
-        ]
-    ];
-
-    function getPath(): string {
-        return "/gtfs/feed_info";
+    function getMetlinkToken(): string
+    {
+        return process.env.METLINK_TOKEN || "";
     }
 
-    it.each(dataSet)("getGtfsFeedInfo", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
-
-        const client: MetlinkHttpClient = getHttpClient(axios);
+    test("getGtfsFeedInfo", async () => {
+        const client: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
         const response = await client.getGtfsFeedInfo();
 
         const result = SchemaValidator.validate(response.data, getSchema());

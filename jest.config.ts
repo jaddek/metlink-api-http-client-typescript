@@ -5,6 +5,8 @@ const config: Config = {
     testEnvironment: 'node',
     verbose: true,
     coverageDirectory: 'coverage',
-    collectCoverage: true
+    collectCoverage: true,
+    setupFiles:["<rootDir>/.jest/setEnvVars.ts"]
 };
+
 export default config;

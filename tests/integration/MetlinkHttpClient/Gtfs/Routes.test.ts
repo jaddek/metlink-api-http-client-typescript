@@ -1,22 +1,8 @@
-import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
-import axios from 'axios';
-import {AxiosAdapter} from "../../../../src/domain/httpclient/AxiosAdapter";
-import MockAdapter from "axios-mock-adapter";
+import {MetlinkHttpClientBuilder} from "../../../../src/MetlinkHttpClientBuilder";
 import {SchemaValidator} from "../../../SchemaValidator";
+import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
 
-const mock: MockAdapter = new MockAdapter(axios);
-
-describe("Metlink Http Client: Routes", () => {
-
-    afterEach(function () {
-        mock.reset();
-    });
-
-    function getHttpClient(client: Axios.AxiosInstance): MetlinkHttpClient {
-        const adapter: AxiosAdapter = new AxiosAdapter(client);
-
-        return new MetlinkHttpClient(adapter);
-    }
+describe("Integration: Metlink Http Client: Routes", () => {
 
     function getSchema(): {} {
         return {
@@ -78,47 +64,14 @@ describe("Metlink Http Client: Routes", () => {
         }
     }
 
-    const dataSet = [
-        [
-            [
-                {
-                    "id": 9,
-                    "route_id": "10",
-                    "agency_id": "TZM",
-                    "route_short_name": "1",
-                    "route_long_name": "Johnsonville West/Churton Park/Grenada Village - Island Bay",
-                    "route_desc": "Island Bay - Johnsonville West/Churton Park/Grenada Village",
-                    "route_type": 3,
-                    "route_color": "e31837",
-                    "route_text_color": "ffffff",
-                    "route_url": "",
-                    "route_sort_order": 10
-                }
-            ]
-
-        ]
-    ];
-
-    function getPath(): string {
-        return "/gtfs/routes";
+    function getMetlinkToken(): string
+    {
+        return process.env.METLINK_TOKEN || "";
     }
 
-    it.each(dataSet)("getGtfsRoutes", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
-
-        const client: MetlinkHttpClient = getHttpClient(axios);
+    test("getGtfsRoutes", async () => {
+        const client: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
         const response = await client.getGtfsRoutes();
-
-        const result = SchemaValidator.validate(response.data, getSchema());
-
-        expect(result.isValid).toBeTruthy();
-    });
-
-    it.each(dataSet)("getRouteById", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
-
-        const client: MetlinkHttpClient = getHttpClient(axios);
-        const response = await client.getGtfsRoutes("1100");
 
         const result = SchemaValidator.validate(response.data, getSchema());
         expect(result.isValid).toBeTruthy();

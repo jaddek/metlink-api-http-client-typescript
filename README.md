@@ -15,6 +15,25 @@ https://api.opendata.metlink.org.nz/v1
 const metlinkHttpClient: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(token);
 ```
 
+### Tests
+
+#### Config with env
+
+```bash
+.jest/setEnvVars
+```
+Use
+```bash
+TOKEN_FILE=.token jest tests
+```
+
+#### Unresolved issues:
+- GTFS: StopTimes raise: 403
+- GTFS: Shapes raise: 400
+- GTFS-RT: Service Alerts: Validation Scheme issue
+- GTFS-RT: Trip Updates: Validation Scheme issue
+- Stop Predictions: 400
+
 ## API
 
 ### GTFS
