@@ -43,7 +43,7 @@ TOKEN_FILE=.token jest tests
 Transit agencies with service represented in this dataset.
 
 ```ts
-httpClient.getAgencies();
+httpClient.getGtfsAgencies();
 ```
 
 #### Calendars
@@ -51,7 +51,7 @@ httpClient.getAgencies();
 Service dates specified using a weekly schedule with start and end dates.
 
 ```ts
-httpClient.getCalendar();
+httpClient.getGtfsCalendar();
 ```
 
 #### Calendar Dates
@@ -59,7 +59,7 @@ httpClient.getCalendar();
 Exceptions for the services defined in the calendar.
 
 ```ts
-httpClient.getCalendarDates();
+httpClient.getGtfsCalendarDates();
 ```
 
 #### Feed info
@@ -67,14 +67,14 @@ httpClient.getCalendarDates();
 Dataset metadata, including publisher, version, and expiration information.
 
 ```ts
-httpClient.getFeedInfo();
+httpClient.getGtfsFeedInfo();
 ```
 
 #### Routes
 Transit routes. A route is a group of trips that are displayed to riders as a single service.
 
 ```ts
-httpClient.getRoutes();
+httpClient.getGtfsRoutes();
 ```
 
 #### Shapes
@@ -82,7 +82,7 @@ httpClient.getRoutes();
 Rules for mapping vehicle travel paths, sometimes referred to as route alignments.
 
 ```ts
-httpClient.getShapes("shapeId");
+httpClient.getGtfsShapes("shapeId");
 ```
 
 #### Stop Times
@@ -90,7 +90,7 @@ httpClient.getShapes("shapeId");
 Times that a vehicle arrives at and departs from stops for each trip.
 
 ```ts
-httpClient.getStopTimes("tripId");
+httpClient.getGtfsStopTimes("tripId");
 ```
 
 #### Stops
@@ -98,7 +98,7 @@ httpClient.getStopTimes("tripId");
 Stops where vehicles pick up or drop off riders. Also defines stations and station entrances.
 
 ```ts
-httpClient.getStops();
+httpClient.getGtfsStops();
 ```
 
 #### Transfers
@@ -106,7 +106,7 @@ httpClient.getStops();
 Rules for making connections at transfer points between routes.
 
 ```ts
-httpClient.getTransfers();
+httpClient.getGtfsTransfers();
 ```
 
 #### Trips
@@ -114,7 +114,7 @@ httpClient.getTransfers();
 Trips for each route. A trip is a sequence of two or more stops that occur during a specific time period.
 
 ```ts
-httpClient.getTrips(
+httpClient.getGtfsTrips(
     "start",
     "extraFields",
     "routeId",
@@ -131,7 +131,7 @@ Information about unforeseen events affecting routes, stops, or the network. Use
 to receive in Protobuf format.
 
 ```ts
-httpClient.getServiceAlerts();
+httpClient.getGtfsServiceAlerts();
 ```
 
 #### Trip Updates
@@ -139,7 +139,7 @@ httpClient.getServiceAlerts();
 Delays, cancellations, changed routes. Use accept header 'application/x-protobuf' to receive in Protobuf format.
 
 ```ts
-httpClient.getTripUpdates();
+httpClient.getGtfsRtTripUpdates();
 ```
 
 #### Vehicle Positions
@@ -147,7 +147,7 @@ httpClient.getTripUpdates();
 Information about vehicles including location. Use accept header 'application/x-protobuf' to receive in Protobuf format.
 
 ```ts
-httpClient.getVehiclePositions();
+httpClient.getGtfsRtVehiclePositions();
 ```
 
 ### Other
