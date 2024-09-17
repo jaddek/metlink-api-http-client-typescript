@@ -3,10 +3,9 @@ import {MetlinkHttpClientBuilder} from "./src/MetlinkHttpClientBuilder";
 import {Query} from "./src/domain/trip-cancellation/Query";
 import * as fs from 'fs';
 
-const token = fs.readFileSync(".env", "utf-8");
+const token = fs.readFileSync(".token", "utf-8");
 
 const httpClient: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(token);
-
 
 httpClient.getGtfsAgencies();
 httpClient.getGtfsCalendar();
