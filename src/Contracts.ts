@@ -1,5 +1,14 @@
+import {Agency} from "./domain/gtfs/entity/Agency";
+
 export interface ResponseDTO {
     isCollection(): boolean;
+}
+
+export interface MetlinkHttpClientInterface extends TripCancellationInterface,
+    StopDeparturePredictionsInterface,
+    GTFSRealTimeInterface,
+    GTFSInterface {
+
 }
 
 export interface HeadersDictInterface {
@@ -18,7 +27,7 @@ export interface HostInterface {
 }
 
 export interface GTFSInterface {
-    getGtfsAgencies(): Promise<Response>;
+    getGtfsAgencies(): Promise<Response|Agency[]>;
 
     getGtfsCalendar(): Promise<Response>;
 

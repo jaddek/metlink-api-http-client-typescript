@@ -1,19 +1,10 @@
-import {
-    GTFSInterface,
-    GTFSRealTimeInterface,
-    StopDeparturePredictionsInterface,
-    TripCancellationInterface,
-    TripCancellationQueryInterface
-} from "./Contracts";
+import {MetlinkHttpClientInterface, TripCancellationQueryInterface} from "./Contracts";
 import {QueryBuilder} from "./QueryBuilder";
 import {HttpClientInterface} from "./domain/httpclient/HttpClientInterface";
 import {Routes} from "./Routes";
 
 export default class MetlinkHttpClient
-    implements TripCancellationInterface,
-        StopDeparturePredictionsInterface,
-        GTFSRealTimeInterface,
-        GTFSInterface {
+    implements MetlinkHttpClientInterface {
 
     private readonly httpClientAdapter: HttpClientInterface;
 
@@ -23,7 +14,7 @@ export default class MetlinkHttpClient
         this.httpClientAdapter = httpClient;
     }
 
-    private async doGetFetch(path: string) {
+    private async doGetFetch(path: string): Promise<any> {
         return await this.httpClientAdapter.get(path);
     }
 
