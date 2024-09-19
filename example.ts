@@ -3,10 +3,12 @@ import {MetlinkHttpClientBuilder} from "./src/MetlinkHttpClientBuilder";
 import {Query} from "./src/domain/trip-cancellation/Query";
 import * as fs from 'fs';
 import {ResponseDataDecorator} from "./src/ResponseDataDecorator";
+import {MetlinkHttpClientInterface} from "./src/Contracts";
 
 const token = fs.readFileSync(".token", "utf-8");
+const axiosOptions = {};
 
-const httpClient: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(token);
+const httpClient: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(token, axiosOptions);
 
 httpClient.getGtfsAgencies();
 httpClient.getGtfsCalendar();
@@ -15,7 +17,7 @@ httpClient.getGtfsFeedInfo();
 httpClient.getGtfsRoutes("routeId");
 httpClient.getGtfsShapes("shapeId");
 httpClient.getGtfsStopTimes("tripId");
-httpClient.getGtfsStops();
+httpClient.getGtfsStops(null, null);
 httpClient.getGtfsTransfers();
 httpClient.getGtfsTrips();
 httpClient.getGtfsRtTripUpdates();
@@ -32,15 +34,17 @@ httpClient.getTripCancellation(query);
  * Mapped entities
  */
 
-const decorator = new ResponseDataDecorator(httpClient);
+const httpClientDecorated: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxiosUsingResponseDataDecorator(token, axiosOptions);
+// OR
+const httpClientDecorated: MetlinkHttpClientInterface = new ResponseDataDecorator(httpClient);
 
-decorator.getGtfsAgencies()
-decorator.getGtfsCalendar()
-decorator.getGtfsCalendarDates()
-decorator.getGtfsFeedInfo()
-decorator.getGtfsRoutes("routeId")
-decorator.getGtfsShapes("shapeId")
-decorator.getGtfsStopTimes("tripId");
-decorator.getGtfsStops();
-decorator.getGtfsTransfers();
-decorator.getGtfsTrips();
+httpClientDecorated.getGtfsAgencies()
+httpClientDecorated.getGtfsCalendar()
+httpClientDecorated.getGtfsCalendarDates()
+httpClientDecorated.getGtfsFeedInfo()
+httpClientDecorated.getGtfsRoutes("routeId")
+httpClientDecorated.getGtfsShapes("shapeId")
+httpClientDecorated.getGtfsStopTimes("tripId");
+httpClientDecorated.getGtfsStops();
+httpClientDecorated.getGtfsTransfers();
+httpClientDecorated.getGtfsTrips();

@@ -1,6 +1,7 @@
 import {HttpClientInterface} from "./HttpClientInterface";
 import AxiosInstance = Axios.AxiosInstance;
 import IPromise = Axios.IPromise;
+import AxiosXHR = Axios.AxiosXHR;
 
 export class AxiosAdapter implements HttpClientInterface {
     private readonly axios: AxiosInstance;
@@ -9,7 +10,7 @@ export class AxiosAdapter implements HttpClientInterface {
         this.axios = axios;
     }
 
-    public async get(path: string): Promise<IPromise<any>> {
+    public async get(path: string): Promise<IPromise<AxiosXHR<unknown>>> {
         return this.axios.get(path);
     }
 }

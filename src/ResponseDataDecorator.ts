@@ -1,4 +1,3 @@
-import MetlinkHttpClient from "./MetlinkHttpClient";
 import {MetlinkHttpClientInterface, TripCancellationQueryInterface} from "./Contracts";
 import {Agency} from "./domain/gtfs/entity/Agency";
 import {Calendar} from "./domain/gtfs/entity/Calendar";
@@ -12,9 +11,9 @@ import {Transfer} from "./domain/gtfs/entity/Transfer";
 import {Trip} from "./domain/gtfs/entity/Trip";
 
 export class ResponseDataDecorator implements MetlinkHttpClientInterface {
-    private readonly httpClient: MetlinkHttpClient;
+    private readonly httpClient: MetlinkHttpClientInterface;
 
-    constructor(client: MetlinkHttpClient) {
+    constructor(client: MetlinkHttpClientInterface) {
         this.httpClient = client;
     }
 

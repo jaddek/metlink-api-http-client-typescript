@@ -7,6 +7,13 @@ https://opendata.metlink.org.nz/
 
 ## How to use
 
+### Example
+
+Look
+```ts
+example.ts
+```
+
 ### Host
 ```
 https://api.opendata.metlink.org.nz/v1
@@ -15,14 +22,30 @@ https://api.opendata.metlink.org.nz/v1
 
 
 #### Client
-```ts
-const metlinkHttpClient: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(token);
-```
 
+```ts
+import {MetlinkHttpClientInterface} from "./Contracts";
+import {MetlinkHttpClientBuilder} from "./MetlinkHttpClientBuilder";
+
+const options = {
+    timeout: 1000
+};
+const metlinkHttpClient: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(token, options);
+```
+OR
+```ts
+import {MetlinkHttpClientInterface} from "./Contracts";
+import {MetlinkHttpClientBuilder} from "./MetlinkHttpClientBuilder";
+
+const options = {
+    timeout: 1000
+};
+const metlinkHttpClient: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxiosAndDecorate(token, options);
+```
 #### Wrapped response body
 
 ```ts
-const decorator = new ResponseDataDecorator(httpClient);
+const metlinkHttpClient = new ResponseDataDecorator(httpClient);
 ```
 
 ### Tests
@@ -53,7 +76,7 @@ TOKEN_FILE=.token jest tests
 Transit agencies with service represented in this dataset.
 
 ```ts
-httpClient.getGtfsAgencies();
+metlinkHttpClient.getGtfsAgencies();
 ```
 
 #### Calendars
@@ -61,7 +84,7 @@ httpClient.getGtfsAgencies();
 Service dates specified using a weekly schedule with start and end dates.
 
 ```ts
-httpClient.getGtfsCalendar();
+metlinkHttpClient.getGtfsCalendar();
 ```
 
 #### Calendar Dates
@@ -69,7 +92,7 @@ httpClient.getGtfsCalendar();
 Exceptions for the services defined in the calendar.
 
 ```ts
-httpClient.getGtfsCalendarDates();
+metlinkHttpClient.getGtfsCalendarDates();
 ```
 
 #### Feed info
@@ -77,14 +100,14 @@ httpClient.getGtfsCalendarDates();
 Dataset metadata, including publisher, version, and expiration information.
 
 ```ts
-httpClient.getGtfsFeedInfo();
+metlinkHttpClient.getGtfsFeedInfo();
 ```
 
 #### Routes
 Transit routes. A route is a group of trips that are displayed to riders as a single service.
 
 ```ts
-httpClient.getGtfsRoutes();
+metlinkHttpClient.getGtfsRoutes();
 ```
 
 #### Shapes
@@ -92,7 +115,7 @@ httpClient.getGtfsRoutes();
 Rules for mapping vehicle travel paths, sometimes referred to as route alignments.
 
 ```ts
-httpClient.getGtfsShapes("shapeId");
+metlinkHttpClient.getGtfsShapes("shapeId");
 ```
 
 #### Stop Times
@@ -100,7 +123,7 @@ httpClient.getGtfsShapes("shapeId");
 Times that a vehicle arrives at and departs from stops for each trip.
 
 ```ts
-httpClient.getGtfsStopTimes("tripId");
+metlinkHttpClient.getGtfsStopTimes("tripId");
 ```
 
 #### Stops
@@ -108,7 +131,7 @@ httpClient.getGtfsStopTimes("tripId");
 Stops where vehicles pick up or drop off riders. Also defines stations and station entrances.
 
 ```ts
-httpClient.getGtfsStops();
+metlinkHttpClient.getGtfsStops();
 ```
 
 #### Transfers
@@ -116,7 +139,7 @@ httpClient.getGtfsStops();
 Rules for making connections at transfer points between routes.
 
 ```ts
-httpClient.getGtfsTransfers();
+metlinkHttpClient.getGtfsTransfers();
 ```
 
 #### Trips
@@ -124,7 +147,7 @@ httpClient.getGtfsTransfers();
 Trips for each route. A trip is a sequence of two or more stops that occur during a specific time period.
 
 ```ts
-httpClient.getGtfsTrips(
+metlinkHttpClient.getGtfsTrips(
     "start",
     "extraFields",
     "routeId",
@@ -141,7 +164,7 @@ Information about unforeseen events affecting routes, stops, or the network. Use
 to receive in Protobuf format.
 
 ```ts
-httpClient.getGtfsServiceAlerts();
+metlinkHttpClient.getGtfsServiceAlerts();
 ```
 
 #### Trip Updates
@@ -149,7 +172,7 @@ httpClient.getGtfsServiceAlerts();
 Delays, cancellations, changed routes. Use accept header 'application/x-protobuf' to receive in Protobuf format.
 
 ```ts
-httpClient.getGtfsRtTripUpdates();
+metlinkHttpClient.getGtfsRtTripUpdates();
 ```
 
 #### Vehicle Positions
@@ -157,7 +180,7 @@ httpClient.getGtfsRtTripUpdates();
 Information about vehicles including location. Use accept header 'application/x-protobuf' to receive in Protobuf format.
 
 ```ts
-httpClient.getGtfsRtVehiclePositions();
+metlinkHttpClient.getGtfsRtVehiclePositions();
 ```
 
 ### Other
@@ -167,7 +190,7 @@ httpClient.getGtfsRtVehiclePositions();
 Predictions for when vehicles will arrive and depart through stops.
 
 ```ts
-httpClient.getStopPredictions("stopId");
+metlinkHttpClient.getStopPredictions("stopId");
 ```
 
 #### Trip Cancellations
@@ -177,6 +200,6 @@ Historical, current, and known future data for trip cancellations.
 ```ts
 const query: Query = new Query();
 query.dateCreated = Date.now().toString();
-httpClient.getTripCancellation(query);
+metlinkHttpClient.getTripCancellation(query);
 ```
 
