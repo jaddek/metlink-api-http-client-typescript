@@ -11,8 +11,17 @@
 https://api.opendata.metlink.org.nz/v1
 ```
 ### Init
+
+
+#### Client
 ```ts
 const metlinkHttpClient: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(token);
+```
+
+#### Wrapped response body
+
+```ts
+const decorator = new ResponseDataDecorator(httpClient);
 ```
 
 ### Tests
@@ -169,3 +178,4 @@ const query: Query = new Query();
 query.dateCreated = Date.now().toString();
 httpClient.getTripCancellation(query);
 ```
+

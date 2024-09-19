@@ -4,8 +4,10 @@ import {Agency} from "./domain/gtfs/entity/Agency";
 import {Calendar} from "./domain/gtfs/entity/Calendar";
 import {CalendarDate} from "./domain/gtfs/entity/CalendarDate";
 import {Feed} from "./domain/gtfs/entity/Feed";
+import {Route} from "./domain/gtfs/entity/Route";
+import {Shape} from "./domain/gtfs/entity/Shape";
 
-export class ResponseDecorator {//implements MetlinkHttpClientInterface {
+export class ResponseDataDecorator {//implements MetlinkHttpClientInterface {
     private readonly httpClient: MetlinkHttpClient;
 
     constructor(client: MetlinkHttpClient) {
@@ -84,26 +86,45 @@ export class ResponseDecorator {//implements MetlinkHttpClientInterface {
 
         return Promise.resolve(entities);
     }
-    //
-    // async getGtfsRoutes(routeId: string | null): Promise<Response> {
-    //     return Promise.resolve(undefined);
-    // }
-    //
-    // async getGtfsRtTripUpdates(useProtoBuf: boolean): Promise<Response> {
-    //     return Promise.resolve(undefined);
-    // }
-    //
-    // async getGtfsRtVehiclePositions(useProtoBuf: boolean): Promise<Response> {
-    //     return Promise.resolve(undefined);
-    // }
-    //
-    // async getGtfsServiceAlerts(useProtoBuf: boolean): Promise<Response> {
-    //     return Promise.resolve(undefined);
-    // }
-    //
-    // async getGtfsShapes(shapeId: string): Promise<Response> {
-    //     return Promise.resolve(undefined);
-    // }
+
+    async getGtfsRoutes(routeId: string | null): Promise<Route[]> {
+        const response  = await this.httpClient.getGtfsRoutes(routeId);
+
+        const entities: Route[] = response.data.map((data: any) => {
+            return new Route(
+                data.id,
+                data.route_id,
+                data.agency_id,
+                data.route_short_name,
+                data.route_long_name,
+                data.route_desc,
+                data.route_type,
+                data.route_color,
+                data.route_text_color,
+                data.route_url,
+                data.route_sort_order
+            );
+        });
+
+        return Promise.resolve(entities);
+    }
+
+    async getGtfsShapes(shapeId: string): Promise<Shape[]> {
+        const response  = await this.httpClient.getGtfsRoutes(shapeId);
+
+        const entities: Shape[] = response.data.map((data: any) => {
+            return new Shape(
+                data.id,
+                data.shape_id,
+                data.shape_pt_lat,
+                data.shape_pt_lon,
+                data.shape_pt_sequence,
+                data.shape_dist_traveled,
+            );
+        });
+
+        return Promise.resolve(entities);
+    }
     //
     // async getGtfsStopTimes(tripId: string): Promise<Response> {
     //     return Promise.resolve(undefined);
@@ -120,6 +141,19 @@ export class ResponseDecorator {//implements MetlinkHttpClientInterface {
     // async getGtfsTrips(start: string | null, extraFields: string | null, routeId: string | null, tripId: string | null, end: string | null): Promise<Response> {
     //     return Promise.resolve(undefined);
     // }
+    //
+    // async getGtfsRtTripUpdates(useProtoBuf: boolean): Promise<Response> {
+    //     return Promise.resolve(undefined);
+    // }
+    //
+    // async getGtfsRtVehiclePositions(useProtoBuf: boolean): Promise<Response> {
+    //     return Promise.resolve(undefined);
+    // }
+    //
+    // async getGtfsServiceAlerts(useProtoBuf: boolean): Promise<Response> {
+    //     return Promise.resolve(undefined);
+    // }
+
     //
     // async getStopPredictions(stopId: string | null): Promise<Response> {
     //     return Promise.resolve(undefined);

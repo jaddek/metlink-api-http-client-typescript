@@ -2,7 +2,7 @@ import MetlinkHttpClient from "./src/MetlinkHttpClient";
 import {MetlinkHttpClientBuilder} from "./src/MetlinkHttpClientBuilder";
 import {Query} from "./src/domain/trip-cancellation/Query";
 import * as fs from 'fs';
-import {ResponseDecorator} from "./src/ResponseDecorator";
+import {ResponseDataDecorator} from "./src/ResponseDataDecorator";
 
 const token = fs.readFileSync(".token", "utf-8");
 
@@ -12,7 +12,7 @@ httpClient.getGtfsAgencies();
 httpClient.getGtfsCalendar();
 httpClient.getGtfsCalendarDates();
 httpClient.getGtfsFeedInfo();
-httpClient.getGtfsRoutes();
+httpClient.getGtfsRoutes("routeId");
 httpClient.getGtfsShapes("shapeId");
 httpClient.getGtfsStopTimes("tripId");
 httpClient.getGtfsStops();
@@ -31,9 +31,11 @@ httpClient.getTripCancellation(query);
  * Mapped entities
  */
 
-const decorator = new ResponseDecorator(httpClient);
+const decorator = new ResponseDataDecorator(httpClient);
 
 decorator.getGtfsAgencies()
 decorator.getGtfsCalendar()
 decorator.getGtfsCalendarDates()
 decorator.getGtfsFeedInfo()
+decorator.getGtfsRoutes("routeId")
+decorator.getGtfsShapes("shapeId")
