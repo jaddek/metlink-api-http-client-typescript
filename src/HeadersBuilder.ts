@@ -1,6 +1,7 @@
 import {HeadersDictInterface} from "./Contracts";
 
 export class HeadersBuilder {
+    private readonly API_KEYWORD: string = "x-api-key";
     private headers: HeadersDictInterface = {};
 
     public newHeaders() {
@@ -15,7 +16,7 @@ export class HeadersBuilder {
         return this;
     }
 
-    public addToken(token: string, key: string = "x-api-key") {
+    public addToken(token: string, key: string = this.API_KEYWORD) {
         this.headers[key] = token;
 
         return this;
