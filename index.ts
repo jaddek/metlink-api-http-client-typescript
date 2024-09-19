@@ -18,10 +18,11 @@ httpClient.getGtfsStopTimes("tripId");
 httpClient.getGtfsStops();
 httpClient.getGtfsTransfers();
 httpClient.getGtfsTrips();
-httpClient.getGtfsServiceAlerts();
 httpClient.getGtfsRtTripUpdates();
 httpClient.getGtfsRtVehiclePositions();
 httpClient.getStopPredictions("stopId");
+httpClient.getGtfsServiceAlerts();
+
 
 const query: Query = new Query();
 query.dateCreated = Date.now().toString();
@@ -39,3 +40,7 @@ decorator.getGtfsCalendarDates()
 decorator.getGtfsFeedInfo()
 decorator.getGtfsRoutes("routeId")
 decorator.getGtfsShapes("shapeId")
+decorator.getGtfsStopTimes("tripId");
+decorator.getGtfsStops();
+decorator.getGtfsTransfers();
+decorator.getGtfsTrips();

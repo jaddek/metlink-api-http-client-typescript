@@ -1,4 +1,5 @@
-# Metlink API HTTP Client (Wellington)
+# Metlink API HTTP Client (Wellington, New Zealand)
+https://opendata.metlink.org.nz/
 
 ## Install
 

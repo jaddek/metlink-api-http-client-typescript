@@ -14,6 +14,7 @@ export class Trip extends Entity {
     private readonly _originStopId: null | number;
     private readonly _destinationStopId: null | number;
 
+
     constructor(
         id: number,
         routeId: number,

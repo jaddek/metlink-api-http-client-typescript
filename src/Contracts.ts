@@ -1,5 +1,3 @@
-import {Agency} from "./domain/gtfs/entity/Agency";
-
 export interface ResponseDTO {
     isCollection(): boolean;
 }
@@ -15,8 +13,12 @@ export interface HeadersDictInterface {
     [key: string]: string;
 }
 
-export abstract class Entity {
+interface EntityInterface {
+    [key: string]: string | number | null | object;
+}
 
+export abstract class Entity implements EntityInterface {
+    [key: string]: string | number | null | object;
 }
 
 export interface HostInterface {
@@ -27,32 +29,32 @@ export interface HostInterface {
 }
 
 export interface GTFSInterface {
-    getGtfsAgencies(): Promise<Response|Agency[]>;
+    getGtfsAgencies(): Promise<any>;
 
-    getGtfsCalendar(): Promise<Response>;
+    getGtfsCalendar(): Promise<any>;
 
-    getGtfsCalendarDates(): Promise<Response>;
+    getGtfsCalendarDates(): Promise<any>;
 
-    getGtfsFeedInfo(): Promise<Response>;
+    getGtfsFeedInfo(): Promise<any>;
 
     getGtfsRoutes(
         routeId: string | null,
-    ): Promise<Response>;
+    ): Promise<any>;
 
     getGtfsShapes(
         shapeId: string,
-    ): Promise<Response>;
+    ): Promise<any>;
 
     getGtfsStopTimes(
         tripId: string,
-    ): Promise<Response>;
+    ): Promise<any>;
 
     getGtfsStops(
         routeId: string | null,
         tripId: string | null,
-    ): Promise<Response>;
+    ): Promise<any>;
 
-    getGtfsTransfers(): Promise<Response>;
+    getGtfsTransfers(): Promise<any>;
 
     getGtfsTrips(
         start: string | null,
@@ -60,7 +62,7 @@ export interface GTFSInterface {
         routeId: string | null,
         tripId: string | null,
         end: string | null,
-    ): Promise<Response>;
+    ): Promise<any>;
 }
 
 export interface GTFSRealTimeInterface {

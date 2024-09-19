@@ -1,5 +1,6 @@
 {
-  "name": "njs",
+  "name": "metlink-api-http-client",
+  "description": "HTTP Client for Metlink Wellington API",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,10 +11,14 @@
     "index": "npx tsx index.nts"
   },
   "type": "module",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "Metlink",
+    "http client",
+    "Metlink Wellington",
+    "GTFS"
+  ],
+  "author": "Anton Nazarov",
+  "license": "MIT",
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@types/ajv": "^0.0.5",
