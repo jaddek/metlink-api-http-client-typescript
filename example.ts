@@ -1,4 +1,3 @@
-import MetlinkHttpClient from "./src/MetlinkHttpClient";
 import {MetlinkHttpClientBuilder} from "./src/MetlinkHttpClientBuilder";
 import {Query} from "./src/domain/trip-cancellation/Query";
 import * as fs from 'fs';
@@ -48,3 +47,7 @@ httpClientDecorated.getGtfsStopTimes("tripId");
 httpClientDecorated.getGtfsStops();
 httpClientDecorated.getGtfsTransfers();
 httpClientDecorated.getGtfsTrips();
+
+const query2: Query = new Query();
+query2.dateCreated = Date.now().toString();
+httpClientDecorated.getTripCancellation(query2);

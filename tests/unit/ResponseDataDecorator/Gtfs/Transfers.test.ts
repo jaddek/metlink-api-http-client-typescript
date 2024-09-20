@@ -12,48 +12,6 @@ describe("Response Data Decorator: Transfers", () => {
         mock.reset();
     });
 
-    function getSchema(): {} {
-        return {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "from_stop_id": {
-                        "type": "string"
-                    },
-                    "to_stop_id": {
-                        "type": "string"
-                    },
-                    "transfer_type": {
-                        "type": "string"
-                    },
-                    "min_transfer_time": {
-                        "type": "string"
-                    },
-                    "from_trip_id": {
-                        "type": "string"
-                    },
-                    "to_trip_id": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id",
-                    "from_stop_id",
-                    "to_stop_id",
-                    "transfer_type",
-                    "min_transfer_time",
-                    "from_trip_id",
-                    "to_trip_id"
-                ],
-                "additionalProperties": false
-            }
-        }
-    }
-
     const dataSet = [
         [
             [

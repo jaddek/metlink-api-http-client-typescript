@@ -12,32 +12,6 @@ describe("Response Data Decorator: Calendar Dates", () => {
         mock.reset();
     });
 
-    function getSchema(): {} {
-        return {
-            type: "array",
-            items: {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "service_id": {
-                        "type": "string"
-                    },
-                    "date": {
-                        "type": "string",
-                        "pattern": "^\\d{8}$"  // Format YYYYMMDD
-                    },
-                    "exception_type": {
-                        "type": "integer",
-                    }
-                },
-                "required": ["id", "service_id", "date", "exception_type"],
-                "additionalProperties": false
-            }
-        };
-    }
-
     const dataSet = [
         [
             [

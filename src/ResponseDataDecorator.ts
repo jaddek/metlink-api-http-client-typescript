@@ -8,7 +8,8 @@ import {Shape} from "./domain/gtfs/entity/Shape";
 import {Stop} from "./domain/gtfs/entity/Stop";
 import {StopTime} from "./domain/gtfs/entity/StopTime";
 import {Transfer} from "./domain/gtfs/entity/Transfer";
-import {Trip} from "./domain/gtfs/entity/Trip";
+import {Trip as GtfsTrip} from "./domain/gtfs/entity/Trip";
+import {Trip as CancellationTrip} from "./domain/trip-cancellation/Trip";
 
 export class ResponseDataDecorator implements MetlinkHttpClientInterface {
     private readonly httpClient: MetlinkHttpClientInterface;
@@ -201,7 +202,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         routeId: string | null = null,
         tripId: string | null = null,
         end: string | null = null
-    ): Promise<Trip[]> {
+    ): Promise<GtfsTrip[]> {
         const response = await this.httpClient.getGtfsTrips(
             start,
             extraFields,
@@ -210,8 +211,8 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
             end
         );
 
-        const entities: Trip[] = response.data.map((data: any) => {
-            return new Trip(
+        const entities: GtfsTrip[] = response.data.map((data: any) => {
+            return new GtfsTrip(
                 data.id,
                 data.route_id,
                 data.service_id,
@@ -245,10 +246,27 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
 
 
     async getStopPredictions(stopId: string | null): Promise<any> {
-        return Promise.resolve(undefined);
+
     }
 
     async getTripCancellation(query: TripCancellationQueryInterface | null): Promise<any> {
-        return Promise.resolve(undefined);
+        const response = await this.httpClient.getTripCancellation(query);
+
+        const entities: CancellationTrip[] = response.data.map((data: any) => {
+            return new CancellationTrip(
+                data.id,
+                data.date_created,
+                data.date_updated,
+                data.trip_id,
+                data.route_id,
+                data.trip_date_start,
+                data.trip_date_end,
+                data.direction_id,
+                data.reinstalled,
+                data.part_cancellation
+            );
+        });
+
+        return Promise.resolve(entities);
     }
 }

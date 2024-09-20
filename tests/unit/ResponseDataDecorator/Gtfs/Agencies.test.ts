@@ -12,36 +12,6 @@ describe("Response Data Decorator: Agencies", () => {
         mock.reset();
     });
 
-    function getSchema(): {} {
-        return {
-            type: "array",
-            items: {
-                type: "object",
-                properties: {
-                    id: {type: "integer"},
-                    agency_id: {type: "string"},
-                    agency_name: {type: "string"},
-                    agency_timezone: {type: "string"},
-                    agency_url: {type: "string"},
-                    agency_lang: {type: "string"},
-                    agency_phone: {type: "string"},
-                    agency_fare_url: {type: "string"},
-                },
-                required: [
-                    "id",
-                    "agency_id",
-                    "agency_name",
-                    "agency_timezone",
-                    "agency_url",
-                    "agency_lang",
-                    "agency_phone",
-                    "agency_fare_url"
-                ],
-                additionalProperties: false,
-            },
-        };
-    }
-
     const dataSet = [
         [
             [
@@ -69,7 +39,7 @@ describe("Response Data Decorator: Agencies", () => {
         const client: MetlinkHttpClientInterface = ClientBuilder.getHttpClientWithResponseDataDecorator(axios);
         const response: Agency[] = await client.getGtfsAgencies();
 
-        response.forEach((entity, index) => {
+        response.forEach((entity) => {
             expect(entity).toBeInstanceOf(Agency)
         })
     });

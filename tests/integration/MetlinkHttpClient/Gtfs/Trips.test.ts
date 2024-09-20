@@ -1,6 +1,6 @@
 import {MetlinkHttpClientBuilder} from "../../../../src/MetlinkHttpClientBuilder";
 import {SchemaValidator} from "../../../SchemaValidator";
-import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
+import {MetlinkHttpClientInterface} from "../../../../src/Contracts";
 
 describe("Integration: Metlink Http Client: Trips", () => {
 
@@ -72,7 +72,7 @@ describe("Integration: Metlink Http Client: Trips", () => {
     }
 
     test("getGtfsTrips", async () => {
-        const client: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
+        const client: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
         const response = await client.getGtfsTrips();
 
         const result = SchemaValidator.validate(response.data, getSchema());

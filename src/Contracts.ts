@@ -68,27 +68,27 @@ export interface GTFSInterface {
 export interface GTFSRealTimeInterface {
     getGtfsServiceAlerts(
         useProtoBuf?: boolean,
-    ): Promise<Response>;
+    ): Promise<any>;
 
     getGtfsRtTripUpdates(
         useProtoBuf?: boolean,
-    ): Promise<Response>;
+    ): Promise<any>;
 
     getGtfsRtVehiclePositions(
         useProtoBuf?: boolean,
-    ): Promise<Response>;
+    ): Promise<any>;
 }
 
 export interface StopDeparturePredictionsInterface {
     getStopPredictions(
         stopId?: string | null,
-    ): Promise<Response>;
+    ): Promise<any>;
 }
 
 export interface TripCancellationInterface {
     getTripCancellation(
         query?: TripCancellationQueryInterface | null,
-    ): Promise<Response>;
+    ): Promise<any>;
 }
 
 export interface TripCancellationQueryInterface {

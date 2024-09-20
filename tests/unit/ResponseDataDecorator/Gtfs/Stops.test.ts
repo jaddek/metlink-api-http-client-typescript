@@ -12,68 +12,6 @@ describe("Response Data Decorator: Stops", () => {
         mock.reset();
     });
 
-    function getSchema(): {} {
-        return {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "stop_id": {
-                        "type": "string"
-                    },
-                    "stop_code": {
-                        "type": "string"
-                    },
-                    "stop_name": {
-                        "type": "string"
-                    },
-                    "stop_desc": {
-                        "type": "string"
-                    },
-                    "zone_id": {
-                        "type": "string"
-                    },
-                    "stop_lat": {
-                        "type": "number"
-                    },
-                    "stop_lon": {
-                        "type": "number"
-                    },
-                    "location_type": {
-                        "type": "integer"
-                    },
-                    "parent_station": {
-                        "type": "string"
-                    },
-                    "stop_url": {
-                        "type": "string"
-                    },
-                    "stop_timezone": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id",
-                    "stop_id",
-                    "stop_code",
-                    "stop_name",
-                    "stop_desc",
-                    "zone_id",
-                    "stop_lat",
-                    "stop_lon",
-                    "location_type",
-                    "parent_station",
-                    "stop_url",
-                    "stop_timezone"
-                ],
-                "additionalProperties": false
-            }
-        }
-    }
-
     const dataSet = [
         [
             [

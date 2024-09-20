@@ -1,69 +1,16 @@
 import axios from 'axios';
 import MockAdapter from "axios-mock-adapter";
+import {MetlinkHttpClientInterface} from "../../../src/Contracts";
+import {ClientBuilder} from "../ClientBuilder";
+import {Trip} from "../../../src/domain/trip-cancellation/Trip";
 
 const mock: MockAdapter = new MockAdapter(axios);
 
-describe.skip("Response Data Decorator: Trip cancellations", () => {
+describe("Response Data Decorator: Trip cancellations", () => {
 
     afterEach(function () {
         mock.reset();
     });
-
-    function getSchema(): {} {
-        return {
-            "$schema": "http://json-schema.org/draft-07/schema#",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "date_created": {
-                        "type": "string",
-                    },
-                    "date_updated": {
-                        "type": "string",
-                    },
-                    "trip_id": {
-                        "type": "string"
-                    },
-                    "route_id": {
-                        "type": "integer"
-                    },
-                    "trip_date_start": {
-                        "type": "string",
-                    },
-                    "trip_date_end": {
-                        "type": "string"
-                    },
-                    "direction_id": {
-                        "type": "integer"
-                    },
-                    "reinstated": {
-                        "type": "integer",
-                        "enum": [0, 1]
-                    },
-                    "part_cancellation": {
-                        "type": "integer",
-                        "enum": [0, 1]
-                    }
-                },
-                "required": [
-                    "id",
-                    "date_created",
-                    "date_updated",
-                    "trip_id",
-                    "route_id",
-                    "trip_date_start",
-                    "trip_date_end",
-                    "direction_id",
-                    "reinstated",
-                    "part_cancellation"
-                ]
-            }
-        }
-    }
 
     const dataSet = [
         [
@@ -89,5 +36,13 @@ describe.skip("Response Data Decorator: Trip cancellations", () => {
     }
 
     it.each(dataSet)("getTripCancellations", async (mockData) => {
+        mock.onGet(getPath()).replyOnce(200, mockData);
+
+        const client: MetlinkHttpClientInterface = ClientBuilder.getHttpClientWithResponseDataDecorator(axios);
+        const response: Trip[] = await client.getTripCancellation();
+
+        response.forEach((entity) => {
+            expect(entity).toBeInstanceOf(Trip)
+        });
     });
 });

@@ -22,7 +22,18 @@ export class Trip {
     private readonly _reinstalled: number;
     private readonly _partCancellation: number;
 
-    constructor(id: string, dateCreated: string, dateUpdated: string, tripId: string, routeId: number, tripDateStart: string, tripDateEnd: string, directionId: number, reinstalled: number, partCancellation: number) {
+    constructor(
+        id: string,
+        dateCreated: string,
+        dateUpdated: string,
+        tripId: string,
+        routeId: number,
+        tripDateStart: string,
+        tripDateEnd: string,
+        directionId: number,
+        reinstalled: number,
+        partCancellation: number
+    ) {
         this._id = id;
         this._dateCreated = dateCreated;
         this._dateUpdated = dateUpdated;

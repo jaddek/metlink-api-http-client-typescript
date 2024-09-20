@@ -12,66 +12,6 @@ describe("Response Data Decorator: Routes", () => {
         mock.reset();
     });
 
-    function getSchema(): {} {
-        return {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "route_id": {
-                        "type": "string"
-                    },
-                    "agency_id": {
-                        "type": "string"
-                    },
-                    "route_short_name": {
-                        "type": "string"
-                    },
-                    "route_long_name": {
-                        "type": "string"
-                    },
-                    "route_desc": {
-                        "type": "string"
-                    },
-                    "route_type": {
-                        "type": "integer"
-                    },
-                    "route_color": {
-                        "type": "string",
-                        "pattern": "^[0-9a-fA-F]{6}$"  // Hex color code without the '#'
-                    },
-                    "route_text_color": {
-                        "type": "string",
-                        "pattern": "^[0-9a-fA-F]{6}$"  // Hex color code without the '#'
-                    },
-                    "route_url": {
-                        "type": "string"
-                    },
-                    "route_sort_order": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "id",
-                    "route_id",
-                    "agency_id",
-                    "route_short_name",
-                    "route_long_name",
-                    "route_desc",
-                    "route_type",
-                    "route_color",
-                    "route_text_color",
-                    "route_url",
-                    "route_sort_order"
-                ],
-                "additionalProperties": false
-            }
-        }
-    }
-
     const dataSet = [
         [
             [

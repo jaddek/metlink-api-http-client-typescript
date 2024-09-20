@@ -1,6 +1,6 @@
 import {MetlinkHttpClientBuilder} from "../../../../src/MetlinkHttpClientBuilder";
 import {SchemaValidator} from "../../../SchemaValidator";
-import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
+import {MetlinkHttpClientInterface} from "../../../../src/Contracts";
 
 describe("Integration: Metlink Http Client: Vehicle Positions", () => {
 
@@ -107,7 +107,7 @@ describe("Integration: Metlink Http Client: Vehicle Positions", () => {
     }
 
     test("getGtfsRtVehiclePositions", async () => {
-        const client: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
+        const client: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
         const response = await client.getGtfsRtVehiclePositions();
 
         const result = SchemaValidator.validate(response.data, getSchema());

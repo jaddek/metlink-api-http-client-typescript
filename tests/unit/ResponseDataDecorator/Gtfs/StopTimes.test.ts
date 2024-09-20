@@ -12,66 +12,6 @@ describe("Response Data Decorator: Stop times", () => {
         mock.reset();
     });
 
-    function getSchema(): {} {
-        return {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "trip_id": {
-                        "type": "string"
-                    },
-                    "arrival_time": {
-                        "type": "string",
-                        "pattern": "^\\d{2}:\\d{2}:\\d{2}$"  // Format HH:MM:SS
-                    },
-                    "departure_time": {
-                        "type": "string",
-                        "pattern": "^\\d{2}:\\d{2}:\\d{2}$"  // Format HH:MM:SS
-                    },
-                    "stop_id": {
-                        "type": "string"
-                    },
-                    "stop_sequence": {
-                        "type": "integer"
-                    },
-                    "shape_dist_traveled": {
-                        "type": "number"
-                    },
-                    "stop_headsign": {
-                        "type": "string"
-                    },
-                    "pickup_type": {
-                        "type": "integer",
-                    },
-                    "drop_off_type": {
-                        "type": "integer",
-                    },
-                    "timepoint": {
-                        "type": "string",
-                    }
-                },
-                "required": [
-                    "id",
-                    "trip_id",
-                    "arrival_time",
-                    "departure_time",
-                    "stop_id",
-                    "stop_sequence",
-                    "shape_dist_traveled",
-                    "stop_headsign",
-                    "pickup_type",
-                    "drop_off_type",
-                    "timepoint"
-                ],
-                "additionalProperties": false
-            }
-        }
-    }
-
     const dataSet = [
         [
             [

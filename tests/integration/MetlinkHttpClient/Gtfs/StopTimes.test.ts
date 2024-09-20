@@ -1,6 +1,6 @@
 import {MetlinkHttpClientBuilder} from "../../../../src/MetlinkHttpClientBuilder";
 import {SchemaValidator} from "../../../SchemaValidator";
-import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
+import {MetlinkHttpClientInterface} from "../../../../src/Contracts";
 
 describe("Integration: Metlink Http Client: StopTimes", () => {
 
@@ -70,7 +70,7 @@ describe("Integration: Metlink Http Client: StopTimes", () => {
     }
 
     test("getGtfsStopTimes", async () => {
-        const client: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
+        const client: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
         const response = await client.getGtfsStopTimes("60__0__439__MNM__2071__1__2071__1_20240825");
 
         const result = SchemaValidator.validate(response.data, getSchema());

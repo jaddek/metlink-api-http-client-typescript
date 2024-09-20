@@ -12,44 +12,6 @@ describe("Response Data Decorator: Shapes", () => {
         mock.reset();
     });
 
-    function getSchema(): {} {
-        return {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "shape_id": {
-                        "type": "string"
-                    },
-                    "shape_pt_lat": {
-                        "type": "number"
-                    },
-                    "shape_pt_lon": {
-                        "type": "number"
-                    },
-                    "shape_pt_sequence": {
-                        "type": "integer"
-                    },
-                    "shape_dist_traveled": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "id",
-                    "shape_id",
-                    "shape_pt_lat",
-                    "shape_pt_lon",
-                    "shape_pt_sequence",
-                    "shape_dist_traveled"
-                ],
-                "additionalProperties": false
-            }
-        };
-    }
-
     const dataSet = [
         [
             [

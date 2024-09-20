@@ -1,6 +1,6 @@
 import {MetlinkHttpClientBuilder} from "../../../../src/MetlinkHttpClientBuilder";
 import {SchemaValidator} from "../../../SchemaValidator";
-import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
+import {MetlinkHttpClientInterface} from "../../../../src/Contracts";
 
 describe("Integration: Metlink Http Client: Shapes", () => {
 
@@ -48,7 +48,7 @@ describe("Integration: Metlink Http Client: Shapes", () => {
     }
 
     test("getGtfsShapes", async () => {
-        const client: MetlinkHttpClient = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
+        const client: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
         const response = await client.getGtfsShapes("[@364.0.17527449@]1_20240825");
 
         const result = SchemaValidator.validate(response.data, getSchema());
