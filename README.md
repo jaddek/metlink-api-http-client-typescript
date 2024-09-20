@@ -30,7 +30,8 @@ import {MetlinkHttpClientBuilder} from "./MetlinkHttpClientBuilder";
 const options = {
     timeout: 1000
 };
-const metlinkHttpClient: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(token, options);
+const metlinkHttpClient: MetlinkHttpClientInterface
+    = MetlinkHttpClientBuilder.buildWithAxios(token, options);
 ```
 OR
 ```ts
@@ -40,7 +41,8 @@ import {MetlinkHttpClientBuilder} from "./MetlinkHttpClientBuilder";
 const options = {
     timeout: 1000
 };
-const metlinkHttpClient: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxiosAndDecorate(token, options);
+const metlinkHttpClient: MetlinkHttpClientInterface
+    = MetlinkHttpClientBuilder.buildWithAxiosAndDecorate(token, options);
 ```
 #### Wrapped response body
 
