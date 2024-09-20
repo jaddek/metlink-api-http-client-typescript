@@ -54,6 +54,5 @@ describe.skip("Response Data Decorator: GTFS-RT: Trip updates", () => {
     }
 
     it.each(dataSet)("GetGtfsRtTripUpdates", async (mockData) => {
-        it.skip("Skip", function () {});
     });
 });

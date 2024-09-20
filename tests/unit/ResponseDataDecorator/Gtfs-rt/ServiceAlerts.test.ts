@@ -75,6 +75,5 @@ describe.skip("Response Data Decorator: GTFS-RT: Service alerts", () => {
     }
 
     it.each(dataSet)("getServiceAlerts", async (mockData) => {
-        it.skip("Skip", function () {});
     });
 });

@@ -51,6 +51,5 @@ describe.skip("Response Data Decorator: GTFS-RT: Vehicle positions", () => {
     }
 
     it.each(dataSet)("GetGtfsRtVehiclePosition", async (mockData) => {
-        it.skip("Skip", function () {});
     });
 });
