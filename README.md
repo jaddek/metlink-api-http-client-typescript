@@ -1,4 +1,5 @@
 # Metlink API HTTP Client (Wellington, New Zealand)
+
 https://opendata.metlink.org.nz/
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jaddek_metlink-api-http-client-typescript&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jaddek_metlink-api-http-client-typescript)
@@ -12,16 +13,18 @@ https://opendata.metlink.org.nz/
 ### Example
 
 Look
+
 ```ts
 example.ts
 ```
 
 ### Host
+
 ```
 https://api.opendata.metlink.org.nz/v1
 ```
-### Init
 
+### Init
 
 #### Client
 
@@ -32,10 +35,21 @@ import {MetlinkHttpClientBuilder} from "./MetlinkHttpClientBuilder";
 const options = {
     timeout: 1000
 };
-const metlinkHttpClient: MetlinkHttpClientInterface
-    = MetlinkHttpClientBuilder.buildWithAxios(token, options);
+const metlinkHttpClient: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(
+    token,
+    options,
+    function (axios: AxiosInstance) {
+        axios.interceptors.response.use(function (response) {
+            return response;
+        }, function (error) {
+            return Promise.reject(error);
+        });
+    }
+);
 ```
+
 OR
+
 ```ts
 import {MetlinkHttpClientInterface} from "./Contracts";
 import {MetlinkHttpClientBuilder} from "./MetlinkHttpClientBuilder";
@@ -43,9 +57,19 @@ import {MetlinkHttpClientBuilder} from "./MetlinkHttpClientBuilder";
 const options = {
     timeout: 1000
 };
-const metlinkHttpClient: MetlinkHttpClientInterface
-    = MetlinkHttpClientBuilder.buildWithAxiosAndDecorate(token, options);
+const metlinkHttpClient: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxiosAndDecorate(
+    token,
+    options,
+    function (axios: AxiosInstance) {
+        axios.interceptors.response.use(function (response) {
+            return response;
+        }, function (error) {
+            return Promise.reject(error);
+        });
+    }
+);
 ```
+
 #### Wrapped response body
 
 ```ts
@@ -59,12 +83,15 @@ const metlinkHttpClient = new ResponseDataDecorator(httpClient);
 ```bash
 .jest/setEnvVars
 ```
+
 Use
+
 ```bash
 TOKEN_FILE=.token jest tests
 ```
 
 #### Unresolved issues:
+
 - GTFS-RT: Service Alerts: Validation Scheme issue
 - GTFS-RT: Trip Updates: Validation Scheme issue
 
@@ -105,6 +132,7 @@ metlinkHttpClient.getGtfsFeedInfo();
 ```
 
 #### Routes
+
 Transit routes. A route is a group of trips that are displayed to riders as a single service.
 
 ```ts
@@ -157,7 +185,7 @@ metlinkHttpClient.getGtfsTrips(
 );
 ```
 
-### GTFS-RT 
+### GTFS-RT
 
 #### Service Alerts
 
@@ -203,4 +231,6 @@ const query: Query = new Query();
 query.dateCreated = Date.now().toString();
 metlinkHttpClient.getTripCancellation(query);
 ```
+
+
 

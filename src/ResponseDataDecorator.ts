@@ -18,7 +18,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         this.httpClient = client;
     }
 
-    async getGtfsAgencies(): Promise<Agency[]> {
+    public async getGtfsAgencies(): Promise<Agency[]> {
         const response = await this.httpClient.getGtfsAgencies();
 
         const entities: Agency[] = response.data.map((data: any) => {
@@ -37,7 +37,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return Promise.resolve(entities);
     }
 
-    async getGtfsCalendar(): Promise<Calendar[]> {
+    public async getGtfsCalendar(): Promise<Calendar[]> {
         const response = await this.httpClient.getGtfsCalendar();
 
         const entities: Calendar[] = response.data.map((data: any) => {
@@ -59,8 +59,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return Promise.resolve(entities);
     }
 
-    //
-    async getGtfsCalendarDates(): Promise<CalendarDate[]> {
+    public async getGtfsCalendarDates(): Promise<CalendarDate[]> {
         const response = await this.httpClient.getGtfsCalendarDates();
         const entities: CalendarDate[] = response.data.map((data: any) => {
             return new CalendarDate(
@@ -74,7 +73,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return Promise.resolve(entities);
     }
 
-    async getGtfsFeedInfo(): Promise<Feed[]> {
+    public async getGtfsFeedInfo(): Promise<Feed[]> {
         const response = await this.httpClient.getGtfsFeedInfo();
 
         const entities: Feed[] = response.data.map((data: any) => {
@@ -92,7 +91,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return Promise.resolve(entities);
     }
 
-    async getGtfsRoutes(
+    public async getGtfsRoutes(
         routeId: string | null = null
     ): Promise<Route[]> {
         const response = await this.httpClient.getGtfsRoutes(routeId);
@@ -116,7 +115,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return Promise.resolve(entities);
     }
 
-    async getGtfsShapes(shapeId: string): Promise<Shape[]> {
+    public async getGtfsShapes(shapeId: string): Promise<Shape[]> {
         const response = await this.httpClient.getGtfsShapes(shapeId);
 
         const entities: Shape[] = response.data.map((data: any) => {
@@ -133,7 +132,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return Promise.resolve(entities);
     }
 
-    async getGtfsStopTimes(tripId: string): Promise<StopTime[]> {
+    public async getGtfsStopTimes(tripId: string): Promise<StopTime[]> {
         const response = await this.httpClient.getGtfsStopTimes(tripId);
 
         const entities: StopTime[] = response.data.map((data: any) => {
@@ -155,7 +154,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return Promise.resolve(entities);
     }
 
-    async getGtfsStops(routeId: string | null = null, tripId: string | null = null): Promise<Stop[]> {
+    public async getGtfsStops(routeId: string | null = null, tripId: string | null = null): Promise<Stop[]> {
         const response = await this.httpClient.getGtfsStops(routeId, tripId);
 
         const entities: Stop[] = response.data.map((data: any) => {
@@ -178,7 +177,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return Promise.resolve(entities);
     }
 
-    async getGtfsTransfers(): Promise<Transfer[]> {
+    public async getGtfsTransfers(): Promise<Transfer[]> {
         const response = await this.httpClient.getGtfsTransfers();
 
         const entities: Transfer[] = response.data.map((data: any) => {
@@ -196,7 +195,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return Promise.resolve(entities);
     }
 
-    async getGtfsTrips(
+    public async getGtfsTrips(
         start: string | null = null,
         extraFields: string | null = null,
         routeId: string | null = null,
@@ -232,24 +231,24 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
     }
 
     //
-    async getGtfsRtTripUpdates(useProtoBuf: boolean): Promise<any> {
+    public async getGtfsRtTripUpdates(useProtoBuf: boolean): Promise<any> {
         return Promise.resolve(undefined);
     }
 
-    async getGtfsRtVehiclePositions(useProtoBuf: boolean): Promise<any> {
+    public async getGtfsRtVehiclePositions(useProtoBuf: boolean): Promise<any> {
         return Promise.resolve(undefined);
     }
 
-    async getGtfsServiceAlerts(useProtoBuf: boolean): Promise<any> {
+    public async getGtfsServiceAlerts(useProtoBuf: boolean): Promise<any> {
         return Promise.resolve(undefined);
     }
 
 
-    async getStopPredictions(stopId: string | null): Promise<any> {
+    public async getStopPredictions(stopId: string | null): Promise<any> {
 
     }
 
-    async getTripCancellations(query: TripCancellationQueryInterface | null): Promise<any> {
+    public async getTripCancellations(query: TripCancellationQueryInterface | null): Promise<any> {
         const response = await this.httpClient.getTripCancellations(query);
 
         const entities: CancellationTrip[] = response.data.map((data: any) => {
