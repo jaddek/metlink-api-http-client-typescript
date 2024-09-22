@@ -53,7 +53,11 @@ export default class MetlinkHttpClient
     async getGtfsStopTimes(
         tripId: string,
     ): Promise<any> {
-        return await this.doGetFetch(Routes.getGtfsStopTimesPath());
+        const query: URLSearchParams = new URLSearchParams({
+            "trip_id": tripId
+        });
+
+        return await this.doGetFetch(Routes.getGtfsStopTimesPath() + "?" + query.toString());
     }
 
     async getGtfsStops(
