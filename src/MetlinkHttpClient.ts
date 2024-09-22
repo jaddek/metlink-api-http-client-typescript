@@ -43,11 +43,9 @@ export default class MetlinkHttpClient
     async getGtfsShapes(
         shapeId: string,
     ): Promise<any> {
-        const query = new URLSearchParams();
-
-        if (shapeId) {
-            query.append("shape_id", shapeId);
-        }
+        const query: URLSearchParams = new URLSearchParams({
+            "shape_id": shapeId
+        });
 
         return await this.doGetFetch(Routes.getGtfsShapesPath() + "?" + query.toString());
     }

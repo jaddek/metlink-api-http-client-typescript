@@ -8,6 +8,8 @@ const mock: MockAdapter = new MockAdapter(axios);
 
 describe("Response Data Decorator: Shapes", () => {
 
+    const ShapeId1: string = "[@364.0.17527449@]1_20240825";
+
     afterEach(function () {
         mock.reset();
     });
@@ -27,15 +29,19 @@ describe("Response Data Decorator: Shapes", () => {
         ]
     ];
 
-    function getPath(): string {
-        return "/gtfs/shapes";
+    function getPath(shapeId: string): string {
+        const query: URLSearchParams = new URLSearchParams({
+            "shape_id": shapeId
+        });
+
+        return "/gtfs/shapes?"+query.toString();
     }
 
     it.each(dataSet)("getGtfsShapes", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
+        mock.onGet(getPath(ShapeId1)).replyOnce(200, mockData);
 
         const client: MetlinkHttpClientInterface = ClientBuilder.getHttpClientWithResponseDataDecorator(axios);
-        const response:Shape[] = await client.getGtfsShapes("[@364.0.17527449@]1_20240825");
+        const response:Shape[] = await client.getGtfsShapes(ShapeId1);
 
         response.forEach((entity) => {
             expect(entity).toBeInstanceOf(Shape)
