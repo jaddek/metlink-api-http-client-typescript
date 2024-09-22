@@ -90,7 +90,7 @@ export default class MetlinkHttpClient
         return await this.doGetFetch(Routes.getGtfsTripsPath());
     }
 
-    public async getGtfsServiceAlerts(
+    public async getGtfsRtServiceAlerts(
         useProtoBuf: boolean = false,
     ): Promise<any> {
         return await this.doGetFetch(Routes.getGtfsRtServiceAlertsPath());

@@ -1,12 +1,5 @@
 import Alert from "./Alert";
 
-/**
- *      "alert": {
- *
- *       },
- *       "id": "140453",
- *       "timestamp": "2024-04-24T13:33:25+1200"
- */
 export class Entity {
     private readonly _id: string;
     private readonly _alert: Alert;
