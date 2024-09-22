@@ -249,8 +249,8 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
 
     }
 
-    async getTripCancellation(query: TripCancellationQueryInterface | null): Promise<any> {
-        const response = await this.httpClient.getTripCancellation(query);
+    async getTripCancellations(query: TripCancellationQueryInterface | null): Promise<any> {
+        const response = await this.httpClient.getTripCancellations(query);
 
         const entities: CancellationTrip[] = response.data.map((data: any) => {
             return new CancellationTrip(

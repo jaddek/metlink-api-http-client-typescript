@@ -8,6 +8,8 @@ const mock: MockAdapter = new MockAdapter(axios);
 
 describe("Metlink Http Client: Stop predictions", () => {
 
+    const STOP_ID = "Well1";
+
     afterEach(function (): void {
         mock.reset();
     });
@@ -184,15 +186,21 @@ describe("Metlink Http Client: Stop predictions", () => {
         ]
     ];
 
-    function getPath(): string {
-        return "/stop-predictions";
+    function getPath(urlSearchParams: URLSearchParams | null = null): string {
+        let query: string = "";
+
+        if (urlSearchParams) {
+            query = "?"+urlSearchParams?.toString();
+        }
+
+        return "/stop-predictions" + query;
     }
 
     it.each(dataSet)("getStopPredictions", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
+        mock.onGet(getPath(new URLSearchParams({"stop_id": STOP_ID}))).replyOnce(200, mockData);
 
         const client: MetlinkHttpClient = getHttpClient(axios);
-        const response = await client.getStopPredictions("Well1");
+        const response = await client.getStopPredictions(STOP_ID);
 
         const result = SchemaValidator.validate(response.data, getSchema());
         expect(result.isValid).toBeTruthy();

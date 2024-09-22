@@ -39,7 +39,7 @@ describe("Response Data Decorator: Trip cancellations", () => {
         mock.onGet(getPath()).replyOnce(200, mockData);
 
         const client: MetlinkHttpClientInterface = ClientBuilder.getHttpClientWithResponseDataDecorator(axios);
-        const response: Trip[] = await client.getTripCancellation();
+        const response: Trip[] = await client.getTripCancellations();
 
         response.forEach((entity) => {
             expect(entity).toBeInstanceOf(Trip)
