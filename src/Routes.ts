@@ -21,7 +21,7 @@ export class Routes
     }
 
     public static getGtfsStopTimesPath(): string {
-        return "/gtfs/shop_times";
+        return "/gtfs/stop_times";
     }
 
     public static getGtfsShapesPath(): string {

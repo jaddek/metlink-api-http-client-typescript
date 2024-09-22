@@ -12,6 +12,8 @@ describe("Response Data Decorator: Stop times", () => {
         mock.reset();
     });
 
+    const TRIP_ID = "60__0__439__MNM__2071__1__2071__1_20240825";
+
     const dataSet = [
         [
             [
@@ -32,16 +34,20 @@ describe("Response Data Decorator: Stop times", () => {
         ]
     ];
 
-    function getPath(): string
+    function getPath(tripId: string): string
     {
-        return "/gtfs/shop_times";
+        const query: URLSearchParams = new URLSearchParams({
+            "trip_id": tripId
+        });
+
+        return "/gtfs/stop_times?"+query.toString();
     }
 
     it.each(dataSet)("getGtfsStopTimes", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
+        mock.onGet(getPath(TRIP_ID)).replyOnce(200, mockData);
 
         const client: MetlinkHttpClientInterface = ClientBuilder.getHttpClientWithResponseDataDecorator(axios);
-        const response: StopTime[] = await client.getGtfsStopTimes("60__0__439__MNM__2071__1__2071__1_20240825");
+        const response: StopTime[] = await client.getGtfsStopTimes(TRIP_ID);
 
         response.forEach((entity) => {
             expect(entity).toBeInstanceOf(StopTime)
