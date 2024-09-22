@@ -9,7 +9,14 @@ import {Stop} from "./domain/gtfs/entity/Stop";
 import {StopTime} from "./domain/gtfs/entity/StopTime";
 import {Transfer} from "./domain/gtfs/entity/Transfer";
 import {Trip as GtfsTrip} from "./domain/gtfs/entity/Trip";
+import {Response as GtfsRtResponse} from "./domain/gtfs-rt/entity/Response";
+import {Trip as ServiceAlertTrip} from "./domain/gtfs-rt/entity/service-alert/Trip";
 import {Trip as CancellationTrip} from "./domain/trip-cancellation/Trip";
+import Alert from "./domain/gtfs-rt/entity/service-alert/Alert";
+import {Entity} from "./domain/gtfs-rt/entity/service-alert/Entity";
+import Header from "./domain/gtfs-rt/entity/Header";
+import {ActivePeriod} from "./domain/gtfs-rt/entity/service-alert/ActivePeriod";
+import {InformedEntity} from "./domain/gtfs-rt/entity/service-alert/InformedEntity";
 
 export class ResponseDataDecorator implements MetlinkHttpClientInterface {
     private readonly httpClient: MetlinkHttpClientInterface;
@@ -239,8 +246,52 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return Promise.resolve(undefined);
     }
 
-    public async getGtfsServiceAlerts(useProtoBuf: boolean): Promise<any> {
-        return Promise.resolve(undefined);
+    public async getGtfsRtServiceAlerts(useProtoBuf: boolean): Promise<GtfsRtResponse<Entity>> {
+        const response = await this.httpClient.getGtfsRtServiceAlerts();
+
+        const header: Header = new Header(
+            response.data.header.gtfsRealtimeVersion,
+            response.data.header.incrementality,
+            response.data.header.timestamp,
+        );
+
+        const entity: Entity[] = response.data.entity.map((data: any) => {
+            return new Alert(
+                data.alert.active_period.map((data: any) => {
+                    return new ActivePeriod(
+                        data.start,
+                        data.end
+                    )
+                }),
+                data.alert.effect,
+                data.alert.cause,
+                data.alert.description_text,
+                data.alert.header_text,
+                data.alert.informed_entity.map((data: any) => {
+                    return new InformedEntity(
+                        data.stop_id,
+                        data.route_id,
+                        data.route_type ?? null,
+                        data.trip ? new ServiceAlertTrip(
+                            data.trip.start_time,
+                            data.trip.description,
+                            data.trip.trip_id,
+                            data.trip.direction_id,
+                            data.trip.route_id,
+                            data.trip.start_date,
+                        ) : null
+                    );
+                }),
+                data.alert.severity_level,
+            )
+        });
+
+        const body = new GtfsRtResponse(
+            header,
+            entity
+        )
+
+        return Promise.resolve(body);
     }
 
 

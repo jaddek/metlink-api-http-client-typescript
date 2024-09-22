@@ -21,8 +21,8 @@ httpClient.getGtfsTransfers();
 httpClient.getGtfsTrips();
 httpClient.getGtfsRtTripUpdates();
 httpClient.getGtfsRtVehiclePositions();
+httpClient.getGtfsRtServiceAlerts();
 httpClient.getStopPredictions("stopId");
-httpClient.getGtfsServiceAlerts();
 
 
 const query: Query = new Query();
@@ -47,6 +47,9 @@ httpClientDecorated.getGtfsStopTimes("tripId");
 httpClientDecorated.getGtfsStops();
 httpClientDecorated.getGtfsTransfers();
 httpClientDecorated.getGtfsTrips();
+
+httpClientDecorated.getGtfsRtServiceAlerts();
+
 
 const query2: Query = new Query();
 query2.dateCreated = Date.now().toString();

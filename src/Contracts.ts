@@ -66,7 +66,7 @@ export interface GTFSInterface {
 }
 
 export interface GTFSRealTimeInterface {
-    getGtfsServiceAlerts(
+    getGtfsRtServiceAlerts(
         useProtoBuf?: boolean,
     ): Promise<any>;
 
