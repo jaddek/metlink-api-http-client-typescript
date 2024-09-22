@@ -4,6 +4,8 @@ import {MetlinkHttpClientInterface} from "../../../../src/Contracts";
 
 describe("Integration: Metlink Http Client: Shapes", () => {
 
+    const ShapeId1: string = "[@364.0.17527449@]1_20240825";
+
     function getSchema(): {} {
         return {
             "type": "array",
@@ -42,14 +44,13 @@ describe("Integration: Metlink Http Client: Shapes", () => {
         };
     }
 
-    function getMetlinkToken(): string
-    {
+    function getMetlinkToken(): string {
         return process.env.METLINK_TOKEN || "";
     }
 
     test("getGtfsShapes", async () => {
         const client: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
-        const response = await client.getGtfsShapes("[@364.0.17527449@]1_20240825");
+        const response = await client.getGtfsShapes(ShapeId1);
 
         const result = SchemaValidator.validate(response.data, getSchema());
         expect(result.isValid).toBeTruthy();
