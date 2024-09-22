@@ -18,6 +18,8 @@ describe("Metlink Http Client: Stop times", () => {
         return new MetlinkHttpClient(adapter);
     }
 
+    const TRIP_ID = "60__0__439__MNM__2071__1__2071__1_20240825";
+
     function getSchema(): {} {
         return {
             "type": "array",
@@ -98,16 +100,20 @@ describe("Metlink Http Client: Stop times", () => {
         ]
     ];
 
-    function getPath(): string
+    function getPath(tripId: string): string
     {
-        return "/gtfs/stop_times";
+        const query: URLSearchParams = new URLSearchParams({
+            "trip_id": tripId
+        });
+
+        return "/gtfs/stop_times?"+query.toString();
     }
 
     it.each(dataSet)("getGtfsStopTimes", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
+        mock.onGet(getPath(TRIP_ID)).replyOnce(200, mockData);
 
         const client: MetlinkHttpClient = getHttpClient(axios);
-        const response = await client.getGtfsStopTimes("60__0__439__MNM__2071__1__2071__1_20240825");
+        const response = await client.getGtfsStopTimes(TRIP_ID);
 
         const result = SchemaValidator.validate(response.data, getSchema());
         expect(result.isValid).toBeTruthy();
