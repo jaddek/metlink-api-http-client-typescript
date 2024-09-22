@@ -1,6 +1,5 @@
 export class Routes
 {
-
     public static getGtfsAgenciesPath(): string {
         return "/gtfs/agency";
     }
