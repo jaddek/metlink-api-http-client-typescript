@@ -34,7 +34,7 @@ describe("Response Data Decorator: Stop times", () => {
 
     function getPath(): string
     {
-        return "/gtfs/shop_times";
+        return "/gtfs/stop_times";
     }
 
     it.each(dataSet)("getGtfsStopTimes", async (mockData) => {
