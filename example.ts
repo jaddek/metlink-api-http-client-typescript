@@ -27,7 +27,7 @@ httpClient.getGtfsServiceAlerts();
 
 const query: Query = new Query();
 query.dateCreated = Date.now().toString();
-httpClient.getTripCancellation(query);
+httpClient.getTripCancellations(query);
 
 /**
  * Mapped entities
@@ -50,4 +50,4 @@ httpClientDecorated.getGtfsTrips();
 
 const query2: Query = new Query();
 query2.dateCreated = Date.now().toString();
-httpClientDecorated.getTripCancellation(query2);
+httpClientDecorated.getTripCancellations(query2);

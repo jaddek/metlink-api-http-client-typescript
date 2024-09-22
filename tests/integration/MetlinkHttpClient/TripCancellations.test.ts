@@ -67,7 +67,7 @@ describe("Integration: Metlink Http Client: Trip Cancellations", () => {
 
     test("getTripCancellation", async () => {
         const client: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
-        const response = await client.getTripCancellation();
+        const response = await client.getTripCancellations();
 
         const result = SchemaValidator.validate(response.data, getSchema());
         expect(result.isValid).toBeTruthy();

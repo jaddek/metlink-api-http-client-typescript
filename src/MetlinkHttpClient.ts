@@ -14,8 +14,17 @@ export default class MetlinkHttpClient
         this.httpClientAdapter = httpClient;
     }
 
-    private async doGetFetch(path: string): Promise<any> {
-        return await this.httpClientAdapter.get(path);
+    private async doGetFetch(
+        path: string,
+        urlSearchParams: URLSearchParams | null = null
+    ): Promise<any> {
+        let query: string = "";
+
+        if (urlSearchParams) {
+            query += "?" + urlSearchParams.toString();
+        }
+
+        return await this.httpClientAdapter.get(path + query);
     }
 
     async getGtfsAgencies(): Promise<any> {
@@ -47,7 +56,7 @@ export default class MetlinkHttpClient
             "shape_id": shapeId
         });
 
-        return await this.doGetFetch(Routes.getGtfsShapesPath() + "?" + query.toString());
+        return await this.doGetFetch(Routes.getGtfsShapesPath(), query);
     }
 
     async getGtfsStopTimes(
@@ -57,7 +66,7 @@ export default class MetlinkHttpClient
             "trip_id": tripId
         });
 
-        return await this.doGetFetch(Routes.getGtfsStopTimesPath() + "?" + query.toString());
+        return await this.doGetFetch(Routes.getGtfsStopTimesPath(), query);
     }
 
     async getGtfsStops(
@@ -100,16 +109,22 @@ export default class MetlinkHttpClient
     }
 
     async getStopPredictions(
-        stopId: string | null = null,
+        stopId: string,
     ): Promise<any> {
-        return await this.doGetFetch(Routes.getStopPredictions());
+        const query: URLSearchParams = new URLSearchParams({
+            "stop_id": stopId
+        });
+
+        return await this.doGetFetch(Routes.getStopPredictions(), query);
     }
 
-    async getTripCancellation(
-        query: TripCancellationQueryInterface | null = null,
+    async getTripCancellations(
+        searchParams: TripCancellationQueryInterface | null = null,
     ): Promise<any> {
-        let searchParams: URLSearchParams = QueryBuilder.buildQuery(query);
+        const query: URLSearchParams| null = searchParams
+            ? QueryBuilder.buildQuery(searchParams)
+            : null;
 
-        return await this.doGetFetch(Routes.getTripCancellations() + searchParams.toString());
+        return await this.doGetFetch(Routes.getTripCancellations(), query);
     }
 }

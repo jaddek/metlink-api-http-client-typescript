@@ -101,7 +101,7 @@ describe("Metlink Http Client: Trip cancellations", () => {
         mock.onGet(getPath()).replyOnce(200, mockData);
 
         const client: MetlinkHttpClient = getHttpClient(axios);
-        const response = await client.getTripCancellation();
+        const response = await client.getTripCancellations();
 
         const result = SchemaValidator.validate(response.data, getSchema());
         expect(result.isValid).toBeTruthy();

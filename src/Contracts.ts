@@ -86,7 +86,7 @@ export interface StopDeparturePredictionsInterface {
 }
 
 export interface TripCancellationInterface {
-    getTripCancellation(
+    getTripCancellations(
         query?: TripCancellationQueryInterface | null,
     ): Promise<any>;
 }
