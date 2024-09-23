@@ -49,7 +49,23 @@ export class Entity {
     private readonly _wheelChairAccessible: boolean;
     private readonly _tripId: string;
 
-    constructor(stopId: string, serviceId: string, direction: string, operator: string, origin: Origin, destination: Destination, delay: string, vehicleId: string, name: string, arrival: Arrival, departure: Departure, status: string, monitored: boolean, wheelChairAccessible: boolean, tripId: string) {
+    constructor(
+        stopId: string,
+        serviceId: string,
+        direction: string,
+        operator: string,
+        origin: Origin,
+        destination: Destination,
+        delay: string,
+        vehicleId: string,
+        name: string,
+        arrival: Arrival,
+        departure: Departure,
+        status: string,
+        monitored: boolean,
+        wheelChairAccessible: boolean,
+        tripId: string
+    ) {
         this._stopId = stopId;
         this._serviceId = serviceId;
         this._direction = direction;
