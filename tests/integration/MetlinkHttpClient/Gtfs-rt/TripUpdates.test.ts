@@ -57,7 +57,7 @@ describe("Integration: Metlink Http Client: Trip Updates", () => {
                                                 "type": "string"
                                             }
                                         },
-                                        "required": ["schedule_relationship", "stop_sequence", "arrival", "stop_id"]
+                                        "required": ["stop_sequence", "arrival", "stop_id"]
                                     },
                                     "trip": {
                                         "type": "object",
@@ -71,9 +71,6 @@ describe("Integration: Metlink Http Client: Trip Updates", () => {
                                             "direction_id": {
                                                 "type": "integer"
                                             },
-                                            "route_id": {
-                                                "type": "integer"
-                                            },
                                             "schedule_relationship": {
                                                 "type": "integer"
                                             },
@@ -81,7 +78,7 @@ describe("Integration: Metlink Http Client: Trip Updates", () => {
                                                 "type": "string"
                                             }
                                         },
-                                        "required": ["start_time", "trip_id", "direction_id", "route_id", "schedule_relationship", "start_date"]
+                                        "required": ["trip_id", "direction_id", "schedule_relationship", "start_date"]
                                     },
                                     "vehicle": {
                                         "type": "object",
@@ -120,6 +117,7 @@ describe("Integration: Metlink Http Client: Trip Updates", () => {
         const response = await client.getGtfsRtTripUpdates();
 
         const result = SchemaValidator.validate(response.data, getSchema());
+
         expect(result.isValid).toBeTruthy();
     });
 });

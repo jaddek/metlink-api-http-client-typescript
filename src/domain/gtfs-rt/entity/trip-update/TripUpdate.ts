@@ -1,15 +1,19 @@
 import {StopTimeUpdate} from "./StopTimeUpdate";
 import {Trip} from "./Trip";
-import {Vehicle} from "../vehicle-positions/Vehicle";
+import {VehicleId} from "./VehicleId";
 
-export class TripUpdate
-{
+export class TripUpdate {
     private readonly _stopTimeUpdate: StopTimeUpdate;
     private readonly _trip: Trip;
-    private readonly _vehicle: Vehicle;
+    private readonly _vehicle: VehicleId;
     private readonly _timestamp: number;
 
-    constructor(stopTimeUpdate: StopTimeUpdate, trip: Trip, vehicle: Vehicle, timestamp: number) {
+    constructor(
+        stopTimeUpdate: StopTimeUpdate,
+        trip: Trip,
+        vehicle: VehicleId,
+        timestamp: number
+    ) {
         this._stopTimeUpdate = stopTimeUpdate;
         this._trip = trip;
         this._vehicle = vehicle;
@@ -24,7 +28,7 @@ export class TripUpdate
         return this._trip;
     }
 
-    get vehicle(): Vehicle {
+    get vehicle(): VehicleId {
         return this._vehicle;
     }
 

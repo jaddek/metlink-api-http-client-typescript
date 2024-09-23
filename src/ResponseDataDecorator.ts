@@ -17,6 +17,12 @@ import {Entity} from "./domain/gtfs-rt/entity/service-alert/Entity";
 import Header from "./domain/gtfs-rt/entity/Header";
 import {ActivePeriod} from "./domain/gtfs-rt/entity/service-alert/ActivePeriod";
 import {InformedEntity} from "./domain/gtfs-rt/entity/service-alert/InformedEntity";
+import {Entity as TripUpdateEntity} from "./domain/gtfs-rt/entity/trip-update/Entity";
+import {TripUpdate} from "./domain/gtfs-rt/entity/trip-update/TripUpdate";
+import {StopTimeUpdate} from "./domain/gtfs-rt/entity/trip-update/StopTimeUpdate";
+import {Arrival} from "./domain/gtfs-rt/entity/trip-update/Arrival";
+import {Trip as TripUpdateTrip} from "./domain/gtfs-rt/entity/trip-update/Trip";
+import {VehicleId} from "./domain/gtfs-rt/entity/trip-update/VehicleId";
 
 export class ResponseDataDecorator implements MetlinkHttpClientInterface {
     private readonly httpClient: MetlinkHttpClientInterface;
@@ -239,7 +245,49 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
 
     //
     public async getGtfsRtTripUpdates(useProtoBuf: boolean): Promise<any> {
-        return Promise.resolve(undefined);
+        const response = await this.httpClient.getGtfsRtTripUpdates(useProtoBuf);
+
+        const header: Header = new Header(
+            response.data.header.gtfsRealtimeVersion,
+            response.data.header.incrementality,
+            response.data.header.timestamp,
+        );
+
+        const entity: TripUpdateEntity[] = response.data.entity.map((data: any) => {
+            return new TripUpdateEntity(
+                data.id,
+                new TripUpdate(
+                    new StopTimeUpdate(
+                        data.trip_update.stop_time_update.schedule_relationship,
+                        data.trip_update.stop_time_update.stop_sequence,
+                        new Arrival(
+                            data.trip_update.stop_time_update.arrival.delay,
+                            data.trip_update.stop_time_update.arrival.time,
+                        ),
+                        data.trip_update.stop_time_update.stop_id
+                    ),
+                    new TripUpdateTrip(
+                        data.trip_update.trip.start_time,
+                        data.trip_update.trip.trip_id,
+                        data.trip_update.trip.direction_id,
+                        parseInt(data.trip_update.trip.route_id),
+                        data.trip_update.trip.schedule_relationship,
+                        data.trip_update.trip.start_date
+                    ),
+                    new VehicleId(
+                        data.trip_update.vehicle.id
+                    ),
+                    data.trip_update.id
+                ),
+            )
+        });
+
+        const body = new GtfsRtResponse(
+            header,
+            entity
+        )
+
+        return Promise.resolve(body);
     }
 
     public async getGtfsRtVehiclePositions(useProtoBuf: boolean): Promise<any> {

@@ -7,11 +7,16 @@ export class StopTimeUpdate
     private readonly _stopId: string;
     private readonly _arrival: Arrival;
 
-    constructor(scheduleRelationship: number, stopSequence: number, stopId: string, arrival: Arrival) {
+    constructor(
+        scheduleRelationship: number,
+        stopSequence: number,
+        arrival: Arrival,
+        stopId: string
+    ) {
         this._scheduleRelationship = scheduleRelationship;
         this._stopSequence = stopSequence;
-        this._stopId = stopId;
         this._arrival = arrival;
+        this._stopId = stopId;
     }
 
     get scheduleRelationship(): number {
