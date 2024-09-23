@@ -81,7 +81,7 @@ export interface GTFSRealTimeInterface {
 
 export interface StopDeparturePredictionsInterface {
     getStopPredictions(
-        stopId?: string | null,
+        stopId: string,
     ): Promise<any>;
 }
 

@@ -1,9 +1,15 @@
 import axios from 'axios';
 import MockAdapter from "axios-mock-adapter";
+import {MetlinkHttpClientInterface} from "../../../src/Contracts";
+import {ClientBuilder} from "../ClientBuilder";
+import {Response} from "../../../src/domain/stop-departure-prediction/Response";
 
 const mock: MockAdapter = new MockAdapter(axios);
 
-describe.skip("Response Data Decorator: Stop predictions", () => {
+describe("Response Data Decorator: Stop predictions", () => {
+
+    const STOP_ID: string = "5515";
+
 
     afterEach(function (): void {
         mock.reset();
@@ -50,10 +56,23 @@ describe.skip("Response Data Decorator: Stop predictions", () => {
         ]
     ];
 
-    function getPath(): string {
-        return "/stop-predictions";
+    function getPath(urlSearchParams: URLSearchParams | null = null): string {
+        let query: string = "";
+
+        if (urlSearchParams) {
+            query = "?"+urlSearchParams?.toString();
+        }
+
+        return "/stop-predictions" + query;
     }
 
+
     it.each(dataSet)("getStopPredictions", async (mockData) => {
+        mock.onGet(getPath(new URLSearchParams({"stop_id": STOP_ID}))).replyOnce(200, mockData);
+
+        const client: MetlinkHttpClientInterface = ClientBuilder.getHttpClientWithResponseDataDecorator(axios);
+        const entity: Response = await client.getStopPredictions(STOP_ID);
+
+        expect(entity).toBeInstanceOf(Response)
     });
 });

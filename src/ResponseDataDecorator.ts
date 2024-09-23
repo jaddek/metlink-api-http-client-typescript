@@ -23,6 +23,12 @@ import {StopTimeUpdate} from "./domain/gtfs-rt/entity/trip-update/StopTimeUpdate
 import {Arrival} from "./domain/gtfs-rt/entity/trip-update/Arrival";
 import {Trip as TripUpdateTrip} from "./domain/gtfs-rt/entity/trip-update/Trip";
 import {VehicleId} from "./domain/gtfs-rt/entity/trip-update/VehicleId";
+import {Response as StopPredictionResponse} from "./domain/stop-departure-prediction/Response";
+import {Departure} from "./domain/stop-departure-prediction/Departure";
+import {Origin} from "./domain/stop-departure-prediction/Origin";
+import {Destination} from "./domain/stop-departure-prediction/Destination";
+import {Entity as StopPredictionEntity} from "./domain/stop-departure-prediction/Entity";
+import {Arrival as StopPredictionArrival} from "./domain/stop-departure-prediction/Arrival";
 
 export class ResponseDataDecorator implements MetlinkHttpClientInterface {
     private readonly httpClient: MetlinkHttpClientInterface;
@@ -343,8 +349,44 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
     }
 
 
-    public async getStopPredictions(stopId: string | null): Promise<any> {
+    public async getStopPredictions(stopId: string): Promise<any> {
+        const response = await this.httpClient.getStopPredictions(stopId);
 
+        return new StopPredictionResponse(
+            response.data.farezone,
+            response.data.closed,
+            response.data.departures.map((departure:any) => {
+                return new StopPredictionEntity(
+                    departure.stop_id,
+                    departure.service_id,
+                    departure.direction,
+                    departure.operator,
+                    new Origin(
+                        departure.origin.stop_id,
+                        departure.origin.name
+                    ),
+                    new Destination(
+                        departure.destination.stop_id,
+                        departure.destination.name
+                    ),
+                    departure.delay,
+                    departure.vehicle_id,
+                    departure.name,
+                    new StopPredictionArrival(
+                        departure.arrival.aimed,
+                        departure.arrival.expected
+                    ),
+                    new Departure(
+                        departure.departure.aimed,
+                        departure.departure.expected
+                    ),
+                    departure.status,
+                    departure.monitored,
+                    departure.wheelchair_accessible,
+                    departure.trip_id
+                );
+            })
+        );
     }
 
     public async getTripCancellations(query: TripCancellationQueryInterface | null): Promise<any> {

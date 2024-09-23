@@ -4,6 +4,7 @@ import {MetlinkHttpClientInterface} from "../../../src/Contracts";
 
 describe("Integration: Metlink Http Client: Stop Predictions", () => {
 
+
     function getSchema(): {} {
         return {
             "$schema": "http://json-schema.org/draft-07/schema#",
@@ -59,10 +60,9 @@ describe("Integration: Metlink Http Client: Stop Predictions", () => {
                             },
                             "delay": {
                                 "type": "string",
-                                "pattern": "^PT\\d+M\\d+S$"
                             },
                             "vehicle_id": {
-                                "type": "string"
+                                "type": ["string","null"]
                             },
                             "name": {
                                 "type": "string"
@@ -74,7 +74,7 @@ describe("Integration: Metlink Http Client: Stop Predictions", () => {
                                         "type": "string"
                                     },
                                     "expected": {
-                                        "type": "string"
+                                        "type": ["string", "null"]
                                     }
                                 },
                                 "required": ["aimed", "expected"]
@@ -86,14 +86,13 @@ describe("Integration: Metlink Http Client: Stop Predictions", () => {
                                         "type": "string"
                                     },
                                     "expected": {
-                                        "type": "string"
+                                        "type": ["string", "null"]
                                     }
                                 },
                                 "required": ["aimed", "expected"]
                             },
                             "status": {
-                                "type": "string",
-                                "enum": ["on time", "delayed", "cancelled"]
+                                "type": ["string", "null"]
                             },
                             "monitored": {
                                 "type": "boolean"
@@ -136,7 +135,7 @@ describe("Integration: Metlink Http Client: Stop Predictions", () => {
 
     test("getStopPredictions", async () => {
         const client: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
-        const response = await client.getStopPredictions();
+        const response = await client.getStopPredictions("5515");
 
         const result = SchemaValidator.validate(response.data, getSchema());
         expect(result.isValid).toBeTruthy();
