@@ -3,6 +3,8 @@
 https://opendata.metlink.org.nz/
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jaddek_metlink-api-http-client-typescript&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jaddek_metlink-api-http-client-typescript)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Build status](https://img.shields.io/github/actions/workflow/status/jaddek/metlink-api-http-client-typescript/node.js.yml?branch=main&label=CI&logo=github&style=flat-square)](https://github.com/jaddek/metlink-api-http-client-typescript/node.js.yml)
 
 ## Install
 
