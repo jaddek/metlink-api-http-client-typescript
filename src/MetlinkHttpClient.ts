@@ -19,7 +19,7 @@ export default class MetlinkHttpClient implements MetlinkHttpClientInterface {
     ): Promise<any> {
         let query: string = ''
 
-        if (urlSearchParams && urlSearchParams.size) {
+        if (urlSearchParams?.size) {
             query += '?' + urlSearchParams.toString()
         }
 
