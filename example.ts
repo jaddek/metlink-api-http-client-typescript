@@ -33,7 +33,7 @@ httpClient.getTripCancellations(query);
  * Mapped entities
  */
 
-const httpClientDecorated: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxiosUsingResponseDataDecorator(token, axiosOptions);
+const httpClientDecorated_: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxiosUsingResponseDataDecorator(token, axiosOptions);
 // OR
 const httpClientDecorated: MetlinkHttpClientInterface = new ResponseDataDecorator(httpClient);
 
