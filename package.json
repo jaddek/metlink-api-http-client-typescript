@@ -1,43 +1,51 @@
 {
-  "name": "metlink-api-http-client",
-  "description": "HTTP Client for Metlink Wellington API",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "build": "npm i",
-    "test": "jest",
-    "test-unit": "jest tests/unit",
-    "test-integration": "jest tests/integration",
-    "index": "npx tsx index.nts"
-  },
-  "type": "module",
-  "keywords": [
-    "Metlink",
-    "http client",
-    "Metlink Wellington",
-    "GTFS"
-  ],
-  "author": "Anton Nazarov",
-  "license": "MIT",
-  "devDependencies": {
-    "@jest/globals": "^29.7.0",
-    "@types/ajv": "^0.0.5",
-    "@types/axios": "^0.9.36",
-    "@types/axios-mock-adapter": "^1.10.0",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^22.5.4",
-    "ajv": "^8.17.1",
-    "axios-mock-adapter": "^2.0.0",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.2.5",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.19.1",
-    "typescript": "^5.6.2"
-  },
-  "dependencies": {
-    "axios": "^1.7.7",
-    "class-transformer": "^0.5.1",
-    "reflect-metadata": "^0.2.2",
-    "winston": "^3.14.2"
-  }
+    "name": "metlink-api-http-client",
+    "description": "HTTP Client for Metlink Wellington API",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "build": "npm i",
+        "test": "jest",
+        "test-unit": "jest tests/unit",
+        "test-integration": "jest tests/integration",
+        "index": "npx tsx index.nts",
+        "lint": "eslint src"
+    },
+    "type": "module",
+    "keywords": [
+        "Metlink",
+        "http client",
+        "Metlink Wellington",
+        "GTFS"
+    ],
+    "author": "Anton Nazarov",
+    "license": "MIT",
+    "devDependencies": {
+        "@eslint/js": "^9.11.1",
+        "@jest/globals": "^29.7.0",
+        "@types/ajv": "^0.0.5",
+        "@types/axios": "^0.9.36",
+        "@types/axios-mock-adapter": "^1.10.0",
+        "@types/eslint__js": "^8.42.3",
+        "@types/jest": "^29.5.12",
+        "@types/node": "^22.5.4",
+        "@typescript-eslint/eslint-plugin": "^8.7.0",
+        "@typescript-eslint/parser": "^8.7.0",
+        "ajv": "^8.17.1",
+        "axios-mock-adapter": "^2.0.0",
+        "eslint": "^9.11.1",
+        "jest": "^29.7.0",
+        "prettier": "3.3.3",
+        "ts-jest": "^29.2.5",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.19.1",
+        "typescript": "^5.6.2",
+        "typescript-eslint": "^8.7.0"
+    },
+    "dependencies": {
+        "axios": "^1.7.7",
+        "class-transformer": "^0.5.1",
+        "reflect-metadata": "^0.2.2",
+        "winston": "^3.14.2"
+    }
 }

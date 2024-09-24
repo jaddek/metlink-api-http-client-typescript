@@ -1,30 +1,30 @@
-import {ResponseDTO} from "./Contracts";
+import { ResponseDTO } from './Contracts'
 
 abstract class CollectionResponse implements ResponseDTO {
     public isCollection(): boolean {
-        return true;
+        return true
     }
 }
 
 export class Collection<V> extends CollectionResponse {
-    _collection: V[] = [];
+    _collection: V[] = []
 
     add(item: V): void {
-        this._collection.push(item);
+        this._collection.push(item)
     }
 
     remove(item: V): boolean {
-        const index = this._collection.indexOf(item);
-        if (index === -1) return false;
-        this._collection.splice(index, 1);
-        return true;
+        const index = this._collection.indexOf(item)
+        if (index === -1) return false
+        this._collection.splice(index, 1)
+        return true
     }
 
     getItems(): V[] {
-        return this._collection;
+        return this._collection
     }
 
     size(): number {
-        return this._collection.length;
+        return this._collection.length
     }
 }

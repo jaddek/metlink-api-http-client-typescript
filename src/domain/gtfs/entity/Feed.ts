@@ -1,13 +1,13 @@
-import {Entity} from "../../../Contracts";
+import { Entity } from '../../../Contracts'
 
 export class Feed extends Entity {
-    private readonly _id: number;
-    private readonly _feedPublisherName: string;
-    private readonly _feedPublisherUrl: string;
-    private readonly _feedLang: string;
-    private readonly _feedStartDate: string;
-    private readonly _feedEndDate: string;
-    private readonly _feedVersion: string;
+    private readonly _id: number
+    private readonly _feedPublisherName: string
+    private readonly _feedPublisherUrl: string
+    private readonly _feedLang: string
+    private readonly _feedStartDate: string
+    private readonly _feedEndDate: string
+    private readonly _feedVersion: string
 
     constructor(
         id: number,
@@ -18,41 +18,41 @@ export class Feed extends Entity {
         feedEndDate: string,
         feedVersion: string
     ) {
-        super();
-        this._id = id;
-        this._feedPublisherName = feedPublisherName;
-        this._feedPublisherUrl = feedPublisherUrl;
-        this._feedLang = feedLang;
-        this._feedStartDate = feedStartDate;
-        this._feedEndDate = feedEndDate;
-        this._feedVersion = feedVersion;
+        super()
+        this._id = id
+        this._feedPublisherName = feedPublisherName
+        this._feedPublisherUrl = feedPublisherUrl
+        this._feedLang = feedLang
+        this._feedStartDate = feedStartDate
+        this._feedEndDate = feedEndDate
+        this._feedVersion = feedVersion
     }
 
     get id(): number {
-        return this._id;
+        return this._id
     }
 
     get feedPublisherName(): string {
-        return this._feedPublisherName;
+        return this._feedPublisherName
     }
 
     get feedPublisherUrl(): string {
-        return this._feedPublisherUrl;
+        return this._feedPublisherUrl
     }
 
     get feedLang(): string {
-        return this._feedLang;
+        return this._feedLang
     }
 
     get feedStartDate(): string {
-        return this._feedStartDate;
+        return this._feedStartDate
     }
 
     get feedEndDate(): string {
-        return this._feedEndDate;
+        return this._feedEndDate
     }
 
     get feedVersion(): string {
-        return this._feedVersion;
+        return this._feedVersion
     }
 }

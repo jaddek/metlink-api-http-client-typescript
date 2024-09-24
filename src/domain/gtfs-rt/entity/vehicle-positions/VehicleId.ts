@@ -1,11 +1,11 @@
 export class VehicleId {
-    private readonly _id:string;
+    private readonly _id: string
 
     constructor(id: string) {
-        this._id = id;
+        this._id = id
     }
 
     get id(): string {
-        return this._id;
+        return this._id
     }
 }
