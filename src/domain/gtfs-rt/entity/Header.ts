@@ -1,10 +1,3 @@
-/**
- *   "header": {
- *     "gtfsRealtimeVersion": "2.0",
- *     "incrementality": 0,
- *     "timestamp": 1726102640
- *   },
- */
 export default class Header {
     private readonly _gtfsRealtimeVersion: string
     private readonly _incrementality: number

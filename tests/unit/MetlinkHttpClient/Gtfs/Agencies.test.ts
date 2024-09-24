@@ -52,14 +52,14 @@ describe('Metlink Http Client: Agencies', () => {
             [
                 {
                     id: 1,
-                    agency_id: 'MADG',
-                    agency_name: 'Madge Coachlines Limited',
+                    agency_id: 'An',
+                    agency_name: 'Agency name',
                     agency_timezone: 'Pacific/Auckland',
-                    agency_url: 'http://www.metlink.org.nz',
+                    agency_url: 'https://someling',
                     agency_lang: 'en',
                     agency_phone: '',
                     agency_fare_url:
-                        'http://www.metlink.org.nz/tickets-and-fares',
+                        'http://somelinks.com',
                 },
             ],
         ],
