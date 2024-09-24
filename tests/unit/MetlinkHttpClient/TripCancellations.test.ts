@@ -18,7 +18,7 @@ describe("Metlink Http Client: Trip cancellations", () => {
         return new MetlinkHttpClient(adapter);
     }
 
-    function getSchema(): {} {
+    function getSchema(): object {
         return {
             "$schema": "http://json-schema.org/draft-07/schema#",
             "type": "array",

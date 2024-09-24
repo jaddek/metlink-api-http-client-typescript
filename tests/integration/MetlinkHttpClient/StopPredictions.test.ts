@@ -4,8 +4,7 @@ import {MetlinkHttpClientInterface} from "../../../src/Contracts";
 
 describe("Integration: Metlink Http Client: Stop Predictions", () => {
 
-
-    function getSchema(): {} {
+    function getSchema(): object {
         return {
             "$schema": "http://json-schema.org/draft-07/schema#",
             "type": "object",

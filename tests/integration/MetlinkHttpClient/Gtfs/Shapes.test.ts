@@ -6,7 +6,7 @@ describe("Integration: Metlink Http Client: Shapes", () => {
 
     const ShapeId1: string = "[@364.0.17527449@]1_20240825";
 
-    function getSchema(): {} {
+    function getSchema(): object {
         return {
             "type": "array",
             "items": {

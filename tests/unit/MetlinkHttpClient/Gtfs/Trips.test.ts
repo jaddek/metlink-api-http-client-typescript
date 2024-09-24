@@ -18,7 +18,7 @@ describe("Metlink Http Client: Trips", () => {
         return new MetlinkHttpClient(adapter);
     }
 
-    function getSchema(): {} {
+    function getSchema(): object {
         return {
             "type": "array",
             "items": {

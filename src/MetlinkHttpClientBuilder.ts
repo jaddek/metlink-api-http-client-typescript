@@ -21,7 +21,9 @@ export class MetlinkHttpClientBuilder {
 
         const axiosInstance = axios.create({...options, ...config});
 
-        configureFn && configureFn(axiosInstance);
+        if (configureFn) {
+            configureFn(axiosInstance);
+        }
 
         return new MetlinkHttpClient(new AxiosAdapter(axiosInstance));
     }
@@ -40,7 +42,9 @@ export class MetlinkHttpClientBuilder {
 
         const axiosInstance = axios.create({...options, ...config});
 
-        configureFn && configureFn(axiosInstance);
+        if (configureFn) {
+            configureFn(axiosInstance);
+        }
 
         return new ResponseDataDecorator(new MetlinkHttpClient(new AxiosAdapter(axiosInstance)));
     }

@@ -18,7 +18,7 @@ describe("Metlink Http Client: Agencies", () => {
         return new MetlinkHttpClient(adapter);
     }
 
-    function getSchema(): {} {
+    function getSchema(): object {
         return {
             type: "array",
             items: {

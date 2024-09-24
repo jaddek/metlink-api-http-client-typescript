@@ -6,7 +6,7 @@ export class QueryBuilder {
 
         if (query) {
             for (const key of Object.keys(query)) {
-                let value = (query as any)[key];
+                const value = (query as any)[key];
 
                 if (value == null) {
                     continue;

@@ -46,7 +46,12 @@ export default class MetlinkHttpClient
     public async getGtfsRoutes(
         routeId: string | null = null
     ): Promise<any> {
-        return await this.doGetFetch(Routes.getGtfsRoutesPath());
+        const query: URLSearchParams = new URLSearchParams();
+        if (routeId) {
+            query.append("route_id", routeId);
+        }
+
+        return await this.doGetFetch(Routes.getGtfsRoutesPath(), query);
     }
 
     public async getGtfsShapes(
@@ -73,6 +78,15 @@ export default class MetlinkHttpClient
         routeId: string | null = null,
         tripId: string | null = null,
     ): Promise<any> {
+        const query: URLSearchParams = new URLSearchParams();
+        if (routeId) {
+            query.append("route_id", routeId);
+        }
+
+        if (tripId) {
+            query.append("tripId", tripId);
+        }
+
         return await this.doGetFetch(Routes.getGtfsStopsPath());
     }
 
@@ -87,25 +101,63 @@ export default class MetlinkHttpClient
         tripId: string | null = null,
         end: string | null = null,
     ): Promise<any> {
-        return await this.doGetFetch(Routes.getGtfsTripsPath());
+
+        const params: Record<string, string> = {};
+
+        if (start) params["start"] = start;
+        if (extraFields) params["extraFields"] = extraFields;
+        if (routeId) params["routeId"] = routeId;
+        if (tripId) params["tripId"] = tripId;
+        if (end) params["end"] = end;
+
+        const query: URLSearchParams = new URLSearchParams(params);
+
+        return await this.doGetFetch(Routes.getGtfsTripsPath(), query);
     }
 
     public async getGtfsRtServiceAlerts(
         useProtoBuf: boolean = false,
     ): Promise<any> {
-        return await this.doGetFetch(Routes.getGtfsRtServiceAlertsPath());
+
+        const params: Record<string, string> = {};
+
+        if (useProtoBuf) {
+            params["accept"] = "application/x-protobuf";
+        }
+
+        const query: URLSearchParams = new URLSearchParams(params);
+
+        return await this.doGetFetch(Routes.getGtfsRtServiceAlertsPath(), query);
     }
 
     public async getGtfsRtTripUpdates(
         useProtoBuf: boolean = false,
     ): Promise<any> {
-        return await this.doGetFetch(Routes.getGtfsRtTripUpdatesPath());
+
+        const params: Record<string, string> = {};
+
+        if (useProtoBuf) {
+            params["accept"] = "application/x-protobuf";
+        }
+
+        const query: URLSearchParams = new URLSearchParams(params);
+
+        return await this.doGetFetch(Routes.getGtfsRtTripUpdatesPath(), query);
     }
 
     public async getGtfsRtVehiclePositions(
         useProtoBuf: boolean = false,
     ): Promise<any> {
-        return await this.doGetFetch(Routes.getGtfsRtVehiclePositionsPath());
+
+        const params: Record<string, string> = {};
+
+        if (useProtoBuf) {
+            params["accept"] = "application/x-protobuf";
+        }
+
+        const query: URLSearchParams = new URLSearchParams(params);
+
+        return await this.doGetFetch(Routes.getGtfsRtVehiclePositionsPath(), query);
     }
 
     public async getStopPredictions(
@@ -121,7 +173,7 @@ export default class MetlinkHttpClient
     public async getTripCancellations(
         searchParams: TripCancellationQueryInterface | null = null,
     ): Promise<any> {
-        const query: URLSearchParams| null = searchParams
+        const query: URLSearchParams | null = searchParams
             ? QueryBuilder.buildQuery(searchParams)
             : null;
 

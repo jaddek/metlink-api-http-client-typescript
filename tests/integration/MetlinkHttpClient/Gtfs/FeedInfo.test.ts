@@ -4,7 +4,7 @@ import {MetlinkHttpClientInterface} from "../../../../src/Contracts";
 
 describe("Integration: Metlink Http Client: FeedInfo", () => {
 
-    function getSchema(): {} {
+    function getSchema(): object {
         return {
             "type": "array",
             "items": {

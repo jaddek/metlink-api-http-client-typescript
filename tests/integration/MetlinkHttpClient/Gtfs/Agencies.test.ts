@@ -3,7 +3,7 @@ import {SchemaValidator} from "../../../SchemaValidator";
 import {MetlinkHttpClientInterface} from "../../../../src/Contracts";
 
 describe("Integration: Metlink Http Client: Agencies", () => {
-    function getSchema(): {} {
+    function getSchema(): object {
         return {
             type: "array",
             items: {

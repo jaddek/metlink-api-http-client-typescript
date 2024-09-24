@@ -14,8 +14,6 @@ describe("Query Builder", () => {
     })
 
     test("Build query test with null", () => {
-        const dateCreated: string = Date.now().toString();
-
         const urlSearchParams = QueryBuilder.buildQuery(null);
 
         expect(urlSearchParams).toBeInstanceOf(URLSearchParams);

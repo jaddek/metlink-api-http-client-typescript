@@ -20,7 +20,7 @@ describe("Metlink Http Client: Shapes", () => {
         return new MetlinkHttpClient(adapter);
     }
 
-    function getSchema(): {} {
+    function getSchema(): object {
         return {
             "type": "array",
             "items": {

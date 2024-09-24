@@ -18,7 +18,7 @@ describe("Metlink Http Client: Feed info", () => {
         return new MetlinkHttpClient(adapter);
     }
 
-    function getSchema(): {} {
+    function getSchema(): object {
         return {
             "type": "array",
             "items": {

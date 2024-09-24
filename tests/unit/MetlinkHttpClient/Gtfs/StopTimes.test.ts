@@ -20,7 +20,7 @@ describe("Metlink Http Client: Stop times", () => {
 
     const TRIP_ID = "60__0__439__MNM__2071__1__2071__1_20240825";
 
-    function getSchema(): {} {
+    function getSchema(): object {
         return {
             "type": "array",
             "items": {

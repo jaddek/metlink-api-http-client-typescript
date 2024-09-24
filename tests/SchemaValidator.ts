@@ -1,10 +1,7 @@
 import Ajv from "ajv";
 
 export class SchemaValidator {
-    public static validate(data: any, schema: {}): {
-        isValid: boolean | PromiseLike<boolean>;
-        errors: any,
-    } {
+    public static validate(data: object, schema: object) {
         const ajv = new Ajv();
         const validate = ajv.compile(schema)
 

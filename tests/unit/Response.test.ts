@@ -2,7 +2,7 @@ import {Collection} from "../../src/Response";
 
 describe("Response", () => {
     test("Test add", () => {
-        const collection: Collection<any> = new Collection<any>();
+        const collection: Collection<number> = new Collection<number>();
 
         collection.add(1);
 
@@ -15,7 +15,7 @@ describe("Response", () => {
     });
 
     test("Test remove", () => {
-        const collection: Collection<any> = new Collection<any>();
+        const collection: Collection<number> = new Collection<number>();
 
         collection.add(1);
         collection.add(2);
@@ -26,7 +26,7 @@ describe("Response", () => {
     });
 
     test("Test getItems", () => {
-        const collection: Collection<any> = new Collection<any>();
+        const collection: Collection<number> = new Collection<number>();
 
         collection.add(1);
         collection.add(2);
@@ -38,7 +38,7 @@ describe("Response", () => {
     });
 
     test("Test size", () => {
-        const collection: Collection<any> = new Collection<any>();
+        const collection: Collection<number> = new Collection<number>();
 
         collection.add(1);
         collection.add(2);
@@ -48,7 +48,7 @@ describe("Response", () => {
     });
 
     test("Test is collection", () => {
-        const collection: Collection<any> = new Collection<any>();
+        const collection: Collection<number> = new Collection<number>();
 
         expect(collection.isCollection()).toEqual(true);
     });

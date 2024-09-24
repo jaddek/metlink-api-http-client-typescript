@@ -345,7 +345,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
     }
 
     public async getGtfsRtServiceAlerts(useProtoBuf: boolean = false): Promise<GtfsRtResponse<Entity>> {
-        const response = await this.httpClient.getGtfsRtServiceAlerts();
+        const response = await this.httpClient.getGtfsRtServiceAlerts(useProtoBuf);
 
         const header: Header = new Header(
             response.data.header.gtfsRealtimeVersion,

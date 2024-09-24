@@ -1,7 +1,6 @@
 import {MetlinkHttpClientBuilder} from "./src/MetlinkHttpClientBuilder";
 import {Query} from "./src/domain/trip-cancellation/Query";
 import * as fs from 'fs';
-import {ResponseDataDecorator} from "./src/ResponseDataDecorator";
 import {MetlinkHttpClientInterface} from "./src/Contracts";
 
 const token = fs.readFileSync(".token", "utf-8");
@@ -33,9 +32,7 @@ httpClient.getTripCancellations(query);
  * Mapped entities
  */
 
-const httpClientDecorated_: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxiosUsingResponseDataDecorator(token, axiosOptions);
-// OR
-const httpClientDecorated: MetlinkHttpClientInterface = new ResponseDataDecorator(httpClient);
+const httpClientDecorated: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxiosUsingResponseDataDecorator(token, axiosOptions);
 
 httpClientDecorated.getGtfsAgencies()
 httpClientDecorated.getGtfsCalendar()
@@ -47,9 +44,9 @@ httpClientDecorated.getGtfsStopTimes("tripId");
 httpClientDecorated.getGtfsStops();
 httpClientDecorated.getGtfsTransfers();
 httpClientDecorated.getGtfsTrips();
-
 httpClientDecorated.getGtfsRtServiceAlerts();
-
+httpClientDecorated.getGtfsRtTripUpdates();
+httpClientDecorated.getGtfsRtVehiclePositions();
 
 const query2: Query = new Query();
 query2.dateCreated = Date.now().toString();
