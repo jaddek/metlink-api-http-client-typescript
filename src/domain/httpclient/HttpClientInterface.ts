@@ -1,3 +1,3 @@
 export interface HttpClientInterface {
-    get(path: string): Promise<any>;
+    get(path: string): Promise<any>
 }
