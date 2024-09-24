@@ -119,9 +119,9 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
     }
 
     public async getGtfsRoutes(
-        routeId: string | null = null
+        stopId: string | null = null
     ): Promise<Route[]> {
-        const response = await this.httpClient.getGtfsRoutes(routeId)
+        const response = await this.httpClient.getGtfsRoutes(stopId)
 
         const entities: Route[] = response.data.map((data: any) => {
             return new Route(

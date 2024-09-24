@@ -99,11 +99,11 @@ describe('Metlink Http Client: Routes', () => {
         ],
     ]
 
-    function getPath(routeId: string | null = null): string {
+    function getPath(stopId: string | null = null): string {
         const query: URLSearchParams = new URLSearchParams()
         let prefix = ''
-        if (routeId) {
-            query.append('route_id', routeId)
+        if (stopId) {
+            query.append('stop_id', stopId)
             prefix = '?'
         }
 

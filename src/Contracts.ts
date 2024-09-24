@@ -36,7 +36,7 @@ export interface GTFSInterface {
 
     getGtfsFeedInfo(): Promise<any>
 
-    getGtfsRoutes(routeId?: string | null): Promise<any>
+    getGtfsRoutes(stopId?: string | null): Promise<any>
 
     getGtfsShapes(shapeId: string): Promise<any>
 
