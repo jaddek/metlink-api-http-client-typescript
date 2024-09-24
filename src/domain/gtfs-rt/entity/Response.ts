@@ -1,25 +1,24 @@
-import Header from "./Header";
-import {ResponseDTO} from "../../../Contracts";
+import Header from './Header'
+import { ResponseDTO } from '../../../Contracts'
 
 export class Response<V> implements ResponseDTO {
-    private readonly _header: Header;
-    private readonly _entity: V[];
+    private readonly _header: Header
+    private readonly _entity: V[]
 
     constructor(header: Header, entity: V[]) {
-        this._header = header;
-        this._entity = entity;
+        this._header = header
+        this._entity = entity
     }
 
     get header(): Header {
-        return this._header;
+        return this._header
     }
 
     get entity(): V[] {
-        return this._entity;
+        return this._entity
     }
 
-
     isCollection(): boolean {
-        return false;
+        return false
     }
 }

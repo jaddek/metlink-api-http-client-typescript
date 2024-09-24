@@ -11,16 +11,16 @@
  *     "part_cancellation": 0
  */
 export class Trip {
-    private readonly _id: string;
-    private readonly _dateCreated: string;
-    private readonly _dateUpdated: string;
-    private readonly _tripId: string;
-    private readonly _routeId: number;
-    private readonly _tripDateStart: string;
-    private readonly _tripDateEnd: string;
-    private readonly _directionId: number;
-    private readonly _reinstalled: number;
-    private readonly _partCancellation: number;
+    private readonly _id: string
+    private readonly _dateCreated: string
+    private readonly _dateUpdated: string
+    private readonly _tripId: string
+    private readonly _routeId: number
+    private readonly _tripDateStart: string
+    private readonly _tripDateEnd: string
+    private readonly _directionId: number
+    private readonly _reinstalled: number
+    private readonly _partCancellation: number
 
     constructor(
         id: string,
@@ -34,55 +34,55 @@ export class Trip {
         reinstalled: number,
         partCancellation: number
     ) {
-        this._id = id;
-        this._dateCreated = dateCreated;
-        this._dateUpdated = dateUpdated;
-        this._tripId = tripId;
-        this._routeId = routeId;
-        this._tripDateStart = tripDateStart;
-        this._tripDateEnd = tripDateEnd;
-        this._directionId = directionId;
-        this._reinstalled = reinstalled;
-        this._partCancellation = partCancellation;
+        this._id = id
+        this._dateCreated = dateCreated
+        this._dateUpdated = dateUpdated
+        this._tripId = tripId
+        this._routeId = routeId
+        this._tripDateStart = tripDateStart
+        this._tripDateEnd = tripDateEnd
+        this._directionId = directionId
+        this._reinstalled = reinstalled
+        this._partCancellation = partCancellation
     }
 
     get id(): string {
-        return this._id;
+        return this._id
     }
 
     get dateCreated(): string {
-        return this._dateCreated;
+        return this._dateCreated
     }
 
     get dateUpdated(): string {
-        return this._dateUpdated;
+        return this._dateUpdated
     }
 
     get tripId(): string {
-        return this._tripId;
+        return this._tripId
     }
 
     get routeId(): number {
-        return this._routeId;
+        return this._routeId
     }
 
     get tripDateStart(): string {
-        return this._tripDateStart;
+        return this._tripDateStart
     }
 
     get tripDateEnd(): string {
-        return this._tripDateEnd;
+        return this._tripDateEnd
     }
 
     get directionId(): number {
-        return this._directionId;
+        return this._directionId
     }
 
     get reinstalled(): number {
-        return this._reinstalled;
+        return this._reinstalled
     }
 
     get partCancellation(): number {
-        return this._partCancellation;
+        return this._partCancellation
     }
 }

@@ -1,73 +1,72 @@
-import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
-import axios from 'axios';
-import {AxiosAdapter} from "../../../../src/domain/httpclient/AxiosAdapter";
-import MockAdapter from "axios-mock-adapter";
-import {SchemaValidator} from "../../../SchemaValidator";
+import MetlinkHttpClient from '../../../../src/MetlinkHttpClient'
+import axios from 'axios'
+import { AxiosAdapter } from '../../../../src/domain/httpclient/AxiosAdapter'
+import MockAdapter from 'axios-mock-adapter'
+import { SchemaValidator } from '../../../SchemaValidator'
 
-const mock: MockAdapter = new MockAdapter(axios);
+const mock: MockAdapter = new MockAdapter(axios)
 
-describe("Metlink Http Client: Calendar Dates", () => {
-
+describe('Metlink Http Client: Calendar Dates', () => {
     afterEach(function () {
-        mock.reset();
-    });
+        mock.reset()
+    })
 
     function getHttpClient(client: Axios.AxiosInstance): MetlinkHttpClient {
-        const adapter: AxiosAdapter = new AxiosAdapter(client);
+        const adapter: AxiosAdapter = new AxiosAdapter(client)
 
-        return new MetlinkHttpClient(adapter);
+        return new MetlinkHttpClient(adapter)
     }
 
     function getSchema(): object {
         return {
-            type: "array",
+            type: 'array',
             items: {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'integer',
                     },
-                    "service_id": {
-                        "type": "string"
+                    service_id: {
+                        type: 'string',
                     },
-                    "date": {
-                        "type": "string",
-                        "pattern": "^\\d{8}$"  // Format YYYYMMDD
+                    date: {
+                        type: 'string',
+                        pattern: '^\\d{8}$', // Format YYYYMMDD
                     },
-                    "exception_type": {
-                        "type": "integer",
-                    }
+                    exception_type: {
+                        type: 'integer',
+                    },
                 },
-                "required": ["id", "service_id", "date", "exception_type"],
-                "additionalProperties": false
-            }
-        };
+                required: ['id', 'service_id', 'date', 'exception_type'],
+                additionalProperties: false,
+            },
+        }
     }
 
     const dataSet = [
         [
             [
                 {
-                    "id": 99,
-                    "service_id": "612_20240825",
-                    "date": "20240919",
-                    "exception_type": 1
-                }
-            ]
-        ]
-    ];
+                    id: 99,
+                    service_id: '612_20240825',
+                    date: '20240919',
+                    exception_type: 1,
+                },
+            ],
+        ],
+    ]
 
     function getPath(): string {
-        return "/gtfs/calendar_dates";
+        return '/gtfs/calendar_dates'
     }
 
-    it.each(dataSet)("getGtfsCalendarDates", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
+    it.each(dataSet)('getGtfsCalendarDates', async (mockData) => {
+        mock.onGet(getPath()).replyOnce(200, mockData)
 
-        const client: MetlinkHttpClient = getHttpClient(axios);
-        const response = await client.getGtfsCalendarDates();
+        const client: MetlinkHttpClient = getHttpClient(axios)
+        const response = await client.getGtfsCalendarDates()
 
-        const result = SchemaValidator.validate(response.data, getSchema());
-        expect(result.isValid).toBeTruthy();
-    });
-});
+        const result = SchemaValidator.validate(response.data, getSchema())
+        expect(result.isValid).toBeTruthy()
+    })
+})

@@ -1,168 +1,193 @@
-import {MetlinkHttpClientBuilder} from "../../../../src/MetlinkHttpClientBuilder";
-import {SchemaValidator} from "../../../SchemaValidator";
-import {MetlinkHttpClientInterface} from "../../../../src/Contracts";
+import { MetlinkHttpClientBuilder } from '../../../../src/MetlinkHttpClientBuilder'
+import { SchemaValidator } from '../../../SchemaValidator'
+import { MetlinkHttpClientInterface } from '../../../../src/Contracts'
 
-describe("Integration: Metlink Http Client: Service Alerts", () => {
-
+describe('Integration: Metlink Http Client: Service Alerts', () => {
     function getSchema(): object {
         return {
-            "$schema": "http://json-schema.org/draft-07/schema#",
-            "type": "object",
-            "properties": {
-                "header": {
-                    "type": "object",
-                    "properties": {
-                        "gtfsRealtimeVersion": {
-                            "type": "string"
+            $schema: 'http://json-schema.org/draft-07/schema#',
+            type: 'object',
+            properties: {
+                header: {
+                    type: 'object',
+                    properties: {
+                        gtfsRealtimeVersion: {
+                            type: 'string',
                         },
-                        "incrementality": {
-                            "type": "integer"
+                        incrementality: {
+                            type: 'integer',
                         },
-                        "timestamp": {
-                            "type": "integer"
-                        }
+                        timestamp: {
+                            type: 'integer',
+                        },
                     },
-                    "required": ["gtfsRealtimeVersion", "incrementality", "timestamp"]
+                    required: [
+                        'gtfsRealtimeVersion',
+                        'incrementality',
+                        'timestamp',
+                    ],
                 },
-                "entity": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "alert": {
-                                "type": "object",
-                                "properties": {
-                                    "active_period": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "properties": {
-                                                "start": {
-                                                    "type": "integer"
+                entity: {
+                    type: 'array',
+                    items: {
+                        type: 'object',
+                        properties: {
+                            alert: {
+                                type: 'object',
+                                properties: {
+                                    active_period: {
+                                        type: 'array',
+                                        items: {
+                                            type: 'object',
+                                            properties: {
+                                                start: {
+                                                    type: 'integer',
                                                 },
-                                                "end": {
-                                                    "type": "integer"
-                                                }
+                                                end: {
+                                                    type: 'integer',
+                                                },
                                             },
-                                            "required": ["start", "end"]
-                                        }
-                                    },
-                                    "effect": {
-                                        "type": "string"
-                                    },
-                                    "cause": {
-                                        "type": "string"
-                                    },
-                                    "description_text": {
-                                        "type": "object",
-                                        "properties": {
-                                            "translation": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "language": {
-                                                            "type": "string"
-                                                        },
-                                                        "text": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": ["language", "text"]
-                                                }
-                                            }
+                                            required: ['start', 'end'],
                                         },
-                                        "required": ["translation"]
                                     },
-                                    "header_text": {
-                                        "type": "object",
-                                        "properties": {
-                                            "translation": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "language": {
-                                                            "type": "string"
-                                                        },
-                                                        "text": {
-                                                            "type": "string"
-                                                        }
-                                                    },
-                                                    "required": ["language", "text"]
-                                                }
-                                            }
-                                        },
-                                        "required": ["translation"]
+                                    effect: {
+                                        type: 'string',
                                     },
-                                    "informed_entity": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "properties": {
-                                                "route_id": {
-                                                    "type": "string"
-                                                },
-                                                "route_type": {
-                                                    "type": "integer"
-                                                },
-                                                "trip": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "start_time": {
-                                                            "type": "string"
+                                    cause: {
+                                        type: 'string',
+                                    },
+                                    description_text: {
+                                        type: 'object',
+                                        properties: {
+                                            translation: {
+                                                type: 'array',
+                                                items: {
+                                                    type: 'object',
+                                                    properties: {
+                                                        language: {
+                                                            type: 'string',
                                                         },
-                                                        "description": {
-                                                            "type": "string"
+                                                        text: {
+                                                            type: 'string',
                                                         },
-                                                        "trip_id": {
-                                                            "type": "string"
-                                                        },
-                                                        "direction_id": {
-                                                            "type": "integer"
-                                                        },
-                                                        "route_id": {
-                                                            "type": "number"
-                                                        },
-                                                        "start_date": {
-                                                            "type": "string"
-                                                        }
                                                     },
-                                                    "required": ["start_time", "description", "trip_id", "direction_id", "route_id", "start_date"]
-                                                }
+                                                    required: [
+                                                        'language',
+                                                        'text',
+                                                    ],
+                                                },
                                             },
-                                        }
+                                        },
+                                        required: ['translation'],
                                     },
-                                    "severity_level": {
-                                        "type": "string"
-                                    }
+                                    header_text: {
+                                        type: 'object',
+                                        properties: {
+                                            translation: {
+                                                type: 'array',
+                                                items: {
+                                                    type: 'object',
+                                                    properties: {
+                                                        language: {
+                                                            type: 'string',
+                                                        },
+                                                        text: {
+                                                            type: 'string',
+                                                        },
+                                                    },
+                                                    required: [
+                                                        'language',
+                                                        'text',
+                                                    ],
+                                                },
+                                            },
+                                        },
+                                        required: ['translation'],
+                                    },
+                                    informed_entity: {
+                                        type: 'array',
+                                        items: {
+                                            type: 'object',
+                                            properties: {
+                                                route_id: {
+                                                    type: 'string',
+                                                },
+                                                route_type: {
+                                                    type: 'integer',
+                                                },
+                                                trip: {
+                                                    type: 'object',
+                                                    properties: {
+                                                        start_time: {
+                                                            type: 'string',
+                                                        },
+                                                        description: {
+                                                            type: 'string',
+                                                        },
+                                                        trip_id: {
+                                                            type: 'string',
+                                                        },
+                                                        direction_id: {
+                                                            type: 'integer',
+                                                        },
+                                                        route_id: {
+                                                            type: 'number',
+                                                        },
+                                                        start_date: {
+                                                            type: 'string',
+                                                        },
+                                                    },
+                                                    required: [
+                                                        'start_time',
+                                                        'description',
+                                                        'trip_id',
+                                                        'direction_id',
+                                                        'route_id',
+                                                        'start_date',
+                                                    ],
+                                                },
+                                            },
+                                        },
+                                    },
+                                    severity_level: {
+                                        type: 'string',
+                                    },
                                 },
-                                "required": ["active_period", "effect", "cause", "description_text", "header_text", "informed_entity", "severity_level"]
+                                required: [
+                                    'active_period',
+                                    'effect',
+                                    'cause',
+                                    'description_text',
+                                    'header_text',
+                                    'informed_entity',
+                                    'severity_level',
+                                ],
                             },
-                            "id": {
-                                "type": "string"
+                            id: {
+                                type: 'string',
                             },
-                            "timestamp": {
-                                "type": "string"
-                            }
+                            timestamp: {
+                                type: 'string',
+                            },
                         },
-                        "required": ["alert", "id", "timestamp"]
-                    }
-                }
+                        required: ['alert', 'id', 'timestamp'],
+                    },
+                },
             },
-            "required": ["header", "entity"]
+            required: ['header', 'entity'],
         }
     }
 
     function getMetlinkToken(): string {
-        return process.env.METLINK_TOKEN || "";
+        return process.env.METLINK_TOKEN || ''
     }
 
-    test("getGtfsTrips", async () => {
-        const client: MetlinkHttpClientInterface = MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
-        const response = await client.getGtfsRtServiceAlerts();
-        const result = SchemaValidator.validate(response.data, getSchema());
+    test('getGtfsTrips', async () => {
+        const client: MetlinkHttpClientInterface =
+            MetlinkHttpClientBuilder.buildWithAxios(getMetlinkToken())
+        const response = await client.getGtfsRtServiceAlerts()
+        const result = SchemaValidator.validate(response.data, getSchema())
 
-        expect(result.isValid).toBeTruthy();
-    });
-});
+        expect(result.isValid).toBeTruthy()
+    })
+})

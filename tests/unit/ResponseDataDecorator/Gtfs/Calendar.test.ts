@@ -1,16 +1,15 @@
-import axios from 'axios';
-import MockAdapter from "axios-mock-adapter";
-import {MetlinkHttpClientInterface} from "../../../../src/Contracts";
-import {ClientBuilder} from "../../ClientBuilder";
-import {Calendar} from "../../../../src/domain/gtfs/entity/Calendar";
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
+import { MetlinkHttpClientInterface } from '../../../../src/Contracts'
+import { ClientBuilder } from '../../ClientBuilder'
+import { Calendar } from '../../../../src/domain/gtfs/entity/Calendar'
 
-const mock: MockAdapter = new MockAdapter(axios);
+const mock: MockAdapter = new MockAdapter(axios)
 
-describe("Response Data Decorator: Calendar", () => {
-
+describe('Response Data Decorator: Calendar', () => {
     afterEach(function () {
-        mock.reset();
-    });
+        mock.reset()
+    })
 
     const dataSet = [
         [
@@ -26,24 +25,25 @@ describe("Response Data Decorator: Calendar", () => {
                     saturday: 0,
                     sunday: 0,
                     start_date: '20240825',
-                    end_date: '20240928'
+                    end_date: '20240928',
                 },
-            ]
-        ]
-    ];
+            ],
+        ],
+    ]
 
     function getPath(): string {
-        return "/gtfs/calendar";
+        return '/gtfs/calendar'
     }
 
-    it.each(dataSet)("getGtfsCalendar", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
+    it.each(dataSet)('getGtfsCalendar', async (mockData) => {
+        mock.onGet(getPath()).replyOnce(200, mockData)
 
-        const client: MetlinkHttpClientInterface = ClientBuilder.getHttpClientWithResponseDataDecorator(axios);
-        const response: Calendar[] = await client.getGtfsCalendar();
+        const client: MetlinkHttpClientInterface =
+            ClientBuilder.getHttpClientWithResponseDataDecorator(axios)
+        const response: Calendar[] = await client.getGtfsCalendar()
 
         response.forEach((entity) => {
             expect(entity).toBeInstanceOf(Calendar)
         })
-    });
-});
+    })
+})

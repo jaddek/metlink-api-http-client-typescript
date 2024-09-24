@@ -1,82 +1,81 @@
-import MetlinkHttpClient from "../../../../src/MetlinkHttpClient";
-import axios from 'axios';
-import {AxiosAdapter} from "../../../../src/domain/httpclient/AxiosAdapter";
-import MockAdapter from "axios-mock-adapter";
-import {SchemaValidator} from "../../../SchemaValidator";
+import MetlinkHttpClient from '../../../../src/MetlinkHttpClient'
+import axios from 'axios'
+import { AxiosAdapter } from '../../../../src/domain/httpclient/AxiosAdapter'
+import MockAdapter from 'axios-mock-adapter'
+import { SchemaValidator } from '../../../SchemaValidator'
 
-const mock: MockAdapter = new MockAdapter(axios);
+const mock: MockAdapter = new MockAdapter(axios)
 
-describe("Metlink Http Client: Stops", () => {
-
+describe('Metlink Http Client: Stops', () => {
     afterEach(function () {
-        mock.reset();
-    });
+        mock.reset()
+    })
 
     function getHttpClient(client: Axios.AxiosInstance): MetlinkHttpClient {
-        const adapter: AxiosAdapter = new AxiosAdapter(client);
+        const adapter: AxiosAdapter = new AxiosAdapter(client)
 
-        return new MetlinkHttpClient(adapter);
+        return new MetlinkHttpClient(adapter)
     }
 
     function getSchema(): object {
         return {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer"
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'integer',
                     },
-                    "stop_id": {
-                        "type": "string"
+                    stop_id: {
+                        type: 'string',
                     },
-                    "stop_code": {
-                        "type": "string"
+                    stop_code: {
+                        type: 'string',
                     },
-                    "stop_name": {
-                        "type": "string"
+                    stop_name: {
+                        type: 'string',
                     },
-                    "stop_desc": {
-                        "type": "string"
+                    stop_desc: {
+                        type: 'string',
                     },
-                    "zone_id": {
-                        "type": "string"
+                    zone_id: {
+                        type: 'string',
                     },
-                    "stop_lat": {
-                        "type": "number"
+                    stop_lat: {
+                        type: 'number',
                     },
-                    "stop_lon": {
-                        "type": "number"
+                    stop_lon: {
+                        type: 'number',
                     },
-                    "location_type": {
-                        "type": "integer"
+                    location_type: {
+                        type: 'integer',
                     },
-                    "parent_station": {
-                        "type": "string"
+                    parent_station: {
+                        type: 'string',
                     },
-                    "stop_url": {
-                        "type": "string"
+                    stop_url: {
+                        type: 'string',
                     },
-                    "stop_timezone": {
-                        "type": "string"
-                    }
+                    stop_timezone: {
+                        type: 'string',
+                    },
                 },
-                "required": [
-                    "id",
-                    "stop_id",
-                    "stop_code",
-                    "stop_name",
-                    "stop_desc",
-                    "zone_id",
-                    "stop_lat",
-                    "stop_lon",
-                    "location_type",
-                    "parent_station",
-                    "stop_url",
-                    "stop_timezone"
+                required: [
+                    'id',
+                    'stop_id',
+                    'stop_code',
+                    'stop_name',
+                    'stop_desc',
+                    'zone_id',
+                    'stop_lat',
+                    'stop_lon',
+                    'location_type',
+                    'parent_station',
+                    'stop_url',
+                    'stop_timezone',
                 ],
-                "additionalProperties": false
-            }
+                additionalProperties: false,
+            },
         }
     }
 
@@ -84,34 +83,34 @@ describe("Metlink Http Client: Stops", () => {
         [
             [
                 {
-                    "id": 1,
-                    "stop_id": "7951",
-                    "stop_code": "7951",
-                    "stop_name": "Buckley Road (near 108)",
-                    "stop_desc": "",
-                    "zone_id": "3",
-                    "stop_lat": -41.33689713,
-                    "stop_lon": 174.7827608,
-                    "location_type": 0,
-                    "parent_station": "",
-                    "stop_url": "",
-                    "stop_timezone": "Pacific/Auckland"
-                }
-            ]
-        ]
-    ];
+                    id: 1,
+                    stop_id: '7951',
+                    stop_code: '7951',
+                    stop_name: 'Buckley Road (near 108)',
+                    stop_desc: '',
+                    zone_id: '3',
+                    stop_lat: -41.33689713,
+                    stop_lon: 174.7827608,
+                    location_type: 0,
+                    parent_station: '',
+                    stop_url: '',
+                    stop_timezone: 'Pacific/Auckland',
+                },
+            ],
+        ],
+    ]
 
     function getPath(): string {
-        return "/gtfs/stops";
+        return '/gtfs/stops'
     }
 
-    it.each(dataSet)("getGtfsStops", async (mockData) => {
-        mock.onGet(getPath()).replyOnce(200, mockData);
+    it.each(dataSet)('getGtfsStops', async (mockData) => {
+        mock.onGet(getPath()).replyOnce(200, mockData)
 
-        const client: MetlinkHttpClient = getHttpClient(axios);
-        const response = await client.getGtfsStops();
+        const client: MetlinkHttpClient = getHttpClient(axios)
+        const response = await client.getGtfsStops()
 
-        const result = SchemaValidator.validate(response.data, getSchema());
-        expect(result.isValid).toBeTruthy();
-    });
-});
+        const result = SchemaValidator.validate(response.data, getSchema())
+        expect(result.isValid).toBeTruthy()
+    })
+})

@@ -1,63 +1,61 @@
-export class Routes
-{
+export class Routes {
     public static getGtfsAgenciesPath(): string {
-        return "/gtfs/agency";
+        return '/gtfs/agency'
     }
 
     public static getGtfsCalendarPath(): string {
-        return "/gtfs/calendar";
+        return '/gtfs/calendar'
     }
 
     public static getGtfsCalendarDatesPath(): string {
-        return "/gtfs/calendar_dates";
+        return '/gtfs/calendar_dates'
     }
 
     public static getGtfsFeedInfoPath(): string {
-        return "/gtfs/feed_info";
+        return '/gtfs/feed_info'
     }
 
     public static getGtfsRoutesPath(): string {
-        return "/gtfs/routes";
+        return '/gtfs/routes'
     }
 
     public static getGtfsStopTimesPath(): string {
-        return "/gtfs/stop_times";
+        return '/gtfs/stop_times'
     }
 
     public static getGtfsShapesPath(): string {
-        return "/gtfs/shapes";
+        return '/gtfs/shapes'
     }
 
     public static getGtfsStopsPath(): string {
-        return "/gtfs/stops";
+        return '/gtfs/stops'
     }
 
     public static getGtfsTransfersPath(): string {
-        return "/gtfs/transfers";
+        return '/gtfs/transfers'
     }
 
     public static getGtfsTripsPath(): string {
-        return "/gtfs/trips";
+        return '/gtfs/trips'
     }
 
     public static getGtfsRtServiceAlertsPath(): string {
-        return "/gtfs-rt/servicealerts";
+        return '/gtfs-rt/servicealerts'
     }
 
     public static getGtfsRtTripUpdatesPath(): string {
-        return "/gtfs-rt/tripupdates";
+        return '/gtfs-rt/tripupdates'
     }
 
     public static getGtfsRtVehiclePositionsPath(): string {
-        return "/gtfs-rt/vehiclepositions";
+        return '/gtfs-rt/vehiclepositions'
     }
 
     public static getTripCancellations(): string {
-        return "/trip-cancellations";
+        return '/trip-cancellations'
     }
 
     public static getStopPredictions(): string {
-        return "/stop-predictions";
+        return '/stop-predictions'
     }
-
 }

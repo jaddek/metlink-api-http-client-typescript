@@ -1,97 +1,91 @@
-import {MetlinkHttpClientInterface, TripCancellationQueryInterface} from "./Contracts";
-import {QueryBuilder} from "./QueryBuilder";
-import {HttpClientInterface} from "./domain/httpclient/HttpClientInterface";
-import {Routes} from "./Routes";
+import {
+    MetlinkHttpClientInterface,
+    TripCancellationQueryInterface,
+} from './Contracts'
+import { QueryBuilder } from './QueryBuilder'
+import { HttpClientInterface } from './domain/httpclient/HttpClientInterface'
+import { Routes } from './Routes'
 
-export default class MetlinkHttpClient
-    implements MetlinkHttpClientInterface {
+export default class MetlinkHttpClient implements MetlinkHttpClientInterface {
+    private readonly httpClientAdapter: HttpClientInterface
 
-    private readonly httpClientAdapter: HttpClientInterface;
-
-    constructor(
-        httpClient: HttpClientInterface,
-    ) {
-        this.httpClientAdapter = httpClient;
+    constructor(httpClient: HttpClientInterface) {
+        this.httpClientAdapter = httpClient
     }
 
     private async doGetFetch(
         path: string,
         urlSearchParams: URLSearchParams | null = null
     ): Promise<any> {
-        let query: string = "";
+        let query: string = ''
 
-        if (urlSearchParams) {
-            query += "?" + urlSearchParams.toString();
+        if (urlSearchParams && urlSearchParams.size) {
+            query += '?' + urlSearchParams.toString()
         }
 
-        return await this.httpClientAdapter.get(path + query);
+        return await this.httpClientAdapter.get(path + query)
     }
 
     public async getGtfsAgencies(): Promise<any> {
-        return await this.doGetFetch(Routes.getGtfsAgenciesPath());
+        return await this.doGetFetch(Routes.getGtfsAgenciesPath())
     }
 
     public async getGtfsCalendar(): Promise<any> {
-        return await this.doGetFetch(Routes.getGtfsCalendarPath());
+        return await this.doGetFetch(Routes.getGtfsCalendarPath())
     }
 
     public async getGtfsCalendarDates(): Promise<any> {
-        return await this.doGetFetch(Routes.getGtfsCalendarDatesPath());
+        return await this.doGetFetch(Routes.getGtfsCalendarDatesPath())
     }
 
     public async getGtfsFeedInfo(): Promise<any> {
-        return await this.doGetFetch(Routes.getGtfsFeedInfoPath());
+        return await this.doGetFetch(Routes.getGtfsFeedInfoPath())
     }
 
-    public async getGtfsRoutes(
-        routeId: string | null = null
-    ): Promise<any> {
-        const query: URLSearchParams = new URLSearchParams();
+    public async getGtfsRoutes(routeId: string | null = null): Promise<any> {
+        const query: URLSearchParams = new URLSearchParams()
+
         if (routeId) {
-            query.append("route_id", routeId);
+            query.append('route_id', routeId)
         }
 
-        return await this.doGetFetch(Routes.getGtfsRoutesPath(), query);
+        return await this.doGetFetch(Routes.getGtfsRoutesPath(), query)
     }
 
-    public async getGtfsShapes(
-        shapeId: string,
-    ): Promise<any> {
+    public async getGtfsShapes(shapeId: string): Promise<any> {
         const query: URLSearchParams = new URLSearchParams({
-            "shape_id": shapeId
-        });
+            shape_id: shapeId,
+        })
 
-        return await this.doGetFetch(Routes.getGtfsShapesPath(), query);
+        return await this.doGetFetch(Routes.getGtfsShapesPath(), query)
     }
 
-    public async getGtfsStopTimes(
-        tripId: string,
-    ): Promise<any> {
+    public async getGtfsStopTimes(tripId: string): Promise<any> {
         const query: URLSearchParams = new URLSearchParams({
-            "trip_id": tripId
-        });
+            trip_id: tripId,
+        })
 
-        return await this.doGetFetch(Routes.getGtfsStopTimesPath(), query);
+        return await this.doGetFetch(Routes.getGtfsStopTimesPath(), query)
     }
 
     public async getGtfsStops(
         routeId: string | null = null,
-        tripId: string | null = null,
+        tripId: string | null = null
     ): Promise<any> {
-        const query: URLSearchParams = new URLSearchParams();
+        const query: URLSearchParams = new URLSearchParams()
         if (routeId) {
-            query.append("route_id", routeId);
+            query.append('route_id', routeId)
         }
 
         if (tripId) {
-            query.append("tripId", tripId);
+            query.append('tripId', tripId)
         }
 
-        return await this.doGetFetch(Routes.getGtfsStopsPath());
+        return await this.doGetFetch(Routes.getGtfsStopsPath(), query)
     }
 
     public async getGtfsTransfers(): Promise<any> {
-        return await this.doGetFetch(Routes.getGtfsTransfersPath());
+        return await this.doGetFetch(Routes.getGtfsTransfersPath())
     }
 
     public async getGtfsTrips(
@@ -99,84 +93,81 @@ export default class MetlinkHttpClient
         extraFields: string | null = null,
         routeId: string | null = null,
         tripId: string | null = null,
-        end: string | null = null,
+        end: string | null = null
     ): Promise<any> {
+        const params: Record<string, string> = {}
 
-        const params: Record<string, string> = {};
+        if (start) params['start'] = start
+        if (extraFields) params['extraFields'] = extraFields
+        if (routeId) params['routeId'] = routeId
+        if (tripId) params['tripId'] = tripId
+        if (end) params['end'] = end
 
-        if (start) params["start"] = start;
-        if (extraFields) params["extraFields"] = extraFields;
-        if (routeId) params["routeId"] = routeId;
-        if (tripId) params["tripId"] = tripId;
-        if (end) params["end"] = end;
+        const query: URLSearchParams = new URLSearchParams(params)
 
-        const query: URLSearchParams = new URLSearchParams(params);
-
-        return await this.doGetFetch(Routes.getGtfsTripsPath(), query);
+        return await this.doGetFetch(Routes.getGtfsTripsPath(), query)
     }
 
     public async getGtfsRtServiceAlerts(
-        useProtoBuf: boolean = false,
+        useProtoBuf: boolean = false
     ): Promise<any> {
-
-        const params: Record<string, string> = {};
+        const params: Record<string, string> = {}
 
         if (useProtoBuf) {
-            params["accept"] = "application/x-protobuf";
+            params['accept'] = 'application/x-protobuf'
         }
 
-        const query: URLSearchParams = new URLSearchParams(params);
+        const query: URLSearchParams = new URLSearchParams(params)
 
-        return await this.doGetFetch(Routes.getGtfsRtServiceAlertsPath(), query);
+        return await this.doGetFetch(Routes.getGtfsRtServiceAlertsPath(), query)
     }
 
     public async getGtfsRtTripUpdates(
-        useProtoBuf: boolean = false,
+        useProtoBuf: boolean = false
     ): Promise<any> {
-
-        const params: Record<string, string> = {};
+        const params: Record<string, string> = {}
 
         if (useProtoBuf) {
-            params["accept"] = "application/x-protobuf";
+            params['accept'] = 'application/x-protobuf'
         }
 
-        const query: URLSearchParams = new URLSearchParams(params);
+        const query: URLSearchParams = new URLSearchParams(params)
 
-        return await this.doGetFetch(Routes.getGtfsRtTripUpdatesPath(), query);
+        return await this.doGetFetch(Routes.getGtfsRtTripUpdatesPath(), query)
     }
 
     public async getGtfsRtVehiclePositions(
-        useProtoBuf: boolean = false,
+        useProtoBuf: boolean = false
     ): Promise<any> {
-
-        const params: Record<string, string> = {};
+        const params: Record<string, string> = {}
 
         if (useProtoBuf) {
-            params["accept"] = "application/x-protobuf";
+            params['accept'] = 'application/x-protobuf'
         }
 
-        const query: URLSearchParams = new URLSearchParams(params);
+        const query: URLSearchParams = new URLSearchParams(params)
 
-        return await this.doGetFetch(Routes.getGtfsRtVehiclePositionsPath(), query);
+        return await this.doGetFetch(
+            Routes.getGtfsRtVehiclePositionsPath(),
+            query
+        )
     }
 
-    public async getStopPredictions(
-        stopId: string,
-    ): Promise<any> {
+    public async getStopPredictions(stopId: string): Promise<any> {
         const query: URLSearchParams = new URLSearchParams({
-            "stop_id": stopId
-        });
+            stop_id: stopId,
+        })
 
-        return await this.doGetFetch(Routes.getStopPredictions(), query);
+        return await this.doGetFetch(Routes.getStopPredictions(), query)
     }
 
     public async getTripCancellations(
-        searchParams: TripCancellationQueryInterface | null = null,
+        searchParams: TripCancellationQueryInterface | null = null
     ): Promise<any> {
         const query: URLSearchParams | null = searchParams
             ? QueryBuilder.buildQuery(searchParams)
-            : null;
+            : null
 
-        return await this.doGetFetch(Routes.getTripCancellations(), query);
+        return await this.doGetFetch(Routes.getTripCancellations(), query)
     }
 }

@@ -1,18 +1,18 @@
-import {Entity} from "../../../Contracts";
+import { Entity } from '../../../Contracts'
 
 export class Stop extends Entity {
-    private readonly _id: number;
-    private readonly _stopId: string;
-    private readonly _stopCode: string;
-    private readonly _stopName: string;
-    private readonly _stopDesc: string;
-    private readonly _zoneId: string;
-    private readonly _stopLat: number;
-    private readonly _stopLon: number;
-    private readonly _locationType: number;
-    private readonly _parentStation: string;
-    private readonly _stopUrl: string;
-    private readonly _stopTimezone: string;
+    private readonly _id: number
+    private readonly _stopId: string
+    private readonly _stopCode: string
+    private readonly _stopName: string
+    private readonly _stopDesc: string
+    private readonly _zoneId: string
+    private readonly _stopLat: number
+    private readonly _stopLon: number
+    private readonly _locationType: number
+    private readonly _parentStation: string
+    private readonly _stopUrl: string
+    private readonly _stopTimezone: string
 
     constructor(
         id: number,
@@ -28,66 +28,66 @@ export class Stop extends Entity {
         stopUrl: string,
         stopTimezone: string
     ) {
-        super();
-        this._id = id;
-        this._stopId = stopId;
-        this._stopCode = stopCode;
-        this._stopName = stopName;
-        this._stopDesc = stopDesc;
-        this._zoneId = zoneId;
-        this._stopLat = stopLat;
-        this._stopLon = stopLon;
-        this._locationType = locationType;
-        this._parentStation = parentStation;
-        this._stopUrl = stopUrl;
-        this._stopTimezone = stopTimezone;
+        super()
+        this._id = id
+        this._stopId = stopId
+        this._stopCode = stopCode
+        this._stopName = stopName
+        this._stopDesc = stopDesc
+        this._zoneId = zoneId
+        this._stopLat = stopLat
+        this._stopLon = stopLon
+        this._locationType = locationType
+        this._parentStation = parentStation
+        this._stopUrl = stopUrl
+        this._stopTimezone = stopTimezone
     }
 
     get id(): number {
-        return this._id;
+        return this._id
     }
 
     get stopId(): string {
-        return this._stopId;
+        return this._stopId
     }
 
     get stopCode(): string {
-        return this._stopCode;
+        return this._stopCode
     }
 
     get stopName(): string {
-        return this._stopName;
+        return this._stopName
     }
 
     get stopDesc(): string {
-        return this._stopDesc;
+        return this._stopDesc
     }
 
     get zoneId(): string {
-        return this._zoneId;
+        return this._zoneId
     }
 
     get stopLat(): number {
-        return this._stopLat;
+        return this._stopLat
     }
 
     get stopLon(): number {
-        return this._stopLon;
+        return this._stopLon
     }
 
     get locationType(): number {
-        return this._locationType;
+        return this._locationType
     }
 
     get parentStation(): string {
-        return this._parentStation;
+        return this._parentStation
     }
 
     get stopUrl(): string {
-        return this._stopUrl;
+        return this._stopUrl
     }
 
     get stopTimezone(): string {
-        return this._stopTimezone;
+        return this._stopTimezone
     }
 }
