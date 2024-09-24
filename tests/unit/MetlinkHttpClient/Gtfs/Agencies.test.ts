@@ -59,7 +59,7 @@ describe('Metlink Http Client: Agencies', () => {
                     agency_lang: 'en',
                     agency_phone: '',
                     agency_fare_url:
-                        'http://somelinks.com',
+                        'https://somelinks.com',
                 },
             ],
         ],
