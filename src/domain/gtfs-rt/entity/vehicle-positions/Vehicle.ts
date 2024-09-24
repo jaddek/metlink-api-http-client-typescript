@@ -9,7 +9,13 @@ export class Vehicle {
     private readonly _occupancyStatus: number;
     private readonly _timestamp: number;
 
-    constructor(trip: Trip, position: Position, vehicle: VehicleId, occupancyStatus: number, timestamp: number) {
+    constructor(
+        trip: Trip,
+        position: Position,
+        vehicle: VehicleId,
+        occupancyStatus: number,
+        timestamp: number
+    ) {
         this._trip = trip;
         this._position = position;
         this._vehicle = vehicle;

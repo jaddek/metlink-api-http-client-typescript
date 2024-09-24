@@ -29,6 +29,11 @@ import {Origin} from "./domain/stop-departure-prediction/Origin";
 import {Destination} from "./domain/stop-departure-prediction/Destination";
 import {Entity as StopPredictionEntity} from "./domain/stop-departure-prediction/Entity";
 import {Arrival as StopPredictionArrival} from "./domain/stop-departure-prediction/Arrival";
+import {Entity as VehiclePositionEntity} from "./domain/gtfs-rt/entity/vehicle-positions/Entity";
+import {Vehicle as VehiclePositionVehicle} from "./domain/gtfs-rt/entity/vehicle-positions/Vehicle";
+import {Trip as VehiclePositionVehicleTrip} from "./domain/gtfs-rt/entity/vehicle-positions/Trip";
+import {Position as VehiclePositionPosition} from "./domain/gtfs-rt/entity/vehicle-positions/Position";
+import {VehicleId as VehiclePositionVehicleId} from "./domain/gtfs-rt/entity/vehicle-positions/VehicleId";
 
 export class ResponseDataDecorator implements MetlinkHttpClientInterface {
     private readonly httpClient: MetlinkHttpClientInterface;
@@ -250,7 +255,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
     }
 
     //
-    public async getGtfsRtTripUpdates(useProtoBuf: boolean): Promise<any> {
+    public async getGtfsRtTripUpdates(useProtoBuf: boolean = false): Promise<any> {
         const response = await this.httpClient.getGtfsRtTripUpdates(useProtoBuf);
 
         const header: Header = new Header(
@@ -296,11 +301,50 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return Promise.resolve(body);
     }
 
-    public async getGtfsRtVehiclePositions(useProtoBuf: boolean): Promise<any> {
-        return Promise.resolve(undefined);
+    public async getGtfsRtVehiclePositions(useProtoBuf: boolean = false): Promise<any> {
+        const response = await this.httpClient.getGtfsRtVehiclePositions(useProtoBuf);
+
+        const header: Header = new Header(
+            response.data.header.gtfsRealtimeVersion,
+            response.data.header.incrementality,
+            response.data.header.timestamp,
+        );
+
+        const entity: Entity[] = response.data.entity.map((data: any) => {
+            return new VehiclePositionEntity(
+                data.id,
+                new VehiclePositionVehicle(
+                    new VehiclePositionVehicleTrip(
+                        data.vehicle.trip.start_time,
+                        data.vehicle.trip.trip_id,
+                        data.vehicle.trip.direction_id,
+                        data.vehicle.trip.route_id,
+                        data.vehicle.trip.schedule_relationship,
+                        data.vehicle.trip.start_date,
+                    ),
+                    new VehiclePositionPosition(
+                        data.vehicle.position.bearing,
+                        data.vehicle.position.latitude,
+                        data.vehicle.position.longitude
+                    ),
+                    new VehiclePositionVehicleId(
+                        data.vehicle.vehicle.id
+                    ),
+                    data.vehicle.occupancy_status,
+                    data.vehicle.timestamp,
+                )
+            );
+        });
+
+        const body = new GtfsRtResponse(
+            header,
+            entity
+        )
+
+        return Promise.resolve(body);
     }
 
-    public async getGtfsRtServiceAlerts(useProtoBuf: boolean): Promise<GtfsRtResponse<Entity>> {
+    public async getGtfsRtServiceAlerts(useProtoBuf: boolean = false): Promise<GtfsRtResponse<Entity>> {
         const response = await this.httpClient.getGtfsRtServiceAlerts();
 
         const header: Header = new Header(
@@ -355,7 +399,7 @@ export class ResponseDataDecorator implements MetlinkHttpClientInterface {
         return new StopPredictionResponse(
             response.data.farezone,
             response.data.closed,
-            response.data.departures.map((departure:any) => {
+            response.data.departures.map((departure: any) => {
                 return new StopPredictionEntity(
                     departure.stop_id,
                     departure.service_id,
