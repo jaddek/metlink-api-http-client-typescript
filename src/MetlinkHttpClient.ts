@@ -42,11 +42,11 @@ export default class MetlinkHttpClient implements MetlinkHttpClientInterface {
         return await this.doGetFetch(Routes.getGtfsFeedInfoPath())
     }
 
-    public async getGtfsRoutes(routeId: string | null = null): Promise<any> {
+    public async getGtfsRoutes(stopId: string | null = null): Promise<any> {
         const query: URLSearchParams = new URLSearchParams()
 
-        if (routeId) {
-            query.append('route_id', routeId)
+        if (stopId) {
+            query.append('stop_id', stopId)
         }
 
         return await this.doGetFetch(Routes.getGtfsRoutesPath(), query)
