@@ -1,9 +1,13 @@
 import axios from 'axios';
 import MockAdapter from "axios-mock-adapter";
+import {MetlinkHttpClientInterface} from "../../../../src/Contracts";
+import {ClientBuilder} from "../../ClientBuilder";
+import {Response as GtfsRtResponse} from "../../../../src/domain/gtfs-rt/entity/Response";
+import {Entity} from "../../../../src/domain/gtfs-rt/entity/trip-update/Entity";
 
 const mock: MockAdapter = new MockAdapter(axios);
 
-describe.skip("Response Data Decorator: GTFS-RT: Vehicle positions", () => {
+describe("Response Data Decorator: GTFS-RT: Vehicle positions", () => {
 
     afterEach(function () {
         mock.reset();
@@ -51,5 +55,11 @@ describe.skip("Response Data Decorator: GTFS-RT: Vehicle positions", () => {
     }
 
     it.each(dataSet)("GetGtfsRtVehiclePosition", async (mockData) => {
+        mock.onGet(getPath()).replyOnce(200, mockData);
+
+        const client: MetlinkHttpClientInterface = ClientBuilder.getHttpClientWithResponseDataDecorator(axios);
+        const response = await client.getGtfsRtVehiclePositions();
+
+        expect(response).toBeInstanceOf(GtfsRtResponse<Entity[]>)
     });
 });
