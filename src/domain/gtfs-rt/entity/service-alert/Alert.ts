@@ -1,7 +1,7 @@
 import { ActivePeriod } from './ActivePeriod'
 import { InformedEntity } from './InformedEntity'
 
-export default class Alert {
+export class Alert {
     private readonly _activePeriod: ActivePeriod[]
     private readonly _effect: string
     private readonly _cause: string
