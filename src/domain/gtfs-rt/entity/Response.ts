@@ -1,4 +1,4 @@
-import Header from './Header'
+import { Header } from './Header'
 import { ResponseDTO } from '../../../Contracts'
 
 export class Response<V> implements ResponseDTO {
