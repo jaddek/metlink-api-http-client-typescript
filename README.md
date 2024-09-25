@@ -8,7 +8,7 @@ https://opendata.metlink.org.nz/
 
 ## Install
 
---
+[NPM](https://www.npmjs.com/package/metlink-api-http-client)
 
 ## How to use
 
