@@ -1,4 +1,4 @@
-export default class Header {
+export class Header {
     private readonly _gtfsRealtimeVersion: string
     private readonly _incrementality: number
     private readonly _timestamp: number
